@@ -14,6 +14,10 @@ nnoremap <leader>wq :wq<CR>
 noremap QQ :q!<cr>
 noremap WQ :wq<cr>
 
+""""""""""""" Search mode """""""""""""""
+set ignorecase smartcase
+
+""""""""""""" Visual mode tips """""""""""""
 vnoremap <leader>(( <esc>`>a)<esc>`<i(<esc>
 vnoremap <leader>[[ <esc>`>a]<esc>`<i[<esc>
 vnoremap <leader>{{ <esc>`>a}<esc>`<i{<esc>
@@ -21,7 +25,9 @@ vnoremap <leader>"" <esc>`>a"<esc>`<i"<esc>
 vnoremap <leader>'' <esc>`>a'<esc>`<i'<esc>
 vnoremap <leader>`` <esc>`>a`<esc>`<i`<esc>
 
-nnoremap <Leader>o o<Esc>0"_D
-nnoremap <Leader>O O<Esc>0"_D
-
+" quick replace selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+
+nnoremap <silent> <leader>ff :<C-U>Leaderf file<CR>
+nnoremap <silent> <leader>rg :<C-U>Leaderf rg 
+noremap <leader>gg :<C-U>Leaderf! rg --recall<CR>
