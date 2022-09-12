@@ -1,161 +1,5 @@
 -- General configs
 vim.cmd("source ~/.vimrc")
-vim.g.mapleader = ","
-vim.o.nu = true
-vim.o.history = 1000
-vim.o.so = 10
-vim.o.wildmode = "longest:full,full"
-vim.o.wildignore = "*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*/node_modules/*"
-vim.o.whichwrap = vim.o.whichwrap .. "<,>,h,l"
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.lazyredraw = true
-vim.o.showmatch = true
-vim.o.mat = 2
-vim.o.belloff = "all"
-vim.o.tm = 500
-vim.cmd("au FocusGained,BufEnter * checktime")
-vim.o.encoding = "utf8"
-vim.o.ffs = "unix,dos,mac"
-vim.o.expandtab = true
-vim.o.shiftwidth = 2
-vim.o.tabstop = 2
-vim.o.softtabstop = 2
-vim.o.lbr = true
-vim.o.textwidth = 500
-vim.o.smartindent = true
-vim.o.updatetime = 300
-vim.o.switchbuf = "useopen,usetab,newtab"
-vim.o.stal = 2
-vim.o.clipboard = "unnamedplus"
-vim.o.cc = 80
-vim.o.signcolumn = "yes"
-vim.o.cmdheight = 2
-
-vim.cmd [[
-  set undodir=~/.vim_undo
-  set undofile
-
-  " Correct jsx/tsx filetype
-  augroup ReactFiletypes
-    autocmd!
-    autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
-    autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
-  augroup END
-]]
-
-vim.cmd [[
-filetype plugin indent on
-command W w !sudo tee % > /dev/null
-
-syntax enable 
-
-cnoremap <C-a> <Home>
-cnoremap <C-e> <End>
-cnoremap <C-p> <Up>
-cnoremap <C-n> <Down>
-cnoremap <C-b> <Left>
-cnoremap <C-f> <Right>
-cnoremap <C-d> <Del>
-
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-
-map <silent> <leader><cr> :noh<cr>
-
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-nmap <silent> <A-[> :tabprev<cr>
-nmap <silent> <A-]> :tabnext<cr>
-
-map <leader>c :Bclose<cr>:tabclose<cr>gT
-
-nmap <leader>b :Buffers<cr>
-
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-
-" Return to last edit position when opening files
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-" delete without yanking
-nnoremap <leader>d "_d
-vnoremap <leader>d "_d
-" replace currently selected text with default register
-" without yanking it
-vnoremap <leader>p "_dP
-
-" resize window
-nnoremap <silent> <leader>1 :resize -12<cr> 
-nnoremap <silent> <leader>2 :resize +12<cr> 
-nnoremap <silent> <leader>3 :vertical resize -6<cr> 
-nnoremap <silent> <leader>4 :vertical resize +6<cr> 
-
-" To reload file
-map <silent> <leader>r :checktime<CR>
-
-nnoremap q: <nop>
-nnoremap Q <nop>
-
-command! Bclose call g:BufcloseCloseIt()
-function! g:BufcloseCloseIt()
-  let l:currentBufNum = bufnr("%")
-  let l:alternateBufNum = bufnr("#")
-
-  if buflisted(l:alternateBufNum)
-    buffer #
-  else
-    bnext
-  endif
-
-  if bufnr("%") == l:currentBufNum
-    new
-  endif
-
-  if buflisted(l:currentBufNum)
-    execute("bdelete! ".l:currentBufNum)
-  endif
-endfunction
-
-command! DeleteHiddenBuffers call g:DeleteHiddenBuffers()
-function! g:DeleteHiddenBuffers()
-  let tpbl=[]
-  call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
-  for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
-    if getbufvar(buf, '&mod') == 0
-      silent execute 'bwipeout' buf
-    endif
-  endfor
-endfunction
-
-function! CmdLine(str)
-  call feedkeys(":" . a:str)
-endfunction 
-
-function! VisualSelection(direction, extra_filter) range
-  let l:saved_reg = @"
-  execute "normal! vgvy"
-
-  let l:pattern = escape(@", "\\/.*'$^~[]")
-  let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-  if a:direction == 'gv'
-    call CmdLine("Ack '" . l:pattern . "' " )
-  elseif a:direction == 'replace'
-    call CmdLine("%s" . '/'. l:pattern . '/')
-  endif
-
-  let @/ = l:pattern
-  let @" = l:saved_reg
-endfunction
-]]
-
-vim.keymap.set("n", "<leader>w", "<cmd>w!<CR>")
-
 -- End general configs
 
 local ensure_packer = function()
@@ -185,25 +29,26 @@ require("packer").startup(function(use)
     use {
         "Yggdroot/LeaderF",
         cmd = "Leaderf",
-        config = function()
-            -- vim.cmd("LeaderfInstallCExtension")
-            vim.keymap.set("n", "<leader>ff", "<cmd>Leaderf file<cr>", {
-                remap = false
-            })
-            vim.keymap.set("n", "<leader>rg", ":<C-u>Leaderf rg ", {
-                silent = true
-            })
-            vim.keymap.set("n", "<leader>gg", "<cmd>Leaderf! rg --recall<CR>", {
-                remap = false
-            })
-        end
+        run = ":LeaderfInstallCExtension"
     }
+    vim.cmd [[
+      noremap <leader>ff :<C-U>Leaderf file<cr>
+      noremap <leader>rg :<C-U>Leaderf rg<cr>
+      noremap <leader>gg :<C-U>Leaderf! rg --recall<cr>
+    ]]
+    
     use {
         'mg979/vim-visual-multi',
         branch = "master"
     }
     use "wellle/targets.vim"
-    use {"preservim/nerdtree"}
+
+    use "preservim/nerdtree"
+    vim.cmd [[
+      noremap <space>e :NERDTreeToggle<CR>
+      noremap <space>f :NERDTreeFind<CR>
+    ]]
+
     use "mattn/emmet-vim"
     use "scrooloose/nerdcommenter"
     use "sheerun/vim-polyglot"
@@ -442,7 +287,7 @@ require("packer").startup(function(use)
                     }
                 }
             }
-            lspconfig.rust_analyzer.setup{}
+            lspconfig.rust_analyzer.setup {}
         end
     }
     -- End LSP configs
