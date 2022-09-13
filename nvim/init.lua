@@ -19,7 +19,7 @@ local packer_bootstrap = ensure_packer()
 require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use "projekt0n/github-nvim-theme"
-    use "Yggdroot/LeaderF"
+    use { "Yggdroot/LeaderF", run = ":LeaderfInstallCExtension" }
     use "wellle/targets.vim"
     use "preservim/nerdtree"
     use "mattn/emmet-vim"
