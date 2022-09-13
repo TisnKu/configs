@@ -18,7 +18,7 @@ set wildmode=longest:full,full
 set wildignore+=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*/node_modules/*
 set whichwrap=<,>,h,l
 set lazyredraw
-set timeoutlen=200 " Default 1000
+set timeoutlen=400 " Default 1000
 set fileformats=unix,dos,mac
 set expandtab
 set shiftwidth=2 " Default 8
@@ -28,7 +28,6 @@ set textwidth=500 " Default 0
 set updatetime=300
 set switchbuf=useopen,usetab,newtab
 set signcolumn=yes
-set cmdheight=2
 
 " press hh to return to normal mode
 inoremap hh <esc>
