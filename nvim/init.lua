@@ -26,10 +26,6 @@ require("packer").startup(function(use)
         run = ":LeaderfInstallCExtension"
     }
 
-    use {
-        'mg979/vim-visual-multi',
-        branch = "master"
-    }
     use "wellle/targets.vim"
     use "preservim/nerdtree"
     use "mattn/emmet-vim"
