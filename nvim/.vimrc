@@ -28,6 +28,7 @@ set textwidth=500 " Default 0
 set updatetime=300
 set switchbuf=useopen,usetab,newtab
 set signcolumn=yes
+set completeopt=menu,menuone,noselect
 
 " press hh to return to normal mode
 inoremap hh <esc>
