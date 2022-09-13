@@ -4,3 +4,4 @@ require("lualine").setup {
   theme = "auto",
   extensions = { "nerdtree" }
 }
+require("auto-save").setup()

@@ -22,7 +22,7 @@ require("packer").startup(function(use)
     use "projekt0n/github-nvim-theme"
     use {
         "Yggdroot/LeaderF",
-        cmd = "Leaderf",
+        -- cmd = "Leaderf",
         run = ":LeaderfInstallCExtension"
     }
 
@@ -31,9 +31,7 @@ require("packer").startup(function(use)
         branch = "master"
     }
     use "wellle/targets.vim"
-
     use "preservim/nerdtree"
-
     use "mattn/emmet-vim"
     use "scrooloose/nerdcommenter"
     use "sheerun/vim-polyglot"
@@ -67,19 +65,8 @@ require("packer").startup(function(use)
         end
     }
 
-    use {
-        "tikhomirov/vim-glsl",
-        config = function()
-            vim.cmd("autocmd! BufNewFile,BufRead *.vs,*.fs set ft=glsl")
-        end
-    }
     use "github/copilot.vim"
     use "nvim-lualine/lualine.nvim"
-
-    use {
-        "ThePrimeagen/refactoring.nvim",
-        requires = { "nvim-lua/plenary.nvim", 'nvim-telescope/telescope.nvim', "nvim-treesitter/nvim-treesitter" }
-    }
 
     use {
         "lewis6991/gitsigns.nvim",
@@ -92,36 +79,6 @@ require("packer").startup(function(use)
     }
 
     use "alx741/vim-hindent"
-
-    -- LSP configs
-    -- LSP keybindings
-    vim.api.nvim_create_autocmd("User", {
-        pattern = "LspAttached",
-        desc = "LSP actions",
-        callback = function()
-            local bufmap = function(mode, lhs, rhs)
-                local bufopts = {
-                    noremap = true,
-                    buffer = true
-                }
-                vim.keymap.set(mode, lhs, rhs, bufopts)
-            end
-
-            bufmap("n", "gD", vim.lsp.buf.declaration)
-            bufmap("n", "gd", vim.lsp.buf.definition)
-            bufmap("n", "gi", vim.lsp.buf.implementation)
-            bufmap("n", "gr", vim.lsp.buf.references)
-            bufmap("n", "K", vim.lsp.buf.hover)
-            bufmap("n", "<leader>l", function()
-                vim.lsp.buf.formatting_sync()
-            end)
-            bufmap("n", "gl", vim.diagnostic.open_float)
-            bufmap("n", "[d", vim.diagnostic.goto_prev)
-            bufmap("n", "]d", vim.diagnostic.goto_next)
-            bufmap("n", "go", vim.lsp.buf.type_definition)
-        end
-    })
-
     use "williamboman/mason.nvim"
     use {
         "williamboman/mason-lspconfig.nvim",
@@ -132,23 +89,10 @@ require("packer").startup(function(use)
         end
     }
 
+    use "Pocco81/auto-save.nvim"
     use {
         "neovim/nvim-lspconfig",
         after = { "mason-lspconfig.nvim" },
-        config = function()
-            local lsp_defaults = {
-                on_attach = function(client, bufnr)
-                    vim.api.nvim_exec_autocmds("User", {
-                        pattern = "LspAttached"
-                    })
-                end
-            }
-
-            -- Extend to defaults
-            local lspconfig = require("lspconfig")
-            lspconfig.util.default_config = vim.tbl_deep_extend("force", lspconfig.util.default_config, lsp_defaults)
-
-        end
     }
 
     use "hrsh7th/cmp-nvim-lsp"
@@ -162,73 +106,6 @@ require("packer").startup(function(use)
         requires = { "neovim/nvim-lspconfig", "hrsh7th/cmp-nvim-lsp", "harsh7th/cmp-buffer", "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline", "hrsh7th/cmp-vsnip", "hrsh7th/vim-vsnip" },
         after = { "nvim-lspconfig" },
-        config = function()
-            vim.cmd [[set completeopt=menu,menuone,noselect]]
-
-            local cmp = require "cmp"
-
-            cmp.setup({
-                snippet = {
-                    -- REQUIRED - you must specify a snippet engine
-                    expand = function(args)
-                        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-                    end
-                },
-                mapping = cmp.mapping.preset.insert({
-                    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-                    ["<C-d>"] = cmp.mapping.scroll_docs(4),
-                    ["<C-Space>"] = cmp.mapping.complete(),
-                    ["<C-e>"] = cmp.mapping.abort()
-                    -- ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                }),
-                sources = cmp.config.sources({ {
-                    name = "nvim_lsp"
-                }, {
-                    name = "vsnip"
-                } }, { {
-                    name = "buffer"
-                } })
-            })
-
-            -- Use buffer source for `/` (if you enabled `native_menu`, this won"t work anymore).
-            cmp.setup.cmdline("/", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = { {
-                    name = "buffer"
-                } }
-            })
-
-            -- Use cmdline & path source for ":" (if you enabled `native_menu`, this won"t work anymore).
-            cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({ {
-                    name = "path"
-                } }, { {
-                    name = "cmdline"
-                } })
-            })
-
-            -- Setup lspconfig.
-            local lsp_servers = { "tsserver", "rust_analyzer" }
-            local lspconfig = require("lspconfig")
-            local capabilities =
-            require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-            for _, lsp in ipairs(lsp_servers) do
-                lspconfig[lsp].setup {
-                    capabilities = capabilities
-                }
-            end
-            lspconfig.sumneko_lua.setup {
-                capabilities = capabilities,
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            globals = { "vim" }
-                        }
-                    }
-                }
-            }
-        end
     }
     -- End LSP configs
     if packer_bootstrap then
