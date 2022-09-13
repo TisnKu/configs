@@ -18,7 +18,7 @@ set wildmode=longest:full,full
 set wildignore+=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*/node_modules/*
 set whichwrap=<,>,h,l
 set lazyredraw
-set timeoutlen=500 " Default 1000
+set timeoutlen=200 " Default 1000
 set fileformats=unix,dos,mac
 set expandtab
 set shiftwidth=2 " Default 8

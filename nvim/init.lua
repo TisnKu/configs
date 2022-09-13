@@ -36,7 +36,7 @@ require("packer").startup(function(use)
       noremap <leader>rg :<C-U>Leaderf rg<cr>
       noremap <leader>gg :<C-U>Leaderf! rg --recall<cr>
     ]]
-    
+
     use {
         'mg979/vim-visual-multi',
         branch = "master"
@@ -99,7 +99,7 @@ require("packer").startup(function(use)
         config = function()
             require("lualine").setup {
                 theme = "auto",
-                extensions = {"nvim-tree"}
+                extensions = {"nerdtree"}
             }
         end
     }
@@ -137,18 +137,12 @@ require("packer").startup(function(use)
         "alx741/vim-hindent",
         config = function()
             vim.cmd [[
-        augroup HaskellFormat
-          autocmd!
-          autocmd BufRead,BufNewFile *.hs noremap <silent> <leader>l :Hindent<cr>
-        augroup END
-      ]]
+                augroup HaskellFormat
+                autocmd!
+                autocmd BufRead,BufNewFile *.hs noremap <silent> <leader>l :Hindent<cr>
+                augroup END
+            ]]
         end
-    }
-
-    use {
-        'prettier/vim-prettier',
-        run = 'yarn install --frozen-lockfile --production'
-        -- ft = [['javascript', 'typescript', 'css', 'less', 'scss', 'json', 'graphql', 'markdown', 'vue', 'svelte', 'yaml', 'html']]
     }
 
     -- LSP configs
@@ -171,9 +165,7 @@ require("packer").startup(function(use)
             bufmap("n", "gr", vim.lsp.buf.references)
             bufmap("n", "K", vim.lsp.buf.hover)
             bufmap("n", "<leader>l", function()
-                vim.lsp.buf.format {
-                    async = true
-                }
+                vim.lsp.buf.formatting_sync()
             end)
             bufmap("n", "gl", vim.diagnostic.open_float)
             bufmap("n", "[d", vim.diagnostic.goto_prev)
@@ -191,6 +183,7 @@ require("packer").startup(function(use)
             require("mason-lspconfig").setup()
         end
     }
+
     use {
         "neovim/nvim-lspconfig",
         after = {"mason-lspconfig.nvim"},
@@ -268,7 +261,7 @@ require("packer").startup(function(use)
             })
 
             -- Setup lspconfig.
-            local lsp_servers = {"tsserver", "hls"}
+            local lsp_servers = {"tsserver", "rust_analyzer"}
             local lspconfig = require("lspconfig")
             local capabilities =
                 require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
@@ -287,7 +280,6 @@ require("packer").startup(function(use)
                     }
                 }
             }
-            lspconfig.rust_analyzer.setup {}
         end
     }
     -- End LSP configs
