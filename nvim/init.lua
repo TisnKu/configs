@@ -22,7 +22,6 @@ require("packer").startup(function(use)
     use "projekt0n/github-nvim-theme"
     use {
         "Yggdroot/LeaderF",
-        -- cmd = "Leaderf",
         run = ":LeaderfInstallCExtension"
     }
 
