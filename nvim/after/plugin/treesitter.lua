@@ -23,7 +23,6 @@ ts.setup {
     },
     additional_vim_regex_highlighting = false
 }
-vim.cmd("")
 vim.opt.foldlevel = 20
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
