@@ -13,7 +13,7 @@ vim.api.nvim_create_autocmd("User", {
         -- bufmap("n", "gD", vim.lsp.buf.declaration)
         bufmap("n", "gd", vim.lsp.buf.definition)
         bufmap("n", "gi", vim.lsp.buf.implementation)
-        -- bufmap("n", "gr", vim.lsp.buf.references)
+        bufmap("n", "gr", vim.lsp.buf.references)
         bufmap("n", "K", vim.lsp.buf.hover)
         bufmap("n", "<leader>l", function()
             vim.lsp.buf.formatting_sync()
