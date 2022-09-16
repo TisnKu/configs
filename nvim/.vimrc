@@ -16,7 +16,7 @@ set smartindent
 set linebreak " Soft wrap
 set wildmode=longest:full,full
 set wildignore+=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*/node_modules/*
-set whichwrap=<,>,h,l
+"set whichwrap=<,>,h,l
 set lazyredraw
 set timeoutlen=400 " Default 1000
 set fileformats=unix,dos,mac

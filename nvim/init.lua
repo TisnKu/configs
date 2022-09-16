@@ -6,7 +6,7 @@ local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
     if fn.empty(fn.glob(install_path)) > 0 then
-        fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
+        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
         vim.cmd [[packadd packer.nvim]]
         return true
     end
@@ -19,7 +19,6 @@ local packer_bootstrap = ensure_packer()
 require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use "projekt0n/github-nvim-theme"
-    use { "Yggdroot/LeaderF", run = ":LeaderfInstallCExtension" }
     use "wellle/targets.vim"
     use "preservim/nerdtree"
     use "mattn/emmet-vim"
@@ -39,6 +38,8 @@ require("packer").startup(function(use)
     use "nvim-lua/plenary.nvim"
     use "lewis6991/gitsigns.nvim"
     use "Pocco81/auto-save.nvim"
+    use { "junegunn/fzf", run = ":call fzf#install()" }
+    use { "junegunn/fzf.vim" }
 
     use {
         'nvim-treesitter/nvim-treesitter',

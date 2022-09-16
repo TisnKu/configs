@@ -5,3 +5,4 @@ require("lualine").setup {
   extensions = { "nerdtree" }
 }
 require("auto-save").setup()
+--require('neoclip').setup()
