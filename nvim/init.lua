@@ -2,6 +2,20 @@
 vim.cmd("source ~/.vimrc")
 -- End general configs
 
+-- Globals
+local has = function(feat)
+    if vim.fn.has(feat) == 1 then
+        return true
+    end
+
+    return false
+end
+
+vim.g.is_win   = (has("win32") or has("win64")) and true or false
+vim.g.is_linux = (has("unix") and (not has("macunix"))) and true or false
+vim.g.is_mac   = has("macunix") and true or false
+
+-- Plugins
 local ensure_packer = function()
     local fn = vim.fn
     local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
@@ -40,19 +54,23 @@ require("packer").startup(function(use)
     use "lewis6991/gitsigns.nvim"
     use "Pocco81/auto-save.nvim"
     use { "junegunn/fzf", run = ":call fzf#install()" }
-    use { 'ibhagwan/fzf-lua',
-        requires = { 'kyazdani42/nvim-web-devicons' },
-        config = function()
-            require('fzf-lua').setup {
-                winopts = {
-                    win_height = 0.7,
-                    win_width = 0.9,
-                    win_row = 0.5,
-                    win_col = 0.5,
-                },
-            }
-        end
-    }
+    if vim.g.is_win then
+        use "junegunn/fzf.vim"
+    else
+        use { 'ibhagwan/fzf-lua',
+            requires = { 'kyazdani42/nvim-web-devicons' },
+            config = function()
+                require('fzf-lua').setup {
+                    winopts = {
+                        win_height = 0.7,
+                        win_width = 0.9,
+                        win_row = 0.5,
+                        win_col = 0.5,
+                    },
+                }
+            end
+        }
+    end
 
     use {
         'nvim-treesitter/nvim-treesitter',
