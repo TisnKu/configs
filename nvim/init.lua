@@ -42,6 +42,16 @@ require("packer").startup(function(use)
     use { "junegunn/fzf", run = ":call fzf#install()" }
     use { 'ibhagwan/fzf-lua',
         requires = { 'kyazdani42/nvim-web-devicons' },
+        config = function()
+            require('fzf-lua').setup {
+                winopts = {
+                    win_height = 0.7,
+                    win_width = 0.9,
+                    win_row = 0.5,
+                    win_col = 0.5,
+                },
+            }
+        end
     }
 
     use {

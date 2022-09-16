@@ -3,7 +3,7 @@ if not status then
     return
 end
 
-vim.cmd("cnoreabbrev FzfLua FL")
+vim.cmd("cnoreabbrev FL FzfLua")
 vim.keymap.set('n', '<leader>f', ':lua require("fzf-lua").files()<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>gst', ':lua require("fzf-lua").git_status()<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>rg', ':lua require("fzf-lua").grep()<CR>', { noremap = true, silent = true })
