@@ -33,13 +33,16 @@ require("packer").startup(function(use)
             require("indent_blankline").setup {}
         end
     }
+    use "airblade/vim-gitgutter"
     use "github/copilot.vim"
     use "nvim-lualine/lualine.nvim"
     use "nvim-lua/plenary.nvim"
     use "lewis6991/gitsigns.nvim"
     use "Pocco81/auto-save.nvim"
     use { "junegunn/fzf", run = ":call fzf#install()" }
-    use { "junegunn/fzf.vim" }
+    use { 'ibhagwan/fzf-lua',
+        requires = { 'kyazdani42/nvim-web-devicons' },
+    }
 
     use {
         'nvim-treesitter/nvim-treesitter',

@@ -1,3 +1,8 @@
+local status, _fzf = pcall(require, "fzf.vim")
+if not status then
+    return
+end
+
 vim.keymap.set("n", "<leader>f", "<cmd>call fzf#run(fzf#wrap({\"source\": \"rg --files\"}))<cr>")
 --vim.keymap.set("n", "<leader>f", ":FZF<cr>")
 vim.keymap.set("n", "<leader>rg", ":RG<cr>")
@@ -15,4 +20,5 @@ vim.cmd [[
   endfunction
 
   command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+  command! -count=1 HFiles call fzf#run({ 'source': 'git log HEAD -n <count> --diff-filter=MA --name-only --pretty=format: | sed -e /^$/d'})
 ]]
