@@ -9,7 +9,7 @@ ts.setup {
         keymaps = {
             init_selection = "00",
             node_incremental = "<up>",
-            scope_incremental = "<left>",
+            --scope_incremental = "<left>",
             node_decremental = "<down>"
         }
     },

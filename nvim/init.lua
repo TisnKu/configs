@@ -67,6 +67,9 @@ require("packer").startup(function(use)
                         win_row = 0.5,
                         win_col = 0.5,
                     },
+                    fzf_opts = {
+                        ['--info'] = 'default'
+                    }
                 }
             end
         }
