@@ -11,6 +11,19 @@ local has = function(feat)
     return false
 end
 
+vim.g.trySetup = function(package, opts)
+    local ok, p = pcall(require, package)
+    if not ok then
+        vim.cmd("echom 'Failed to load " .. package .. "'")
+    else
+        if opts then
+            p.setup(opts)
+        else
+            p.setup()
+        end
+    end
+end
+
 vim.g.is_win   = (has("win32") or has("win64")) and true or false
 vim.g.is_linux = (has("unix") and (not has("macunix"))) and true or false
 vim.g.is_mac   = has("macunix") and true or false
@@ -36,7 +49,6 @@ require("packer").startup(function(use)
 
     use "machakann/vim-sandwich"
     use "preservim/nerdtree"
-    --use "mattn/emmet-vim"
     use "scrooloose/nerdcommenter"
     use "sheerun/vim-polyglot" -- Syntax highlighting
     use "windwp/nvim-autopairs"
@@ -48,11 +60,12 @@ require("packer").startup(function(use)
             require("indent_blankline").setup {}
         end
     }
-    use "airblade/vim-gitgutter"
+
     use "github/copilot.vim"
     use "nvim-lualine/lualine.nvim"
     use "nvim-lua/plenary.nvim"
     use "lewis6991/gitsigns.nvim"
+
     use "Pocco81/auto-save.nvim"
     use { "junegunn/fzf", run = ":call fzf#install()" }
     if vim.g.is_win then
@@ -76,14 +89,14 @@ require("packer").startup(function(use)
         }
     end
 
-    use {
-        'nvim-treesitter/nvim-treesitter',
-        run = function()
-            require('nvim-treesitter.install').update({
-                with_sync = true
-            })
-        end
-    }
+    --use {
+    --'nvim-treesitter/nvim-treesitter',
+    --run = function()
+    --require('nvim-treesitter.install').update({
+    --with_sync = true
+    --})
+    --end
+    --}
 
     use "williamboman/mason.nvim"
     use "williamboman/mason-lspconfig.nvim"

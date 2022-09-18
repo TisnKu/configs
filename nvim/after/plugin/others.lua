@@ -1,8 +1,6 @@
-require("nvim-autopairs").setup()
-require("gitsigns").setup()
-require("lualine").setup {
+vim.g.trySetup("nvim-autopairs")
+vim.g.trySetup("lualine", {
   theme = "auto",
   extensions = { "nerdtree" }
-}
-require("auto-save").setup()
---require('neoclip').setup()
+})
+vim.g.trySetup("auto-save")
