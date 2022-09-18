@@ -33,17 +33,16 @@ local packer_bootstrap = ensure_packer()
 require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use "projekt0n/github-nvim-theme"
-    --use "wellle/targets.vim"
-    --use "tpope/vim-surround"
+
     use "machakann/vim-sandwich"
     use "preservim/nerdtree"
-    use "mattn/emmet-vim"
+    --use "mattn/emmet-vim"
     use "scrooloose/nerdcommenter"
-    use "sheerun/vim-polyglot"
+    use "sheerun/vim-polyglot" -- Syntax highlighting
     use "windwp/nvim-autopairs"
-    use "yuttie/comfortable-motion.vim"
+    use "yuttie/comfortable-motion.vim" -- Smooth scrolling
     use {
-        "lukas-reineke/indent-blankline.nvim",
+        "lukas-reineke/indent-blankline.nvim", -- Indentation lines
         config = function()
             vim.opt.list = true
             require("indent_blankline").setup {}
@@ -76,7 +75,6 @@ require("packer").startup(function(use)
             end
         }
     end
-    --use 'alvan/vim-closetag'
 
     use {
         'nvim-treesitter/nvim-treesitter',
