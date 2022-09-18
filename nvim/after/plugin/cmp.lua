@@ -6,20 +6,26 @@ cmp.setup({
             vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
         end
     },
+    --comfirmation = { completeopt = "menu,menuone,noselect" },
     mapping = cmp.mapping.preset.insert({
+        ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
+        ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
-        ["<C-Space>"] = cmp.mapping.complete(),
         ["<C-e>"] = cmp.mapping.abort(),
-        ["<CR>"] = cmp.mapping.confirm({ select = true }),
+        ["<C-y>"] = cmp.mapping.confirm({ select = false }),
     }),
-    sources = cmp.config.sources({ {
-        name = "nvim_lsp"
-    }, {
-        name = "vsnip"
-    } }, { {
-        name = "buffer"
-    } })
+    sources = cmp.config.sources({
+        {
+            name = "nvim_lsp"
+        },
+        {
+            name = "vsnip"
+        },
+        {
+            name = "buffer"
+        }
+    })
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won"t work anymore).

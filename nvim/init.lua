@@ -74,6 +74,8 @@ require("packer").startup(function(use)
             end
         }
     end
+    use { 'alvan/vim-closetag', config = function()
+    end }
 
     use {
         'nvim-treesitter/nvim-treesitter',
