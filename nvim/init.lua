@@ -33,7 +33,8 @@ local packer_bootstrap = ensure_packer()
 require("packer").startup(function(use)
     use "wbthomason/packer.nvim"
     use "projekt0n/github-nvim-theme"
-    use "wellle/targets.vim"
+    --use "wellle/targets.vim"
+    use "tpope/vim-surround"
     use "preservim/nerdtree"
     use "mattn/emmet-vim"
     use "scrooloose/nerdcommenter"
@@ -74,8 +75,7 @@ require("packer").startup(function(use)
             end
         }
     end
-    use { 'alvan/vim-closetag', config = function()
-    end }
+    --use 'alvan/vim-closetag'
 
     use {
         'nvim-treesitter/nvim-treesitter',
