@@ -1,13 +1,4 @@
 vim.g.trySetup('gitsigns', {
-    signs = {
-        add = { hl = "GitGutterAdd", text = "▎", numhl = "GitGutterAddNr", linehl = "GitGutterAddLn" },
-        change = { hl = "GitGutterChange", text = "▎", numhl = "GitGutterChangeNr", linehl = "GitGutterChangeLn" },
-        delete = { hl = "GitGutterDelete", text = "契", numhl = "GitGutterDeleteNr", linehl = "GitGutterDeleteLn" },
-        topdelete = { hl = "GitGutterDelete", text = "契", numhl = "GitGutterDeleteNr", linehl = "GitGutterDeleteLn" },
-        changedelete = { hl = "GitGutterChange", text = "▎", numhl = "GitGutterChangeNr", linehl = "GitGutterChangeLn" },
-    },
-    numhl = false,
-    linehl = false,
     keymaps = {
         -- Default keymap options
         noremap = true,

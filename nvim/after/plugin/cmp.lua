@@ -13,19 +13,15 @@ cmp.setup({
         ["<C-u>"] = cmp.mapping.scroll_docs(-4),
         ["<C-d>"] = cmp.mapping.scroll_docs(4),
         ["<C-e>"] = cmp.mapping.abort(),
-        ["<C-y>"] = cmp.mapping.confirm({ select = false }),
+        ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+        ["<Enter"] = cmp.mapping.confirm({ select = false })
     }),
     sources = cmp.config.sources({
-        {
-            name = "nvim_lsp"
-        },
-        {
-            name = "vsnip"
-        },
-        {
-            name = "buffer"
-        }
-    })
+        { name = "copilot" },
+        { name = "nvim_lsp" },
+        { name = "vsnip" },
+        { name = "buffer" }
+    }),
 })
 
 -- Use buffer source for `/` (if you enabled `native_menu`, this won"t work anymore).
