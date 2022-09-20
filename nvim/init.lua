@@ -62,7 +62,7 @@ require("packer").startup(function(use)
     }
 
     use "github/copilot.vim"
-    use "hrsh7th/cmp-copilot"
+    --use "hrsh7th/cmp-copilot"
     use "nvim-lualine/lualine.nvim"
     use "nvim-lua/plenary.nvim"
     use "lewis6991/gitsigns.nvim"
