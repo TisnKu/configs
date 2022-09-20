@@ -15,7 +15,6 @@ cmp.setup({
         ["<C-e>"] = cmp.mapping.abort(),
         ["<C-y>"] = cmp.mapping.confirm({ select = true }),
         ["<Enter>"] = cmp.mapping.confirm({ select = false }),
-        ["<Tab>"] = cmp.mapping.confirm({ select = false }),
     }),
     preselect = cmp.PreselectMode.None,
     sources = cmp.config.sources({
