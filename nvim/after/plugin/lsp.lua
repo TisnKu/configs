@@ -12,7 +12,7 @@ vim.api.nvim_create_autocmd("User", {
 
         -- bufmap("n", "gD", vim.lsp.buf.declaration)
         bufmap("n", "gd", vim.lsp.buf.definition)
-        bufmap("n", "gi", vim.lsp.buf.implementation)
+        --bufmap("n", "gi", vim.lsp.buf.implementation)
         --bufmap("n", "gr", vim.lsp.buf.references)
         bufmap("n", "K", vim.lsp.buf.hover)
         bufmap("n", "<leader>l", function()
@@ -56,4 +56,23 @@ lspconfig.sumneko_lua.setup {
             }
         }
     }
+}
+
+local function organize_imports()
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = {vim.api.nvim_buf_get_name(0)},
+    title = ""
+  }
+  vim.lsp.buf.execute_command(params)
+end
+
+lspconfig.tsserver.setup {
+  capabilities = capabilities,
+  commands = {
+    OrganizeImports = {
+      organize_imports,
+      description = "Organize Imports"
+    }
+  }
 }

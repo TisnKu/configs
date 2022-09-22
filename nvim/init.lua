@@ -72,22 +72,7 @@ require("packer").startup(function(use)
     if vim.g.is_win then
         use "junegunn/fzf.vim"
     else
-        use { 'ibhagwan/fzf-lua',
-            requires = { 'kyazdani42/nvim-web-devicons' },
-            config = function()
-                require('fzf-lua').setup {
-                    winopts = {
-                        win_height = 0.7,
-                        win_width = 0.9,
-                        win_row = 0.5,
-                        win_col = 0.5,
-                    },
-                    fzf_opts = {
-                        ['--info'] = 'default'
-                    }
-                }
-            end
-        }
+        use { 'ibhagwan/fzf-lua', requires = { 'kyazdani42/nvim-web-devicons' } }
     end
 
     --use {
@@ -100,6 +85,7 @@ require("packer").startup(function(use)
     --}
 
     use "williamboman/mason.nvim"
+    use "jose-elias-alvarez/null-ls.nvim"
     use "williamboman/mason-lspconfig.nvim"
     use "neovim/nvim-lspconfig"
     use "hrsh7th/cmp-nvim-lsp"
