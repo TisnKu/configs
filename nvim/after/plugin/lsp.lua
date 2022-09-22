@@ -18,12 +18,15 @@ require('lsp-setup').setup({
 		gD = 'lua vim.lsp.buf.declaration()',
 		gd = 'lua vim.lsp.buf.definition()',
 		gt = 'lua vim.lsp.buf.type_definition()',
-		--gi = 'lua vim.lsp.buf.implementation()',
+		--gi = 'lua vim.lsp.buf.implementations()',
+		gi = 'require("fzf-lua").lsp_implementations()',
 		--gr = 'lua vim.lsp.buf.references()',
+		gr = 'require("fzf-lua").lsp_references()',
 		K = 'lua vim.lsp.buf.hover()',
 		['<C-k>'] = 'lua vim.lsp.buf.signature_help()',
 		['<Bslash>rn'] = 'lua vim.lsp.buf.rename()',
 		--['<Bslash>ca'] = 'lua vim.lsp.buf.code_action()',
+		['<Bslash>ca']='lua require("fzf-lua").lsp_code_actions()',
 		['<Bslash>f'] = 'lua vim.lsp.buf.format { async = true }',
 		['<Bslash>e'] = 'lua vim.diagnostic.open_float()',
 		['[d'] = 'lua vim.diagnostic.goto_prev()',
@@ -48,6 +51,7 @@ require('lsp-setup').setup({
 		-- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 		-- pylsp = {},
 		['null-ls'] = {},
+		taplo = {},
 		tsserver = {},
 		sumneko_lua = {
 			settings = {
