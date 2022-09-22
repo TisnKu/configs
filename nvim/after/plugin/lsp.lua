@@ -1,78 +1,74 @@
-vim.api.nvim_create_autocmd("User", {
-    pattern = "LspAttached",
-    desc = "LSP actions",
-    callback = function()
-        local bufmap = function(mode, lhs, rhs)
-            local bufopts = {
-                noremap = true,
-                buffer = true
-            }
-            vim.keymap.set(mode, lhs, rhs, bufopts)
-        end
+require('lsp-setup').setup({
+	-- Default mappings
+	-- gD = 'lua vim.lsp.buf.declaration()',
+	-- gd = 'lua vim.lsp.buf.definition()',
+	-- gt = 'lua vim.lsp.buf.type_definition()',
+	-- gi = 'lua vim.lsp.buf.implementation()',
+	-- gr = 'lua vim.lsp.buf.references()',
+	-- K = 'lua vim.lsp.buf.hover()',
+	-- ['<C-k>'] = 'lua vim.lsp.buf.signature_help()',
+	-- ['<space>rn'] = 'lua vim.lsp.buf.rename()',
+	-- ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
+	-- ['<space>f'] = 'lua vim.lsp.buf.formatting()',
+	-- ['<space>e'] = 'lua vim.diagnostic.open_float()',
+	-- ['[d'] = 'lua vim.diagnostic.goto_prev()',
+	-- [']d'] = 'lua vim.diagnostic.goto_next()',
+	default_mappings = false,
+	mappings = {
+		gD = 'lua vim.lsp.buf.declaration()',
+		gd = 'lua vim.lsp.buf.definition()',
+		gt = 'lua vim.lsp.buf.type_definition()',
+		--gi = 'lua vim.lsp.buf.implementation()',
+		--gr = 'lua vim.lsp.buf.references()',
+		K = 'lua vim.lsp.buf.hover()',
+		['<C-k>'] = 'lua vim.lsp.buf.signature_help()',
+		['<Bslash>rn'] = 'lua vim.lsp.buf.rename()',
+		--['<Bslash>ca'] = 'lua vim.lsp.buf.code_action()',
+		['<Bslash>f'] = 'lua vim.lsp.buf.format { async = true }',
+		['<Bslash>e'] = 'lua vim.diagnostic.open_float()',
+		['[d'] = 'lua vim.diagnostic.goto_prev()',
+		[']d'] = 'lua vim.diagnostic.goto_next()',
+	},
 
-        -- bufmap("n", "gD", vim.lsp.buf.declaration)
-        bufmap("n", "gd", vim.lsp.buf.definition)
-        --bufmap("n", "gi", vim.lsp.buf.implementation)
-        --bufmap("n", "gr", vim.lsp.buf.references)
-        bufmap("n", "K", vim.lsp.buf.hover)
-        bufmap("n", "<leader>l", function()
-            vim.lsp.buf.formatting_sync()
-        end)
-        bufmap("n", "gl", vim.diagnostic.open_float)
-        bufmap("n", "[d", vim.diagnostic.goto_prev)
-        bufmap("n", "]d", vim.diagnostic.goto_next)
-        bufmap("n", "go", vim.lsp.buf.type_definition)
-    end
+	-- Global on_attach
+	on_attach = function(client, bufnr)
+		-- Support custom the on_attach function for global
+		-- Formatting on save as default
+		--require('lsp-setup.utils').format_on_save(client)
+		if client.name == "tsserver" then
+			client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
+		end
+	end,
+	-- Global capabilities
+	capabilities = vim.lsp.protocol.make_client_capabilities(),
+	-- Configuration of LSP servers
+
+	servers = {
+		-- Install LSP servers automatically
+		-- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+		-- pylsp = {},
+		['null-ls'] = {},
+		tsserver = {},
+		sumneko_lua = {
+			settings = {
+				Lua = {
+					diagnostics = {
+						globals = { "vim" },
+					},
+				},
+			}
+		},
+		rust_analyzer = {
+			settings = {
+				['rust-analyzer'] = {
+					cargo = {
+						loadOutDirsFromCheck = true,
+					},
+					procMacro = {
+						enable = true,
+					},
+				},
+			},
+		},
+	},
 })
-
--- lspconfig start
-local lsp_defaults = {
-    on_attach = function(client, bufnr)
-        vim.api.nvim_exec_autocmds("User", {
-            pattern = "LspAttached"
-        })
-    end
-}
-
-local lspconfig = require("lspconfig")
-lspconfig.util.default_config = vim.tbl_deep_extend("force", lspconfig.util.default_config, lsp_defaults)
--- lspconfig end
-
--- Setup lsps
-local lsp_servers = { "tsserver", "rust_analyzer" }
-local capabilities =
-require("cmp_nvim_lsp").update_capabilities(vim.lsp.protocol.make_client_capabilities())
-for _, lsp in ipairs(lsp_servers) do
-    lspconfig[lsp].setup {
-        capabilities = capabilities
-    }
-end
-lspconfig.sumneko_lua.setup {
-    capabilities = capabilities,
-    settings = {
-        Lua = {
-            diagnostics = {
-                globals = { "vim" }
-            }
-        }
-    }
-}
-
-local function organize_imports()
-  local params = {
-    command = "_typescript.organizeImports",
-    arguments = {vim.api.nvim_buf_get_name(0)},
-    title = ""
-  }
-  vim.lsp.buf.execute_command(params)
-end
-
-lspconfig.tsserver.setup {
-  capabilities = capabilities,
-  commands = {
-    OrganizeImports = {
-      organize_imports,
-      description = "Organize Imports"
-    }
-  }
-}

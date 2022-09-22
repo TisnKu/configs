@@ -1,15 +1,15 @@
-local status, nullls = pcall(require, "null-ls")
+local status, null_ls = pcall(require, "null-ls")
 if not status then
     return
 end
 
-
-nullls.setup({
+null_ls.setup({
     sources = {
-        nullls.builtins.diagnostics.eslint_d,
-        nullls.builtins.formatting.prettierd,
-        nullls.builtins.formatting.stylua,
-        nullls.builtins.diagnostics.eslint,
-        --nullls.builtins.completion.spell,
+        null_ls.builtins.diagnostics.eslint_d,
+        null_ls.builtins.diagnostics.buf,
+        null_ls.builtins.diagnostics.eslint,
+        null_ls.builtins.formatting.prettierd,
+        null_ls.builtins.formatting.rustfmt,
+        null_ls.builtins.code_actions.gitsigns,
     },
 })
