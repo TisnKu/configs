@@ -2,7 +2,7 @@
 BASEDIR=$(dirname "$0")
 
 # init .zshrc
-cp $BASEDIR/.zshrc ~/
+#cp $BASEDIR/.zshrc ~/
 
 # init .vimrc
 ln -s $BASEDIR/nvim/.vimrc ~/
