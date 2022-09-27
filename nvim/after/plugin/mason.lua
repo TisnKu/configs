@@ -6,5 +6,5 @@ if (not status2) then return end
 mason.setup()
 
 lspconfig.setup {
-  ensure_installed = { "stylua", "sumneko_lua" },
+  ensure_installed = { "eslint_d", "sumneko_lua", "tsserver", "rust_analyzer", "taplo" },
 }
