@@ -88,8 +88,6 @@ endif
 
 map <leader>c :Bclose<cr>:tabclose<cr>gT
 
-nmap <leader>b :Buffers<cr>
-
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
@@ -97,21 +95,11 @@ map <leader>tc :tabclose<cr>
 " Return to last edit position when opening files
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" delete without yanking
-nnoremap <leader>d "_d
-vnoremap <leader>d "_d
-" replace currently selected text with default register
-" without yanking it
-vnoremap <leader>p "_dP
-
 " resize window
 nnoremap <silent> <leader>1 :resize -12<cr> 
 nnoremap <silent> <leader>2 :resize +12<cr> 
 nnoremap <silent> <leader>3 :vertical resize -6<cr> 
 nnoremap <silent> <leader>4 :vertical resize +6<cr> 
-
-" To reload file
-map <silent> <leader>r :checktime<CR>
 
 nnoremap q: <nop>
 nnoremap Q <nop>

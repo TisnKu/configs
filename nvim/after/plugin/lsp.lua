@@ -4,16 +4,16 @@ local mappings = {
 		gt = 'lua vim.lsp.buf.type_definition()',
 		K = 'lua vim.lsp.buf.hover()',
 		['<c-k>'] = 'lua vim.lsp.buf.signature_help()',
-		['<bslash>rn'] = 'lua vim.lsp.buf.rename()',
-		['<bslash>f'] = 'lua vim.lsp.buf.format { async = true }',
-		['<bslash>e'] = 'lua vim.diagnostic.open_float()',
+		['<space>rn'] = 'lua vim.lsp.buf.rename()',
+		['<space>f'] = 'lua vim.lsp.buf.format { async = true }',
+		['<space>e'] = 'lua vim.diagnostic.open_float()',
 		['[d'] = 'lua vim.diagnostic.goto_prev()',
 		[']d'] = 'lua vim.diagnostic.goto_next()',
+		['<space>ca'] = 'lua vim.lsp.buf.code_action()'
 }
 if vim.g.is_win then
 	mappings.gi = 'lua vim.lsp.buf.implementation()'
 	mappings.gr = 'lua vim.lsp.buf.references()'
-	mappings['<bslash>ca'] = 'lua vim.lsp.buf.code_action()'
 end
 
 require('lsp-setup').setup({

@@ -73,6 +73,7 @@ require("packer").startup(function(use)
 	else
 		use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
 	end
+	use({ "hood/popui.nvim", requires = { 'RishabhRD/popfix' } })
 
 	use("williamboman/mason.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
