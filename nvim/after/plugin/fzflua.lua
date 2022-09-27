@@ -23,3 +23,6 @@ vim.keymap.set('n', '<leader>gl', ':lua require("fzf-lua").grep_last()<CR>', { n
 vim.keymap.set('n', '<leader>gw', ':lua require("fzf-lua").grep_cword()<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>gW', ':lua require("fzf-lua").grep_cWORD()<CR>', { noremap = true, silent = true })
 vim.keymap.set('n', '<leader>gv', ':lua require("fzf-lua").grep_visual()<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'gi', ':lua require("fzf-lua").lsp_implementations({ jump_to_single_result = true })<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', 'gr', ':lua require("fzf-lua").lsp_references({ jump_to_single_result = true })<CR>', { noremap = true, silent = true })
+vim.keymap.set('n', '<Bslash>ca', ':lua require("fzf-lua").lsp_code_actions()<CR>', { noremap = true, silent = true })

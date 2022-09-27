@@ -3,7 +3,7 @@ if vim.g.loaded_fzf_vim == nil then
 end
 
 --vim.keymap.set("n", "<leader>f", "<cmd>call fzf#run(fzf#wrap({\"source\": \"rg --files\"}))<cr>")
-vim.keymap.set("n", "<leader>f", ":Files<cr>")
+vim.keymap.set("n", "<leader>f", ":FZF<cr>")
 vim.keymap.set("n", "<leader>rg", ":RG<cr>")
 vim.keymap.set("n", "<leader>zg", ":Rg<cr>")
 
