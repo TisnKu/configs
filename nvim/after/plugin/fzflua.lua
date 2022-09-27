@@ -4,6 +4,13 @@ if not status then
 end
 
 require('fzf-lua').setup {
+    winopts = {
+        win_height = 0.7,
+        win_width = 0.9,
+        win_row = 0.5,
+        win_col = 0.5,
+    },
+    --fzf_layout = 'reverse-list',
     fzf_opts = {
         ['--info'] = 'default'
     }
