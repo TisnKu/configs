@@ -2,7 +2,7 @@ local mappings = {
 		gD = 'lua vim.lsp.buf.declaration()',
 		gd = 'lua vim.lsp.buf.definition()',
 		gt = 'lua vim.lsp.buf.type_definition()',
-		k = 'lua vim.lsp.buf.hover()',
+		K = 'lua vim.lsp.buf.hover()',
 		['<c-k>'] = 'lua vim.lsp.buf.signature_help()',
 		['<bslash>rn'] = 'lua vim.lsp.buf.rename()',
 		['<bslash>f'] = 'lua vim.lsp.buf.format { async = true }',
