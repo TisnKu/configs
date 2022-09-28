@@ -1,5 +1,5 @@
 if vim.g.loaded_fzf_vim == nil then
-    return
+  return
 end
 
 --vim.keymap.set("n", "<leader>f", "<cmd>call fzf#run(fzf#wrap({\"source\": \"rg --files\"}))<cr>")

@@ -72,7 +72,13 @@ require("packer").startup(function(use)
 	use("Pocco81/auto-save.nvim")
 	use({ "junegunn/fzf", run = ":call fzf#install()" })
 	if vim.g.is_win then
-		use("junegunn/fzf.vim")
+		use {
+			"nvim-telescope/telescope.nvim", tag = "0.1.0",
+			requires = { { "nvim-lua/plenary.nvim" } },
+			config = function()
+			end
+		}
+		--use("junegunn/fzf.vim")
 	else
 		use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
 	end
