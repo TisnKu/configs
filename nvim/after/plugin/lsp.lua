@@ -11,10 +11,6 @@ local mappings = {
 		[']d'] = 'lua vim.diagnostic.goto_next()',
 		['<space>ca'] = 'lua vim.lsp.buf.code_action()'
 }
-if vim.g.is_win then
-	mappings.gi = 'lua vim.lsp.buf.implementation()'
-	mappings.gr = 'lua vim.lsp.buf.references()'
-end
 
 require('lsp-setup').setup({
 	default_mappings = false,
