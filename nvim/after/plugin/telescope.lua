@@ -14,6 +14,7 @@ telescope.setup {
         },
     },
 }
+telescope.load_extension('fzf')
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>f", "<cmd>Telescope find_files<CR>", opts)
 vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>", opts)

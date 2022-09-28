@@ -86,8 +86,6 @@ else
   vnoremap <A-k> :m '<-2<CR>gv=gv
 endif
 
-map <leader>c :Bclose<cr>:tabclose<cr>gT
-
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
