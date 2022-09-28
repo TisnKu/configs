@@ -16,10 +16,12 @@ vim.g.trySetup = function(package, opts)
 	if not ok then
 		vim.cmd("echom 'Failed to load " .. package .. "'")
 	else
-		if opts then
-			p.setup(opts)
-		else
+		if opts == nil then
 			p.setup()
+		elseif type(opts) == "function" then
+			p.setup(opts(p))
+		else
+			p.setup(opts)
 		end
 	end
 end
@@ -65,6 +67,7 @@ require("packer").startup(function(use)
 	use("nvim-lualine/lualine.nvim")
 	use("nvim-lua/plenary.nvim")
 	use("lewis6991/gitsigns.nvim")
+	use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
 	use("Pocco81/auto-save.nvim")
 	use({ "junegunn/fzf", run = ":call fzf#install()" })

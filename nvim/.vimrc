@@ -4,7 +4,7 @@ let mapleader = ","
 " Configurations, see documentation: https://neovim.io/doc/user/options.html
 set undodir=~/.vim_undo
 set undofile
-set number
+set number relativenumber
 set scrolloff=10
 set ignorecase
 set smartcase
