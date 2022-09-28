@@ -11,6 +11,7 @@ local mappings = {
 		[']d'] = 'lua vim.diagnostic.goto_next()',
 		['<space>ca'] = 'lua vim.lsp.buf.code_action()'
 }
+vim.keymap.set('v', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
 require('lsp-setup').setup({
 	default_mappings = false,

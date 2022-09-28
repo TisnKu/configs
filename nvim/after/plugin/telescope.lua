@@ -3,16 +3,20 @@ if not ok then
     return
 end
 
+local actions = require("telescope.actions")
 telescope.setup {
     defaults = {
         file_ignore_patterns = { "node_modules" },
         preview = {
             treesitter = false,
         },
+        dynamic_preview_title = true,
+        path_display = { "truncate" },
         mappings = {
             i = {
-                ["<C-j>"] = require("telescope.actions").move_selection_next,
-                ["<C-k>"] = require("telescope.actions").move_selection_previous,
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
+                ["<esc>"] = actions.close,
             },
         },
     },
@@ -25,3 +29,8 @@ vim.keymap.set("n", "<leader>rg", "<cmd>Telescope live_grep<CR>", opts)
 vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
 vim.keymap.set("n", "<leader>m", "<cmd>Telescope keymaps<CR>", opts)
+vim.keymap.set("n", "<leader>gst", "<cmd>Telescope git_status<CR>", opts)
+
+vim.cmd [[
+  autocmd User TelescopePreviewerLoaded setlocal wrap
+]]
