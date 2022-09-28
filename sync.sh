@@ -1,5 +1,5 @@
-#!/bin/sh
-BASEDIR=$(dirname "$0")
+#!/bin/bash
+BASEDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 # init .zshrc
 #cp $BASEDIR/zshrc ~/.zshrc
