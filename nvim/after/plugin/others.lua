@@ -3,4 +3,4 @@ vim.g.trySetup("lualine", {
   theme = "auto",
   extensions = { "nerdtree" }
 })
-vim.g.trySetup("auto-save")
+--vim.g.trySetup("auto-save")

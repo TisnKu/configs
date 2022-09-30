@@ -29,6 +29,7 @@ set updatetime=300
 set switchbuf=useopen,usetab,newtab
 set signcolumn=yes
 set completeopt=menu,menuone,noselect
+set autowriteall
 
 " press hh to return to normal mode
 inoremap hh <esc>

@@ -69,13 +69,10 @@ require("packer").startup(function(use)
 	use("lewis6991/gitsigns.nvim")
 	use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
 
-	use("Pocco81/auto-save.nvim")
 	use({ "junegunn/fzf", run = ":call fzf#install()" })
 	if vim.g.is_win then
-		--use { 'nvim-telescope/telescope-fzf-native.nvim',
-		--run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
-		use { "nvim-telescope/telescope.nvim", tag = "0.1.0", requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" } }
-		--use("junegunn/fzf.vim")
+		use { "nvim-telescope/telescope.nvim", tag = "0.1.0",
+			requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" } }
 	else
 		use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
 	end
