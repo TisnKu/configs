@@ -33,8 +33,10 @@ require('lsp-setup').setup({
 	servers = {
 		-- Install LSP servers automatically
 		-- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-		-- pylsp = {},
 		['null-ls'] = {},
+		['powershell_es'] = {
+			bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\powershell-editor-services',
+		},
 		taplo = {},
 		tsserver = {},
 		sumneko_lua = {
