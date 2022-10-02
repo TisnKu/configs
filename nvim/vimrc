@@ -30,6 +30,7 @@ set switchbuf=useopen,usetab,newtab
 set signcolumn=yes
 set completeopt=menu,menuone,noselect
 set autowriteall
+:au FocusLost * silent! wa " auto save on focus lost
 
 " press hh to return to normal mode
 inoremap hh <esc>
