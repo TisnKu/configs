@@ -12,3 +12,4 @@ ln -s $BASEDIR/nvim/ideavimrc ~/.ideavimrc
 
 # init nvim
 ln -s $BASEDIR/nvim ~/.config/
+
