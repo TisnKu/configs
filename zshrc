@@ -114,6 +114,10 @@ function vpn() {
     export ALL_PROXY=socks5://127.0.0.1:7890
 }
 
+function unvpn() {
+    unset ALL_PROXY
+}
+
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
@@ -127,6 +131,10 @@ function x86() {
 
 function arm() {
     arch -arm64 zsh
+}
+
+function findKeychainPassword() {
+    security find-generic-password -s $1 -a $2 -w
 }
 
 # git alias
@@ -144,7 +152,7 @@ function gcob() {
     done;
 }
 
-alias current_branch="git branch | grep \* | cut -d ' ' -f2"
+alias currentbranch="git branch | grep \* | cut -d ' ' -f2"
 
 function gps() {
     gp --set-upstream origin $(current_branch);
@@ -211,13 +219,17 @@ eval "$(jenv init -)"
 # qemu
 alias qemu="qemu-system-x86_64"
 
+# Teams
+alias tmp="cd ~/projects/teams-modular-packages"
+alias tsw="cd ~/projects/teamspace-web"
+
 # os-tutorial gcc cross compile
 # export CC=/opt/homebrew/Cellar/gcc/11.2.0_3
-export CC=/usr/bin/gcc
-export LD=/opt/homebrew/Cellar/gcc/11.2.0_3
-export GCC_PREFIX="/usr/local/i386elfgcc"
-export TARGET=i386-elf
-export PATH="$GCC_PREFIX/bin:$PATH"
+#export CC=/usr/bin/gcc
+#export LD=/opt/homebrew/Cellar/gcc/11.2.0_3
+#export GCC_PREFIX="/usr/local/i386elfgcc"
+#export TARGET=i386-elf
+#export PATH="$GCC_PREFIX/bin:$PATH"
 
 # Brew usts mirror
 export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
