@@ -49,6 +49,7 @@ require('lsp-setup').setup({
 				},
 			}
 		},
+		-- Windows needs gzip as dependency for mason to unzip the server
 		rust_analyzer = {
 			settings = {
 				['rust-analyzer'] = {
