@@ -34,6 +34,7 @@ require('lsp-setup').setup({
 		-- Install LSP servers automatically
 		-- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 		['null-ls'] = {},
+		['json-lsp'] = {},
 		['powershell_es'] = {
 			bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\powershell-editor-services',
 		},
