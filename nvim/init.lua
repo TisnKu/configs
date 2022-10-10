@@ -52,14 +52,19 @@ require("packer").startup(function(use)
 	use("machakann/vim-sandwich")
 	use("preservim/nerdtree")
 	use("scrooloose/nerdcommenter")
-	use("sheerun/vim-polyglot") -- Syntax highlighting
+	--use("sheerun/vim-polyglot") -- Syntax highlighting
+	use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
 	use("windwp/nvim-autopairs")
 	use("yuttie/comfortable-motion.vim") -- Smooth scrolling
 	use({
 		"lukas-reineke/indent-blankline.nvim", -- Indentation lines
+		requires = "nvim-treesitter/nvim-treesitter",
 		config = function()
 			vim.opt.list = true
-			require("indent_blankline").setup({})
+			require("indent_blankline").setup({
+				show_current_context = true,
+				show_current_context_start = true,
+			})
 		end,
 	})
 

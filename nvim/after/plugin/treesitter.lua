@@ -17,6 +17,7 @@ ts.setup {
         enable = true
     },
     ensure_installed = { "javascript", "typescript", "lua", "rust" },
+    auto_install = true,
     sync_install = false,
     indent = {
         enable = true
