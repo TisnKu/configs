@@ -1,6 +1,6 @@
 local mappings = {
 	gD = 'lua vim.lsp.buf.declaration()',
-	gd = 'lua vim.lsp.buf.definition()',
+	--gd = 'lua vim.lsp.buf.definition()',
 	gt = 'lua vim.lsp.buf.type_definition()',
 	K = 'lua vim.lsp.buf.hover()',
 	['<c-k>'] = 'lua vim.lsp.buf.signature_help()',

@@ -26,6 +26,7 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>f", "<cmd>Telescope find_files<CR>", opts)
 vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>", opts)
 vim.keymap.set("n", "<leader>rg", "<cmd>Telescope live_grep<CR>", opts)
+vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
 vim.keymap.set("n", "<leader>m", "<cmd>Telescope keymaps<CR>", opts)
