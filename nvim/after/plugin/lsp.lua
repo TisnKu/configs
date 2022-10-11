@@ -65,7 +65,7 @@ require('lsp-setup').setup({
           },
         },
       },
-      bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\rust-analyzer',
+      --bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\rust-analyzer',
       dependencies = {
         windows = { 'gzip' }
       }
@@ -73,19 +73,23 @@ require('lsp-setup').setup({
   },
 })
 
-require('lspconfig').rust_analyzer.setup {
-  settings = {
-    ["rust-analyzer"] = {
-      assist = {
-        importGranularity = "module",
-        importPrefix = "by_self",
-      },
-      cargo = {
-        loadOutDirsFromCheck = true,
-      },
-      procMacro = {
-        enable = true,
+if vim.fn.has('win32') == 1 then
+  local lspconfig = require('lspconfig');
+  lspconfig.taplo.setup {}
+  lspconfig.rust_analyzer.setup {
+    settings = {
+      ["rust-analyzer"] = {
+        assist = {
+          importGranularity = "module",
+          importPrefix = "by_self",
+        },
+        cargo = {
+          loadOutDirsFromCheck = true,
+        },
+        procMacro = {
+          enable = true,
+        },
       },
     },
-  },
-}
+  }
+end
