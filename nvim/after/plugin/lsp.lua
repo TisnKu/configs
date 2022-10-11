@@ -5,7 +5,7 @@ local mappings = {
   K = 'lua vim.lsp.buf.hover()',
   ['<c-k>'] = 'lua vim.lsp.buf.signature_help()',
   ['<space>rn'] = 'lua vim.lsp.buf.rename()',
-  ['<space>f'] = 'lua vim.lsp.buf.format { async = true }',
+  ['<space>f'] = 'lua vim.lsp.buf.format()',
   ['<space>e'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
   [']d'] = 'lua vim.diagnostic.goto_next()',
@@ -22,8 +22,8 @@ require('lsp-setup').setup({
     -- Support custom the on_attach function for global
     -- Formatting on save as default
     require('lsp-setup.utils').format_on_save(client)
-    if client.name == "tsserver" or client.name == "json-lsp" then
-      client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
+    if client.name == "tsserver" or client.name == "jsonls" then
+      require('lsp-setup.utils').disable_formatting(client)
     end
   end,
   -- Global capabilities
@@ -34,10 +34,10 @@ require('lsp-setup').setup({
     -- Install LSP servers automatically
     -- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
     ['null-ls'] = {},
-    ['json-lsp'] = {},
     ['powershell_es'] = {
       bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\powershell-editor-services',
     },
+    jsonls = {},
     taplo = {},
     tsserver = {},
     sumneko_lua = {
