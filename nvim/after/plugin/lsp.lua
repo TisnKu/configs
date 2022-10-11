@@ -22,7 +22,7 @@ require('lsp-setup').setup({
 		-- Support custom the on_attach function for global
 		-- Formatting on save as default
 		require('lsp-setup.utils').format_on_save(client)
-		if client.name == "tsserver" then
+		if client.name == "tsserver" or client.name == "json-lsp" then
 			client.server_capabilities.documentFormattingProvider = false -- 0.8 and later
 		end
 	end,
