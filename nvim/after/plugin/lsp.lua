@@ -13,6 +13,8 @@ local mappings = {
 }
 vim.keymap.set('v', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
+require("mason").setup {}
+require("mason-lspconfig").setup {}
 require('lsp-setup').setup({
   default_mappings = false,
   mappings = mappings,
@@ -72,24 +74,3 @@ require('lsp-setup').setup({
     },
   },
 })
-
-if vim.fn.has('win32') == 1 then
-  local lspconfig = require('lspconfig');
-  lspconfig.taplo.setup {}
-  lspconfig.rust_analyzer.setup {
-    settings = {
-      ["rust-analyzer"] = {
-        assist = {
-          importGranularity = "module",
-          importPrefix = "by_self",
-        },
-        cargo = {
-          loadOutDirsFromCheck = true,
-        },
-        procMacro = {
-          enable = true,
-        },
-      },
-    },
-  }
-end
