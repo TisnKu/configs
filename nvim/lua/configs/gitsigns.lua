@@ -1,4 +1,4 @@
-vim.g.trySetup('gitsigns', function(gs)
+require("utils").trySetup('gitsigns', function(gs)
     return {
         on_attach = function(bufnr)
             local function map(mode, l, r, opts)

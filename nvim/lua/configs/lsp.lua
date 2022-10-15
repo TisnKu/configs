@@ -13,8 +13,6 @@ local mappings = {
 }
 vim.keymap.set('v', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
-require("mason").setup {}
-require("mason-lspconfig").setup {}
 require('lsp-setup').setup({
   default_mappings = false,
   mappings = mappings,

@@ -3,27 +3,14 @@ vim.cmd("source ~/.vimrc")
 -- End general configs
 
 -- Globals
+vim.cmd("let g:NERDDefaultAlign = 'left'")
+
 local has = function(feat)
   if vim.fn.has(feat) == 1 then
     return true
   end
 
   return false
-end
-
-vim.g.trySetup = function(package, opts)
-  local ok, p = pcall(require, package)
-  if not ok then
-    vim.cmd("echom 'Failed to load " .. package .. "'")
-  else
-    if opts == nil then
-      p.setup()
-    elseif type(opts) == "function" then
-      p.setup(opts(p))
-    else
-      p.setup(opts)
-    end
-  end
 end
 
 vim.g.is_win = (has("win32") or has("win64")) and true or false
@@ -46,20 +33,29 @@ local packer_bootstrap = ensure_packer()
 
 -- Plugins
 require("packer").startup(function(use)
-  use("wbthomason/packer.nvim")
-  use("projekt0n/github-nvim-theme")
-  use("kaicataldo/material.vim", { branch = "main" })
+  local optuse = function(plugin, opts)
+    if opts == nil then
+      opts = { opt = true }
+    else
+      opts.opt = true
+    end
 
-  use("machakann/vim-sandwich")
-  use("preservim/nerdtree")
-  use("scrooloose/nerdcommenter")
-  --use("sheerun/vim-polyglot") -- Syntax highlighting
-  use("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
-  use("windwp/nvim-autopairs")
-  use("yuttie/comfortable-motion.vim") -- Smooth scrolling
-  use({
+    use(plugin, opts)
+  end
+
+  optuse("wbthomason/packer.nvim")
+  optuse("projekt0n/github-nvim-theme")
+  optuse("kaicataldo/material.vim", { branch = "main" })
+
+  optuse("machakann/vim-sandwich")
+  optuse("preservim/nerdtree")
+  optuse("scrooloose/nerdcommenter")
+  optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
+  optuse("windwp/nvim-autopairs")
+  optuse("yuttie/comfortable-motion.vim") -- Smooth scrolling
+  optuse({
     "lukas-reineke/indent-blankline.nvim", -- Indentation lines
-    requires = "nvim-treesitter/nvim-treesitter",
+    requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
     config = function()
       vim.opt.list = true
       require("indent_blankline").setup({
@@ -68,41 +64,42 @@ require("packer").startup(function(use)
     end,
   })
 
-  use("github/copilot.vim")
-  use("nvim-lualine/lualine.nvim")
-  use("nvim-lua/plenary.nvim")
-  use("lewis6991/gitsigns.nvim")
-  use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
+  optuse("dstein64/vim-startuptime")
+  optuse("github/copilot.vim")
+  optuse("nvim-lualine/lualine.nvim")
+  optuse("nvim-lua/plenary.nvim")
+  optuse("lewis6991/gitsigns.nvim")
+  optuse { 'sindrets/diffview.nvim', requires = { { 'nvim-lua/plenary.nvim', opt = true } } }
 
-  use({ "junegunn/fzf", run = ":call fzf#install()" })
+  optuse({ "junegunn/fzf", run = ":call fzf#install()" })
   if vim.g.is_win then
-    use { "nvim-telescope/telescope.nvim", tag = "0.1.0",
+    optuse { "nvim-telescope/telescope.nvim", tag = "0.1.0",
       requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" } }
   else
-    use({ "ibhagwan/fzf-lua", requires = { "kyazdani42/nvim-web-devicons" } })
+    optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   end
-  use({ "hood/popui.nvim", requires = { 'RishabhRD/popfix' } })
+  optuse({ "hood/popui.nvim", requires = { 'RishabhRD/popfix' } })
 
-  use("williamboman/mason.nvim")
-  use("jose-elias-alvarez/null-ls.nvim")
-  use("williamboman/mason-lspconfig.nvim")
-  use("neovim/nvim-lspconfig")
-  use({
+  optuse("williamboman/mason.nvim")
+  optuse("jose-elias-alvarez/null-ls.nvim")
+  optuse("williamboman/mason-lspconfig.nvim")
+  optuse("neovim/nvim-lspconfig")
+  optuse({
     "junnplus/lsp-setup.nvim",
     requires = {
-      "neovim/nvim-lspconfig",
-      "williamboman/mason.nvim",
-      "williamboman/mason-lspconfig.nvim",
+      { "neovim/nvim-lspconfig", opt = true },
+      { "williamboman/mason.nvim", opt = true },
+      { "williamboman/mason-lspconfig.nvim", opt = true },
     },
   })
 
-  use("hrsh7th/cmp-nvim-lsp")
-  use("hrsh7th/cmp-buffer")
-  use("hrsh7th/cmp-path")
-  use("hrsh7th/cmp-cmdline")
-  use("hrsh7th/cmp-vsnip")
-  use("hrsh7th/vim-vsnip")
-  use("hrsh7th/nvim-cmp")
+  optuse("hrsh7th/cmp-nvim-lsp")
+  optuse("hrsh7th/cmp-buffer")
+  optuse("hrsh7th/cmp-path")
+  optuse("hrsh7th/cmp-cmdline")
+  optuse("hrsh7th/cmp-vsnip")
+  optuse("hrsh7th/vim-vsnip")
+  optuse("hrsh7th/nvim-cmp")
 
   if packer_bootstrap then
     require("packer").sync()
