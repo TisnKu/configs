@@ -69,7 +69,7 @@ require("packer").startup(function(use)
   optuse("nvim-lualine/lualine.nvim")
   optuse("nvim-lua/plenary.nvim")
   optuse("lewis6991/gitsigns.nvim")
-  optuse { 'sindrets/diffview.nvim', requires = { { 'nvim-lua/plenary.nvim', opt = true } } }
+  optuse { 'sindrets/diffview.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
   optuse({ "junegunn/fzf", run = ":call fzf#install()" })
   if vim.g.is_win then
