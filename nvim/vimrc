@@ -33,6 +33,12 @@ set autowriteall
 :au FocusLost * silent! wa " auto save on focus lost
 
 " press hh to return to normal mode
+inoremap ,, <esc>
+vnoremap ,, <esc>
+cnoremap ,, <esc>
+inoremap <C-,> <esc>
+vnoremap <C-,> <esc>
+cnoremap <C-,> <esc>
 inoremap hh <esc>
 vnoremap hh <esc>
 cnoremap hh <esc>
