@@ -13,6 +13,22 @@ local mappings = {
 }
 vim.keymap.set('v', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
+_G.lsp_organize_imports_sync = function(bufnr)
+  -- gets the current bufnr if no bufnr is passed
+  if not bufnr then bufnr = vim.api.nvim_get_current_buf() end
+
+  -- params for the request
+  local params = {
+    command = "_typescript.organizeImports",
+    arguments = { vim.api.nvim_buf_get_name(bufnr) },
+    title = ""
+  }
+
+  -- perform a syncronous request
+  -- 500ms timeout depending on the size of file a bigger timeout may be needed
+  vim.lsp.buf_request_sync(bufnr, "workspace/executeCommand", params, 1000)
+end
+
 require('lsp-setup').setup({
   default_mappings = false,
   mappings = mappings,
@@ -21,7 +37,24 @@ require('lsp-setup').setup({
   on_attach = function(client, bufnr)
     -- Support custom the on_attach function for global
     -- Formatting on save as default
-    require('lsp-setup.utils').format_on_save(client)
+
+    if client.supports_method('textDocument/formatting') then
+      local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
+      vim.api.nvim_create_autocmd('BufWritePre', {
+        group = lsp_format_augroup,
+        callback = function()
+          if client.name == 'tsserver' then
+            lsp_organize_imports_sync(bufnr)
+          end
+          if vim.fn.has('nvim-0.8') == 1 then
+            vim.lsp.buf.format()
+          else
+            vim.lsp.buf.formatting_sync({}, 1000)
+          end
+        end,
+      })
+    end
+
     if client.name == "tsserver" or client.name == "jsonls" then
       require('lsp-setup.utils').disable_formatting(client)
     end
@@ -40,7 +73,15 @@ require('lsp-setup').setup({
     eslint = {},
     jsonls = {},
     taplo = {},
-    tsserver = {},
+    tsserver = {
+      commands = {
+        OrganizeImports = {
+          lsp_organize_imports_sync,
+          description = "Organize Imports"
+        }
+      }
+
+    },
     sumneko_lua = {
       settings = {
         Lua = {
