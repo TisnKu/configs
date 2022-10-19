@@ -44,7 +44,7 @@ require('lsp-setup').setup({
         group = lsp_format_augroup,
         callback = function()
           if client.name == 'tsserver' then
-            lsp_organize_imports_sync(bufnr)
+            lsp_organize_imports_sync()
           end
           if vim.fn.has('nvim-0.8') == 1 then
             vim.lsp.buf.format()
