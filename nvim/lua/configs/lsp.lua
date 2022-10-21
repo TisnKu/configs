@@ -9,7 +9,8 @@ local mappings = {
   ['<space>e'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
   [']d'] = 'lua vim.diagnostic.goto_next()',
-  ['<space>ca'] = 'lua vim.lsp.buf.code_action()'
+  ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
+  ['<space>o'] = 'OrganizeImports'
 }
 vim.keymap.set('v', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
