@@ -85,7 +85,7 @@ require("packer").startup(function(use)
   optuse("williamboman/mason-lspconfig.nvim")
   optuse("neovim/nvim-lspconfig")
   optuse({
-    "junnplus/lsp-setup.nvim",
+    "TisnKu/lsp-setup.nvim",
     requires = {
       { "neovim/nvim-lspconfig", opt = true },
       { "williamboman/mason.nvim", opt = true },
