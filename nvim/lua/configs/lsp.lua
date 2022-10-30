@@ -14,6 +14,15 @@ local mappings = {
 }
 vim.keymap.set('v', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
+_G.contains = function(table, element)
+  for _, value in pairs(table) do
+    if value == element then
+      return true
+    end
+  end
+  return false
+end
+
 _G.lsp_organize_imports_sync = function(bufnr)
   -- gets the current bufnr if no bufnr is passed
   if not bufnr then bufnr = vim.api.nvim_get_current_buf() end
@@ -34,11 +43,7 @@ require('lsp-setup').setup({
   default_mappings = false,
   mappings = mappings,
 
-  -- Global on_attach
   on_attach = function(client, bufnr)
-    -- Support custom the on_attach function for global
-    -- Formatting on save as default
-
     if client.supports_method('textDocument/formatting') then
       local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
       vim.api.nvim_create_autocmd('BufWritePre', {
@@ -56,7 +61,12 @@ require('lsp-setup').setup({
       })
     end
 
-    if client.name == "tsserver" or client.name == "jsonls" then
+    local clients_no_formatting = {
+      'jsonls',
+      'tsserver',
+      'taplo'
+    };
+    if _G.contains(clients_no_formatting, client.name) then
       require('lsp-setup.utils').disable_formatting(client)
     end
   end,
