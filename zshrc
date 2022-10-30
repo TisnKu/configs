@@ -111,7 +111,7 @@ function ko() {
 
 # vpn
 function vpn() {
-    export ALL_PROXY=socks5://127.0.0.1:7890
+    export ALL_PROXY=http://127.0.0.1:7890
 }
 
 function unvpn() {
@@ -135,6 +135,13 @@ function arm() {
 
 function findKeychainPassword() {
     security find-generic-password -s $1 -a $2 -w
+}
+
+function otp {
+    local secret=$(findKeychainPassword 'OTP' $1)
+    local code=$(oathtool --totp -d 6 -b $secret)
+    echo $code | pbcopy
+    echo $code
 }
 
 # git alias
@@ -212,6 +219,10 @@ function link {
   j webclient && grunt build --notests=true --nolint=true && ./shim/listen.sh
 }
 
+function callingbuild {
+  yarn workspace @msteams/calling build:ng && yarn workspace @msteams/calling-cdl build:ng
+}
+
 # jenv
 export PATH="$HOME/.jenv/bin:$PATH"
 eval "$(jenv init -)"
@@ -222,6 +233,10 @@ alias qemu="qemu-system-x86_64"
 # Teams
 alias tmp="cd ~/projects/teams-modular-packages"
 alias tsw="cd ~/projects/teamspace-web"
+
+# rust
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 
 # os-tutorial gcc cross compile
 # export CC=/opt/homebrew/Cellar/gcc/11.2.0_3
