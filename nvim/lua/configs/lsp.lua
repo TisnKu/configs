@@ -36,31 +36,27 @@ _G.lsp_organize_imports_sync = function(bufnr)
 
   -- perform a syncronous request
   -- 500ms timeout depending on the size of file a bigger timeout may be needed
-  vim.lsp.buf_request_sync(bufnr, "workspace/executeCommand", params, 1000)
+  --print("Organizing imports...")
+  vim.lsp.buf_request_sync(bufnr, "workspace/executeCommand", params, 2000)
+  --print("Organizing imports done.")
 end
+
+local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
+vim.api.nvim_create_autocmd('BufWritePre', {
+  group = lsp_format_augroup,
+  callback = function()
+    if vim.bo.filetype == 'typescript' then
+      lsp_organize_imports_sync()
+    end
+    vim.lsp.buf.format()
+  end,
+})
 
 require('lsp-setup').setup({
   default_mappings = false,
   mappings = mappings,
 
   on_attach = function(client, bufnr)
-    if client.supports_method('textDocument/formatting') then
-      local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
-      vim.api.nvim_create_autocmd('BufWritePre', {
-        group = lsp_format_augroup,
-        callback = function()
-          if client.name == 'tsserver' then
-            lsp_organize_imports_sync()
-          end
-          if vim.fn.has('nvim-0.8') == 1 then
-            vim.lsp.buf.format()
-          else
-            vim.lsp.buf.formatting_sync({}, 1000)
-          end
-        end,
-      })
-    end
-
     local clients_no_formatting = {
       'jsonls',
       'tsserver',
