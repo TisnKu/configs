@@ -5,7 +5,7 @@ local mappings = {
   K = 'lua vim.lsp.buf.hover()',
   ['<c-k>'] = 'lua vim.lsp.buf.signature_help()',
   ['<space>rn'] = 'lua vim.lsp.buf.rename()',
-  ['<space>f'] = 'lua vim.lsp.buf.format()',
+  ['<space>f'] = 'lua vim.lsp.buf.format({ timeout_ms = 2000 })',
   ['<space>e'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
   [']d'] = 'lua vim.diagnostic.goto_next()',
@@ -48,7 +48,7 @@ vim.api.nvim_create_autocmd('BufWritePre', {
     if vim.bo.filetype == 'typescript' then
       lsp_organize_imports_sync()
     end
-    vim.lsp.buf.format()
+    vim.lsp.buf.format({ timeout_ms = 2000 })
   end,
 })
 
