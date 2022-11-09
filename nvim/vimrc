@@ -111,8 +111,8 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " resize window
 nnoremap <silent> <leader>1 :resize -12<cr> 
 nnoremap <silent> <leader>2 :resize +12<cr> 
-nnoremap <silent> <leader>3 :vertical resize -6<cr> 
-nnoremap <silent> <leader>4 :vertical resize +6<cr> 
+nnoremap <silent> <leader>3 :vertical resize -12<cr> 
+nnoremap <silent> <leader>4 :vertical resize +12<cr> 
 
 nnoremap q: <nop>
 nnoremap Q <nop>
