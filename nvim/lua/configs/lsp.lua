@@ -38,6 +38,7 @@ _G.lsp_organize_imports_sync = function(bufnr)
   -- 500ms timeout depending on the size of file a bigger timeout may be needed
   --print("Organizing imports...")
   vim.lsp.buf_request_sync(bufnr, "workspace/executeCommand", params, 2000)
+  vim.lsp.buf.format({ timeout_ms = 2000 })
   --print("Organizing imports done.")
 end
 
