@@ -45,9 +45,9 @@ local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = tr
 vim.api.nvim_create_autocmd('BufWritePre', {
   group = lsp_format_augroup,
   callback = function()
-    if vim.bo.filetype == 'typescript' then
-      lsp_organize_imports_sync()
-    end
+    --if vim.bo.filetype == 'typescript' then
+    --  lsp_organize_imports_sync()
+    --end
     vim.lsp.buf.format({ timeout_ms = 2000 })
   end,
 })
