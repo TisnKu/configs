@@ -1,5 +1,5 @@
 local mappings = {
-  gD = 'lua vim.lsp.buf.declaration()',
+  gD = 'lua vim.lsp.buf.declaration({ timeout_ms = 10000 })',
   --gd = 'lua vim.lsp.buf.definition()',
   gt = 'lua vim.lsp.buf.type_definition()',
   K = 'lua vim.lsp.buf.hover()',
