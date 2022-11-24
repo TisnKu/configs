@@ -1,6 +1,7 @@
 local mappings = {
   gD = 'lua vim.lsp.buf.declaration({ timeout_ms = 10000 })',
-  --gd = 'lua vim.lsp.buf.definition()',
+  ['<space>gd'] = 'lua vim.lsp.buf.definition()',
+  ['<space>gr'] = 'lua vim.lsp.buf.references()',
   gt = 'lua vim.lsp.buf.type_definition()',
   K = 'lua vim.lsp.buf.hover()',
   ['<c-k>'] = 'lua vim.lsp.buf.signature_help()',
@@ -9,6 +10,7 @@ local mappings = {
   ['<space>e'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
   [']d'] = 'lua vim.diagnostic.goto_next()',
+  ['<space>sts'] = 'LspStart tsserver',
   ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
   ['<space>o'] = 'OrganizeImports'
 }
