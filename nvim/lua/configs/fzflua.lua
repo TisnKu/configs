@@ -16,7 +16,7 @@ require('fzf-lua').setup {
     ['--keep-right'] = '',
   },
   lsp = {
-    async_or_timeout = 30000,
+    async_or_timeout = true,
     jump_to_single_result = true,
   }
 }
