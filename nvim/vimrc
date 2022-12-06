@@ -46,6 +46,7 @@ inoremap <C-h> <esc>
 cnoremap <C-h> <esc>
 vnoremap <C-h> <esc>
 inoremap WW <esc>:w<cr>
+nnoremap WW <esc>:w<cr>
 
 " Map leader key to comma
 nnoremap <leader>q :q<CR>
