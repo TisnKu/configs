@@ -42,6 +42,10 @@ cnoremap <C-,> <esc>
 inoremap hh <esc>
 vnoremap hh <esc>
 cnoremap hh <esc>
+inoremap <C-h> <esc>
+cnoremap <C-h> <esc>
+vnoremap <C-h> <esc>
+inoremap WW <esc>:w<cr>
 
 " Map leader key to comma
 nnoremap <leader>q :q<CR>
