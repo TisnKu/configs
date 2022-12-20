@@ -108,7 +108,9 @@ else
   vnoremap <A-k> :m '<-2<CR>gv=gv
 endif
 
-map <leader>tn :tabnew<cr>
+map <leader>tt :tabnew<cr>
+map <leader>tn :tabnext<cr>
+map <leader>tp :tabprev<cr>
 map <leader>to :tabonly<cr>
 map <leader>tc :tabclose<cr>
 
