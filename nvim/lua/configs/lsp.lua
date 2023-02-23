@@ -1,18 +1,18 @@
 local mappings = {
-  gD = 'lua vim.lsp.buf.declaration({ timeout_ms = 10000 })',
-  ['<space>gd'] = 'lua vim.lsp.buf.definition()',
-  ['<space>gr'] = 'lua vim.lsp.buf.references()',
-  gt = 'lua vim.lsp.buf.type_definition()',
-  K = 'lua vim.lsp.buf.hover()',
-  ['<c-k>'] = 'lua vim.lsp.buf.signature_help()',
-  ['<space>rn'] = 'lua vim.lsp.buf.rename()',
-  ['<space>f'] = 'lua vim.lsp.buf.format({ timeout_ms = 2000 })',
-  ['<space>e'] = 'lua vim.diagnostic.open_float()',
-  ['[d'] = 'lua vim.diagnostic.goto_prev()',
-  [']d'] = 'lua vim.diagnostic.goto_next()',
-  ['<space>sts'] = 'LspStart tsserver',
-  ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
-  ['<space>o'] = 'OrganizeImports'
+    gD = 'lua vim.lsp.buf.declaration({ timeout_ms = 10000 })',
+    ['<space>gd'] = 'lua vim.lsp.buf.definition()',
+    ['<space>gr'] = 'lua vim.lsp.buf.references()',
+    gt = 'lua vim.lsp.buf.type_definition()',
+    K = 'lua vim.lsp.buf.hover()',
+    ['<c-k>'] = 'lua vim.lsp.buf.signature_help()',
+    ['<space>rn'] = 'lua vim.lsp.buf.rename()',
+    ['<space>f'] = 'lua vim.lsp.buf.format({ timeout_ms = 2000 })',
+    ['<space>e'] = 'lua vim.diagnostic.open_float()',
+    ['[d'] = 'lua vim.diagnostic.goto_prev()',
+    [']d'] = 'lua vim.diagnostic.goto_next()',
+    ['<space>sts'] = 'LspStart tsserver',
+    ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
+    ['<space>o'] = 'OrganizeImports'
 }
 vim.keymap.set('v', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
@@ -31,9 +31,9 @@ _G.lsp_organize_imports_sync = function(bufnr)
 
   -- params for the request
   local params = {
-    command = "_typescript.organizeImports",
-    arguments = { vim.api.nvim_buf_get_name(bufnr) },
-    title = ""
+      command = "_typescript.organizeImports",
+      arguments = { vim.api.nvim_buf_get_name(bufnr) },
+      title = ""
   }
 
   -- perform a syncronous request
@@ -46,84 +46,87 @@ end
 
 local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePre', {
-  group = lsp_format_augroup,
-  callback = function()
-    --if vim.bo.filetype == 'typescript' then
-    --  lsp_organize_imports_sync()
-    --end
-    vim.lsp.buf.format({ timeout_ms = 2000 })
-  end,
+    group = lsp_format_augroup,
+    callback = function()
+      --if vim.bo.filetype == 'typescript' then
+      --  lsp_organize_imports_sync()
+      --end
+      local current_folder = vim.loop.cwd()
+      if current_folder:find('Teamspace-Web') then
+        return
+      end
+      vim.lsp.buf.format({ timeout_ms = 2000 })
+    end,
 })
 
 require('lsp-setup').setup({
-  default_mappings = false,
-  mappings = mappings,
+    default_mappings = false,
+    mappings = mappings,
+    on_attach = function(client, bufnr)
+      local clients_no_formatting = {
+          'jsonls',
+          'tsserver',
+          'taplo'
+      };
+      if _G.contains(clients_no_formatting, client.name) then
+        require('lsp-setup.utils').disable_formatting(client)
+      end
+    end,
+    -- Global capabilities
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
+    -- Configuration of LSP servers
 
-  on_attach = function(client, bufnr)
-    local clients_no_formatting = {
-      'jsonls',
-      'tsserver',
-      'taplo'
-    };
-    if _G.contains(clients_no_formatting, client.name) then
-      require('lsp-setup.utils').disable_formatting(client)
-    end
-  end,
-  -- Global capabilities
-  capabilities = vim.lsp.protocol.make_client_capabilities(),
-  -- Configuration of LSP servers
-
-  servers = {
-    -- Install LSP servers automatically
-    -- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-    ['null-ls'] = {
-      ensure_installed = false,
-    },
-    ['powershell_es'] = {
-      ensure_installed = false,
-      bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\powershell-editor-services',
-    },
-    eslint = {},
-    jsonls = {},
-    taplo = {},
-    tsserver = {
-      commands = {
-        OrganizeImports = {
-          lsp_organize_imports_sync,
-          description = "Organize Imports"
-        }
-      }
-
-    },
-    sumneko_lua = {
-      settings = {
-        Lua = {
-          diagnostics = {
-            globals = { "vim" },
-          },
+    servers = {
+        -- Install LSP servers automatically
+        -- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+        ['null-ls'] = {
+            ensure_installed = false,
         },
-      }
-    },
-    -- Windows needs gzip as dependency for mason to unzip the server
-    rust_analyzer = {
-      settings = {
-        ["rust-analyzer"] = {
-          assist = {
-            importGranularity = "module",
-            importPrefix = "by_self",
-          },
-          cargo = {
-            loadOutDirsFromCheck = true,
-          },
-          procMacro = {
-            enable = true,
-          },
+        ['powershell_es'] = {
+            ensure_installed = false,
+            bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\powershell-editor-services',
         },
-      },
-      --bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\rust-analyzer',
-      dependencies = {
-        windows = { 'gzip' }
-      }
+        eslint = {},
+        jsonls = {},
+        taplo = {},
+        tsserver = {
+            commands = {
+                OrganizeImports = {
+                    lsp_organize_imports_sync,
+                    description = "Organize Imports"
+                }
+            }
+
+        },
+        sumneko_lua = {
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = { "vim" },
+                    },
+                },
+            }
+        },
+        -- Windows needs gzip as dependency for mason to unzip the server
+        rust_analyzer = {
+            settings = {
+                ["rust-analyzer"] = {
+                    assist = {
+                        importGranularity = "module",
+                        importPrefix = "by_self",
+                    },
+                    cargo = {
+                        loadOutDirsFromCheck = true,
+                    },
+                    procMacro = {
+                        enable = true,
+                    },
+                },
+            },
+            --bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\rust-analyzer',
+            dependencies = {
+                windows = { 'gzip' }
+            }
+        },
     },
-  },
 })

@@ -16,6 +16,7 @@ end
 vim.g.is_win = (has("win32") or has("win64")) and true or false
 vim.g.is_linux = (has("unix") and (not has("macunix"))) and true or false
 vim.g.is_mac = has("macunix") and true or false
+vim.g.format = true
 
 -- Plugins
 local ensure_packer = function()
@@ -54,14 +55,14 @@ require("packer").startup(function(use)
   optuse("windwp/nvim-autopairs")
   optuse("yuttie/comfortable-motion.vim") -- Smooth scrolling
   optuse({
-    "lukas-reineke/indent-blankline.nvim", -- Indentation lines
-    requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
-    config = function()
-      vim.opt.list = true
-      require("indent_blankline").setup({
-        show_current_context = true,
-      })
-    end,
+      "lukas-reineke/indent-blankline.nvim", -- Indentation lines
+      requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
+      config = function()
+        vim.opt.list = true
+        require("indent_blankline").setup({
+            show_current_context = true,
+        })
+      end,
   })
 
   optuse("dstein64/vim-startuptime")
@@ -74,7 +75,7 @@ require("packer").startup(function(use)
   optuse({ "junegunn/fzf", run = ":call fzf#install()" })
   if vim.g.is_win then
     optuse { "nvim-telescope/telescope.nvim", tag = "0.1.0",
-      requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" } }
+        requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" } }
   else
     optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   end
@@ -85,12 +86,12 @@ require("packer").startup(function(use)
   optuse("williamboman/mason-lspconfig.nvim")
   optuse("neovim/nvim-lspconfig")
   optuse({
-    "TisnKu/lsp-setup.nvim",
-    requires = {
-      { "neovim/nvim-lspconfig", opt = true },
-      { "williamboman/mason.nvim", opt = true },
-      { "williamboman/mason-lspconfig.nvim", opt = true },
-    },
+      "TisnKu/lsp-setup.nvim",
+      requires = {
+          { "neovim/nvim-lspconfig",             opt = true },
+          { "williamboman/mason.nvim",           opt = true },
+          { "williamboman/mason-lspconfig.nvim", opt = true },
+      },
   })
 
   optuse("hrsh7th/cmp-nvim-lsp")
