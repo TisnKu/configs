@@ -257,3 +257,7 @@ eval "$(nodenv init -)"
 #export PATH="$PATH:/Users/txku/riscv64-gcc/bin"
 #PATH=$PATH:/usr/local/opt/riscv-gnu-toolchain/bin
 
+
+function clearRemoteRef {
+  git branch -a | awk -F/ '/\/origin\/.*/ {branchName=$0; sub("remotes/","",branchName); print branchName}' | xargs -I {} git branch -d -r {}
+}
