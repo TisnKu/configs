@@ -259,5 +259,6 @@ eval "$(nodenv init -)"
 
 
 function clearRemoteRef {
-  git branch -a | awk -F/ '/\/origin\/.*/ {branchName=$0; sub("remotes/","",branchName); print branchName}' | xargs -I {} git branch -d -r {}
+  #git branch -a | awk -F/ '/\/origin\/.*/ {branchName=$0; sub("remotes/","",branchName); print branchName}' | xargs -I {} git branch -d -r {}
+  git branch -r | awk -F/ '/origin\/.*/ {branchName=$0; sub("origin/","",branchName); print branchName}' | xargs -I {} git branch -d -r origin/{}
 }
