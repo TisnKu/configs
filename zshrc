@@ -262,3 +262,85 @@ function clearRemoteRef {
   #git branch -a | awk -F/ '/\/origin\/.*/ {branchName=$0; sub("remotes/","",branchName); print branchName}' | xargs -I {} git branch -d -r {}
   git branch -r | awk -F/ '/origin\/.*/ {branchName=$0; sub("origin/","",branchName); print branchName}' | xargs -I {} git branch -d -r origin/{}
 }
+
+# Search and open files/folders with vim using fzf (directories only)
+function vif() {
+  local dir=$(find * -maxdepth 0 -type d | fzf --query="$1" --select-1 --exit-0 --preview 'ls -la {} | sed 1d | grep "^d" | head -50')
+  if [[ -n "$dir" ]]; then
+    cd $dir
+    vi .
+  fi
+}
+
+
+function pruneRemoteBranches {
+  azureDevOpsUrl="https://dev.azure.com/TBD"
+  projectName="TBD"
+  repositoryNames=("a", "b", "c")
+  apiVersion="7"
+  pat=$(echo -n ":ado_pat" | base64)
+  branchPrefixToRemove="some_prefix/"
+  userEmail="your_email"
+
+  for repositoryName in "${repositoryNames[@]}"; do
+    echo -e "\n#####################################"
+    echo "Processing repository $repositoryName"
+
+    # Get a list of all remote Git branches that do not have a related pull request
+    uri="$azureDevOpsUrl/$projectName/_apis/git/repositories/$repositoryName/refs?filterContains=$branchPrefixToRemove&api-version=$apiVersion"
+    headers=(
+      "Authorization: Basic $pat"
+    )
+    branches=$(curl -sS -H "${headers[@]}" "$uri")
+    if [ -z "$branches" ]; then
+      echo "Failed to query Azure DevOps API for Git branches with error: $apiError"
+      continue
+    fi
+    count=$(echo "$branches" | jq '.count')
+    if [ "$count" -eq 0 ]; then
+      echo "No Git branches found with prefix $branchPrefixToRemove"
+      continue
+    fi
+
+    # Filter branches created by user
+    branches=$(echo "$branches" | jq ".value")
+
+    echo -e "\nAll branches:"
+    echo "$branches" | jq -r '.[] | .name'
+
+    # Get all pull requests by creatorId
+    creatorId=$(echo "$branches" | jq '.[0].creator.id' | tr -d '"')
+    echo -e "\nCreator ID: $creatorId"
+    uri="$azureDevOpsUrl/$projectName/_apis/git/repositories/$repositoryName/pullrequests?searchCriteria.creatorId=$creatorId&api-version=$apiVersion"
+    echo -e "\nQuerying pull requests with URI: $uri"
+    pullRequests=$(curl -sS -H "${headers[@]}" "$uri" | jq -r '.value[] | .sourceRefName')
+    branchSet=$(echo "$pullRequests" | sort -u)
+    branchSetJson=$(printf '%s\n' "${branchSet[@]}" | jq -R -s -c 'split("\n")[:-1]')
+
+    echo -e "\nBranches with pull requests:"
+    printf '%s\n' "${branchSet[@]}"
+
+    branchesWithoutPullRequest=$(echo "$branches" | jq --argjson exclude "$branchSetJson" '.[] | select(.name | IN($exclude[]) | not)')
+
+    if [ -z "$branchesWithoutPullRequest" ]; then
+      echo -e "\nNo remote Git branches found to delete"
+      continue
+    fi
+
+    echo -e "\nBranches without pull request:"
+    echo "$branchesWithoutPullRequest" | jq -r '.name'
+
+
+    # Delete each branch that does not have a related pull request
+    branchReferences=$(echo "$branchesWithoutPullRequest" | jq -c '[. | {name: .name, oldObjectId: .objectId, newObjectId: "0000000000000000000000000000000000000000"}]')
+
+    echo "$branchReferences" | jq
+    uri="$azureDevOpsUrl/$projectName/_apis/git/repositories/$repositoryName/refs?api-version=$apiVersion"
+    deleteResponse=$(curl -sS -X POST -H "${headers[@]}" -d "$branchReferences" -H "Content-Type: application/json" "$uri")
+
+    echo -e "\nDelete response:"
+    echo "$deleteResponse" | jq
+  done
+}
+
+
