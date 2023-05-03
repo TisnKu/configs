@@ -108,34 +108,27 @@ require('lsp-setup').setup({
       }
     },
     -- Windows needs gzip as dependency for mason to unzip the server
-    rust_analyzer = {
-      settings = {
-        ["rust-analyzer"] = {
-          assist = {
-            importGranularity = "module",
-            importPrefix = "by_self",
-          },
-          cargo = {
-            loadOutDirsFromCheck = true,
-          },
-          procMacro = {
-            enable = true,
+    rust_analyzer = require('lsp-setup.rust-tools').setup({
+      server = {
+        settings = {
+          ["rust-analyzer"] = {
+            assist = {
+              importGranularity = "module",
+              importPrefix = "by_self",
+            },
+            cargo = {
+              loadOutDirsFromCheck = true,
+            },
+            procMacro = {
+              enable = true,
+            },
           },
         },
+        --bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\rust-analyzer',
+        dependencies = {
+          windows = { 'gzip' }
+        }
       },
-      --bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\rust-analyzer',
-      dependencies = {
-        windows = { 'gzip' }
-      }
-    },
-  },
-})
-
-require("rust-tools").setup({
-  inlay_hints = {
-    auto = true,
-    show_parameter_hints = false,
-    parameter_hints_prefix = "",
-    other_hints_prefix = "",
+    }),
   },
 })

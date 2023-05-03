@@ -88,6 +88,14 @@ require("packer").startup(function(use)
     end
   })
 
+  -- Visualize lsp progress
+  optuse({
+    "j-hui/fidget.nvim",
+    config = function()
+      require("fidget").setup()
+    end
+  })
+  optuse("simrat39/rust-tools.nvim")
   optuse("williamboman/mason.nvim")
   optuse("jose-elias-alvarez/null-ls.nvim")
   optuse("williamboman/mason-lspconfig.nvim")
