@@ -65,6 +65,11 @@ require("packer").startup(function(use)
     end,
   })
 
+  optuse({
+    'toppair/peek.nvim',
+    run = 'deno task --quiet build:fast',
+  })
+
   optuse("dstein64/vim-startuptime")
   optuse("github/copilot.vim")
   optuse("nvim-lualine/lualine.nvim")
