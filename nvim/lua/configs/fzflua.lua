@@ -1,4 +1,4 @@
-local status, FzfLua = pcall(require, "fzf-lua")
+local status, _ = pcall(require, "fzf-lua")
 if not status then
   return
 end
@@ -23,6 +23,7 @@ require('fzf-lua').setup {
 
 vim.cmd("cnoreabbrev FL FzfLua")
 local opts = { noremap = true, silent = true }
+vim.keymap.set('n', '<space>ca', ':lua require("fzf-lua").lsp_code_actions()<CR>', opts)
 vim.keymap.set('n', '<leader>f', ':lua require("fzf-lua").files()<CR>', opts)
 vim.keymap.set('n', '<leader>gst', ':lua require("fzf-lua").git_status()<CR>', opts)
 vim.keymap.set('n', '<leader>rg', ':lua require("fzf-lua").grep()<CR>', opts)
