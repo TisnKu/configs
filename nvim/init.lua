@@ -70,6 +70,12 @@ require("packer").startup(function(use)
     run = 'deno task --quiet build:fast',
   })
 
+  optuse {
+    'saecki/crates.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+    end,
+  }
   optuse("dstein64/vim-startuptime")
   optuse("github/copilot.vim")
   optuse("nvim-lualine/lualine.nvim")

@@ -18,9 +18,10 @@ cmp.setup({
   }),
   preselect = cmp.PreselectMode.None,
   sources = cmp.config.sources({
+    { name = "crates" },
     { name = "nvim_lsp" },
     { name = "vsnip" },
-    { name = "buffer" }
+    { name = "buffer" },
   }),
 })
 
