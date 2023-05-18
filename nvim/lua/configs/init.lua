@@ -30,5 +30,5 @@ end, 0)
 
 -- Keybindings
 -- github copilot keys
-vim.api.nvim_set_keymap('i', '<C-j>', '<Plug>(copilot-next)', {})
-vim.api.nvim_set_keymap('i', '<C-k>', '<Plug>(copilot-previous)', {})
+vim.api.nvim_set_keymap('i', '<C-J>', '<Plug>(copilot-next)', {})
+vim.api.nvim_set_keymap('i', '<C-K>', '<Plug>(copilot-previous)', {})
