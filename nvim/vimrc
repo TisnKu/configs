@@ -55,7 +55,7 @@ nnoremap <leader>w :w<CR>
 nnoremap <leader>nw :noa w<CR>
 nnoremap <leader>wq :wq<CR>
 noremap QQ :q!<cr>
-noremap WQ :wq<cr>
+noremap WQ :wqall<cr>
 noremap <leader>bp :bprevious<cr>
 noremap <leader>bn :bnext<cr>
 noremap <leader>o o<Esc>
