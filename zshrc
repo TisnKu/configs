@@ -223,10 +223,6 @@ function callingbuild {
   yarn workspace @msteams/calling build:ng && yarn workspace @msteams/calling-cdl build:ng
 }
 
-# jenv
-export PATH="$HOME/.jenv/bin:$PATH"
-eval "$(jenv init -)"
-
 # qemu
 alias qemu="qemu-system-x86_64"
 
@@ -343,4 +339,15 @@ function pruneRemoteBranches {
   done
 }
 
-
+# write a non stop beep function after $arg minutes
+function beep() {
+  local arg=$1
+  local i=0
+  while [ $i -lt $arg ]; do
+    sleep 60
+    i=$((i + 1))
+  done
+  while true; do
+    afplay /System/Library/Sounds/Hero.aiff
+  done
+}
