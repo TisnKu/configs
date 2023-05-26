@@ -358,5 +358,6 @@ function beep() {
 }
 
 function hardreset() {
+  git fetch --all
   git reset --hard origin/$(currentbranch)
 }
