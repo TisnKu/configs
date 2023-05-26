@@ -120,6 +120,9 @@ function unvpn() {
 
 # homebrew
 eval "$(/opt/homebrew/bin/brew shellenv)"
+# usts mirror
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+HOMEBREW_NO_AUTO_UPDATE=1
 
 # autojump
 [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
@@ -162,7 +165,7 @@ function gcob() {
 alias currentbranch="git branch | grep \* | cut -d ' ' -f2"
 
 function gps() {
-    gp --set-upstream origin $(current_branch);
+    gp --set-upstream origin $(currentbranch);
 }
 
 function pruneBranches() {
