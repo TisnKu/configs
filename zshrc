@@ -355,5 +355,5 @@ function beep() {
 }
 
 function hardreset() {
-  git reset --hard origin/$(currentBranch)
+  git reset --hard origin/$(currentbranch)
 }
