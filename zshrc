@@ -343,11 +343,17 @@ function pruneRemoteBranches {
 function beep() {
   local arg=$1
   local i=0
+  # wait for $arg minutes
   while [ $i -lt $arg ]; do
     sleep 60
     i=$((i + 1))
   done
+  # play sound non stop until quit
   while true; do
     afplay /System/Library/Sounds/Hero.aiff
   done
+}
+
+function hardreset() {
+  git reset --hard origin/$(currentBranch)
 }
