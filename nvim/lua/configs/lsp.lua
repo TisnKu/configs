@@ -1,3 +1,8 @@
+local opts = { noremap = true, silent = true }
+vim.keymap.set('n', 'gd', ':lua require("fzf-lua").lsp_definitions()<CR>', opts)
+vim.keymap.set('n', 'gi', ':lua require("fzf-lua").lsp_implementations()<CR>', opts)
+vim.keymap.set('n', 'gr', ':lua require("fzf-lua").lsp_references()<CR>', opts)
+
 local mappings = {
   gD = 'lua vim.lsp.buf.declaration({ timeout_ms = 10000 })',
   ['<space>gd'] = 'lua vim.lsp.buf.definition()',
@@ -10,7 +15,7 @@ local mappings = {
   ['<space>e'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
   [']d'] = 'lua vim.diagnostic.goto_next()',
-  ['<space>sts'] = 'LspStart tsserver',
+  ['<space>sts'] = 'LspRestart tsserver',
   ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
   ['<space>o'] = 'OrganizeImports'
 }
@@ -90,13 +95,14 @@ require('lsp-setup').setup({
     jsonls = {},
     taplo = {},
     tsserver = {
+      cmd = { 'typescript-language-server', '--stdio', '--log-level=4' },
+      maxTsServerMemory = 4096,
       commands = {
         OrganizeImports = {
           lsp_organize_imports_sync,
           description = "Organize Imports"
         }
       }
-
     },
     lua_ls = {
       settings = {

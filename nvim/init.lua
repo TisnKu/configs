@@ -53,7 +53,7 @@ require("packer").startup(function(use)
   optuse("scrooloose/nerdcommenter")
   optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   optuse("windwp/nvim-autopairs")
-  optuse("yuttie/comfortable-motion.vim") -- Smooth scrolling
+  optuse("yuttie/comfortable-motion.vim")  -- Smooth scrolling
   optuse({
     "lukas-reineke/indent-blankline.nvim", -- Indentation lines
     requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
@@ -106,6 +106,13 @@ require("packer").startup(function(use)
       require("fidget").setup()
     end
   })
+  -- LSP log panel
+  optuse({
+    "mhanberg/output-panel.nvim",
+    config = function()
+      require("output_panel").setup()
+    end
+  })
   optuse("simrat39/rust-tools.nvim")
   optuse("williamboman/mason.nvim")
   optuse("jose-elias-alvarez/null-ls.nvim")
@@ -114,11 +121,13 @@ require("packer").startup(function(use)
   optuse({
     "TisnKu/lsp-setup.nvim",
     requires = {
-      { "neovim/nvim-lspconfig", opt = true },
-      { "williamboman/mason.nvim", opt = true },
+      { "neovim/nvim-lspconfig",             opt = true },
+      { "williamboman/mason.nvim",           opt = true },
       { "williamboman/mason-lspconfig.nvim", opt = true },
     },
   })
+  -- coc
+  optuse({ "neoclide/coc.nvim", run = ":call coc#util#install()", branch = "release" })
 
   optuse("hrsh7th/cmp-nvim-lsp")
   optuse("hrsh7th/cmp-buffer")
