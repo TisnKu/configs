@@ -127,7 +127,7 @@ require("packer").startup(function(use)
     },
   })
   -- coc
-  optuse({ "neoclide/coc.nvim", run = ":call coc#util#install()", branch = "release" })
+  --optuse({ "neoclide/coc.nvim", run = ":call coc#util#install()", branch = "release" })
 
   optuse("hrsh7th/cmp-nvim-lsp")
   optuse("hrsh7th/cmp-buffer")

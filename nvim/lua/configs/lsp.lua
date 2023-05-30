@@ -17,7 +17,8 @@ local mappings = {
   [']d'] = 'lua vim.diagnostic.goto_next()',
   ['<space>sts'] = 'LspRestart tsserver',
   ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
-  ['<space>o'] = 'OrganizeImports'
+  ['<space>o'] = 'OrganizeImports',
+  ['<space>ll'] = 'lua print(vim.inspect(vim.lsp.buf_get_clients()))'
 }
 vim.keymap.set('v', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
@@ -96,7 +97,9 @@ require('lsp-setup').setup({
     taplo = {},
     tsserver = {
       cmd = { 'typescript-language-server', '--stdio', '--log-level=4' },
-      maxTsServerMemory = 4096,
+      init_options = {
+        maxTsServerMemory = 4096,
+      },
       commands = {
         OrganizeImports = {
           lsp_organize_imports_sync,

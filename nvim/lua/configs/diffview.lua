@@ -1,4 +1,5 @@
 vim.cmd("cnoreabbrev DO DiffviewOpen")
+vim.cmd("cnoreabbrev Do DiffviewOpen")
 vim.cmd("cnoreabbrev DFH DiffviewFileHistory")
 vim.keymap.set('n', '<leader>d', ':DiffviewOpen<CR>', { noremap = true, silent = true })
 -- Lua
@@ -40,11 +41,11 @@ require("diffview").setup({
       { { "n", "x" }, "3do", actions.diffget("theirs") }, -- Obtain the diff hunk from the THEIRS version of the file
     },
     file_panel = {
-      ["j"]             = actions.select_next_entry,         -- Bring the cursor to the next file entry
+      ["j"]             = actions.select_next_entry, -- Bring the cursor to the next file entry
       ["<down>"]        = actions.next_entry,
-      ["k"]             = actions.select_prev_entry,         -- Bring the cursor to the previous file entry.
+      ["k"]             = actions.select_prev_entry, -- Bring the cursor to the previous file entry.
       ["<up>"]          = actions.prev_entry,
-      ["<cr>"]          = actions.select_entry,       -- Open the diff for the selected entry.
+      ["<cr>"]          = actions.select_entry,      -- Open the diff for the selected entry.
       ["o"]             = actions.select_entry,
       ["<2-LeftMouse>"] = actions.select_entry,
       ["-"]             = actions.toggle_stage_entry, -- Stage / unstage the selected entry.
@@ -59,9 +60,9 @@ require("diffview").setup({
       ["gf"]            = actions.goto_file,
       ["<C-w><C-f>"]    = actions.goto_file_split,
       ["<C-w>gf"]       = actions.goto_file_tab,
-      ["i"]             = actions.listing_style,        -- Toggle between 'list' and 'tree' views
-      ["f"]             = actions.toggle_flatten_dirs,  -- Flatten empty subdirectories in tree listing style.
-      ["R"]             = actions.refresh_files,        -- Update stats and entries in the file list.
+      ["i"]             = actions.listing_style,       -- Toggle between 'list' and 'tree' views
+      ["f"]             = actions.toggle_flatten_dirs, -- Flatten empty subdirectories in tree listing style.
+      ["R"]             = actions.refresh_files,       -- Update stats and entries in the file list.
       ["<leader>e"]     = actions.focus_files,
       ["<leader>b"]     = actions.toggle_files,
       ["g<C-x>"]        = actions.cycle_layout,
