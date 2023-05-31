@@ -366,3 +366,7 @@ function hardreset() {
 function syncmaster() {
   git fetch origin master:master && git merge master
 }
+
+function gcne() {
+  git commit --no-edit
+}
