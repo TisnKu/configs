@@ -357,7 +357,12 @@ function beep() {
   done
 }
 
+# Git utils
 function hardreset() {
   git fetch --all
   git reset --hard origin/$(currentbranch)
+}
+
+function syncmaster() {
+  git fetch origin master:master && git merge master
 }
