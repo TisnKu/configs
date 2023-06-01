@@ -364,7 +364,7 @@ function hardreset() {
 }
 
 function syncmaster() {
-  git fetch origin master:master && git merge master
+  git fetch origin master:master && git merge master --no-edit
 }
 
 function gcne() {
