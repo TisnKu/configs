@@ -78,6 +78,10 @@ cnoremap <C-b> <Left>
 cnoremap <C-f> <Right>
 cnoremap <C-d> <Del>
 
+" Jump to parent square bracket
+nnoremap ]b :call searchpair('\[','','\]')<cr>
+nnoremap [b :call searchpair('\[','','\]','b')<cr>
+
 filetype plugin indent on
 command W w !sudo tee % > /dev/null
 

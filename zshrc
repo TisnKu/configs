@@ -337,7 +337,7 @@ function hardreset() {
   git reset --hard origin/$(currentbranch)
 }
 
-function syncmaster() {
+function syncm() {
   git fetch origin master:master && git merge master --no-edit
 }
 
