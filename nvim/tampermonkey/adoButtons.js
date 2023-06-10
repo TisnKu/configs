@@ -22,10 +22,24 @@ GM_registerMenuCommand(`Add Reviewers`, function () {
 
 function addButtons() {
   "use strict";
+  if (!window.location.href.includes("/pullrequest/")) return;
   console.log("#####, add buttons to PR page");
-  addCopyBranchButton();
-  addCopyPRNumberButton();
-  addReviewerButton();
+  doUntilElementAdded("#cpy-pr-btn", 300, function () {
+    addCopyBranchButton();
+    addCopyPRNumberButton();
+    addReviewerButton();
+  });
+}
+
+function doUntilElementAdded(selector, time, callback) {
+  var interval = setInterval(function () {
+    var element = document.querySelector(selector);
+    if (element) {
+      clearInterval(interval);
+    } else {
+      callback();
+    }
+  }, time);
 }
 
 function addCopyPRNumberButton() {
