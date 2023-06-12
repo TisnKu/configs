@@ -118,6 +118,12 @@ function unvpn() {
     unset ALL_PROXY
 }
 
+# homebrew
+eval "$(/opt/homebrew/bin/brew shellenv)"
+# usts mirror
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+HOMEBREW_NO_AUTO_UPDATE=1
+
 # autojump
 if [[ $(uname) == "Darwin" ]]; then
   [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
@@ -194,6 +200,13 @@ function uuid() {
 # user/bin to path
 PATH=$PATH:~/bin/
 
+# Android
+export ANDROID_HOME=/Users/txku/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+
+# Java
+export JAVA_HOME=$(/usr/libexec/java_home)
+
 function pullmain() {
     git pull origin main
 }
@@ -226,6 +239,19 @@ alias tsw="cd ~/projects/teamspace-web"
 export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
 export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 
+# os-tutorial gcc cross compile
+# export CC=/opt/homebrew/Cellar/gcc/11.2.0_3
+#export CC=/usr/bin/gcc
+#export LD=/opt/homebrew/Cellar/gcc/11.2.0_3
+#export GCC_PREFIX="/usr/local/i386elfgcc"
+#export TARGET=i386-elf
+#export PATH="$GCC_PREFIX/bin:$PATH"
+
+# Brew usts mirror
+export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+HOMEBREW_NO_AUTO_UPDATE=1
+
+eval "$(nodenv init -)"
 
 #zprof
 
