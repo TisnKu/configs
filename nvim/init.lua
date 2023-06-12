@@ -17,6 +17,18 @@ vim.g.is_win = (has("win32") or has("win64")) and true or false
 vim.g.is_linux = (has("unix") and (not has("macunix"))) and true or false
 vim.g.is_mac = has("macunix") and true or false
 vim.g.format = true
+vim.g.clipboard = {
+    name = 'win32yank',
+    copy = {
+        ["+"] = 'win32yank.exe -i --crlf',
+        ["*"] = 'win32yank.exe -i --crlf',
+    },
+    paste = {
+        ["+"] = 'win32yank.exe -o --lf',
+        ["*"] = 'win32yank.exe -o --lf',
+    },
+    cache_enabled = 0,
+}
 
 -- Plugins
 local ensure_packer = function()
@@ -53,28 +65,28 @@ require("packer").startup(function(use)
   optuse("scrooloose/nerdcommenter")
   optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   optuse("windwp/nvim-autopairs")
-  optuse("yuttie/comfortable-motion.vim")  -- Smooth scrolling
+  optuse("yuttie/comfortable-motion.vim") -- Smooth scrolling
   optuse({
-    "lukas-reineke/indent-blankline.nvim", -- Indentation lines
-    requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
-    config = function()
-      vim.opt.list = true
-      require("indent_blankline").setup({
-        show_current_context = true,
-      })
-    end,
+      "lukas-reineke/indent-blankline.nvim", -- Indentation lines
+      requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
+      config = function()
+        vim.opt.list = true
+        require("indent_blankline").setup({
+            show_current_context = true,
+        })
+      end,
   })
 
   optuse({
-    'toppair/peek.nvim',
-    run = 'deno task --quiet build:fast',
+      'toppair/peek.nvim',
+      run = 'deno task --quiet build:fast',
   })
 
   optuse {
-    'saecki/crates.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function()
-    end,
+      'saecki/crates.nvim',
+      requires = { 'nvim-lua/plenary.nvim' },
+      config = function()
+      end,
   }
   optuse("dstein64/vim-startuptime")
   optuse("github/copilot.vim")
@@ -86,32 +98,32 @@ require("packer").startup(function(use)
   optuse({ "junegunn/fzf", run = ":call fzf#install()" })
   if vim.g.is_win then
     optuse { "nvim-telescope/telescope.nvim", tag = "0.1.0",
-      requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" } }
+        requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" } }
   else
     optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   end
   optuse({ "hood/popui.nvim", requires = { 'RishabhRD/popfix' } })
 
   optuse({
-    "klen/nvim-test",
-    config = function()
-      require('nvim-test').setup()
-    end
+      "klen/nvim-test",
+      config = function()
+        require('nvim-test').setup()
+      end
   })
 
   -- Visualize lsp progress
   optuse({
-    "j-hui/fidget.nvim",
-    config = function()
-      require("fidget").setup()
-    end
+      "j-hui/fidget.nvim",
+      config = function()
+        require("fidget").setup()
+      end
   })
   -- LSP log panel
   optuse({
-    "mhanberg/output-panel.nvim",
-    config = function()
-      require("output_panel").setup()
-    end
+      "mhanberg/output-panel.nvim",
+      config = function()
+        require("output_panel").setup()
+      end
   })
   optuse("simrat39/rust-tools.nvim")
   optuse("williamboman/mason.nvim")
@@ -119,12 +131,12 @@ require("packer").startup(function(use)
   optuse("williamboman/mason-lspconfig.nvim")
   optuse("neovim/nvim-lspconfig")
   optuse({
-    "TisnKu/lsp-setup.nvim",
-    requires = {
-      { "neovim/nvim-lspconfig",             opt = true },
-      { "williamboman/mason.nvim",           opt = true },
-      { "williamboman/mason-lspconfig.nvim", opt = true },
-    },
+      "TisnKu/lsp-setup.nvim",
+      requires = {
+          { "neovim/nvim-lspconfig",             opt = true },
+          { "williamboman/mason.nvim",           opt = true },
+          { "williamboman/mason-lspconfig.nvim", opt = true },
+      },
   })
   -- coc
   --optuse({ "neoclide/coc.nvim", run = ":call coc#util#install()", branch = "release" })
