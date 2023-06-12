@@ -118,11 +118,6 @@ function unvpn() {
     unset ALL_PROXY
 }
 
-# homebrew
-eval "$(/opt/homebrew/bin/brew shellenv)"
-# usts mirror
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
-HOMEBREW_NO_AUTO_UPDATE=1
 
 # autojump
 if [[ $(uname) == "Darwin" ]]; then
@@ -240,13 +235,18 @@ export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 #export TARGET=i386-elf
 #export PATH="$GCC_PREFIX/bin:$PATH"
 
-# Brew usts mirror
 if [[ $(uname) == "Darwin" ]]; then
+  # Brew usts mirror
   export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
   HOMEBREW_NO_AUTO_UPDATE=1
-fi
+  # homebrew
+  eval "$(/opt/homebrew/bin/brew shellenv)"
+  # usts mirror
+  export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+  HOMEBREW_NO_AUTO_UPDATE=1
 
-eval "$(nodenv init -)"
+  eval "$(nodenv init -)"
+fi
 
 #zprof
 
