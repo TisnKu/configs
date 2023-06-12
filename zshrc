@@ -200,13 +200,6 @@ function uuid() {
 # user/bin to path
 PATH=$PATH:~/bin/
 
-# Android
-export ANDROID_HOME=/Users/txku/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-
-# Java
-export JAVA_HOME=$(/usr/libexec/java_home)
-
 function pullmain() {
     git pull origin main
 }
@@ -248,8 +241,10 @@ export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 #export PATH="$GCC_PREFIX/bin:$PATH"
 
 # Brew usts mirror
-export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
-HOMEBREW_NO_AUTO_UPDATE=1
+if [[ $(uname) == "Darwin" ]]; then
+  export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
+  HOMEBREW_NO_AUTO_UPDATE=1
+fi
 
 eval "$(nodenv init -)"
 
