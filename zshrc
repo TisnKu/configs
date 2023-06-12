@@ -119,7 +119,9 @@ function unvpn() {
 }
 
 # autojump
-[ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+if [[ $(uname) == "Darwin" ]]; then
+  [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+fi
 
 # arch
 function x86() {
