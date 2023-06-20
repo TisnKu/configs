@@ -1,9 +1,6 @@
 #!/bin/bash
 BASEDIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
-# init .zshrc
-#cp $BASEDIR/zshrc ~/.zshrc
-
 # init .vimrc
 ln -s $BASEDIR/nvim/vimrc ~/.vimrc
 
