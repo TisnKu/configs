@@ -17,18 +17,21 @@ vim.g.is_win = (has("win32") or has("win64")) and true or false
 vim.g.is_linux = (has("unix") and (not has("macunix"))) and true or false
 vim.g.is_mac = has("macunix") and true or false
 vim.g.format = true
-vim.g.clipboard = {
-  name = 'win32yank',
-  copy = {
-    ["+"] = 'win32yank.exe -i --crlf',
-    ["*"] = 'win32yank.exe -i --crlf',
-  },
-  paste = {
-    ["+"] = 'win32yank.exe -o --lf',
-    ["*"] = 'win32yank.exe -o --lf',
-  },
-  cache_enabled = 0,
-}
+vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") ~= "" and true or false
+if vim.g.is_wsl then
+  vim.g.clipboard = {
+    name = 'win32yank',
+    copy = {
+      ["+"] = 'win32yank.exe -i --crlf',
+      ["*"] = 'win32yank.exe -i --crlf',
+    },
+    paste = {
+      ["+"] = 'win32yank.exe -o --lf',
+      ["*"] = 'win32yank.exe -o --lf',
+    },
+    cache_enabled = 0,
+  }
+end
 
 -- Plugins
 local ensure_packer = function()
@@ -130,8 +133,8 @@ require("packer").startup(function(use)
   optuse("williamboman/mason.nvim")
   optuse("jose-elias-alvarez/null-ls.nvim")
   optuse("williamboman/mason-lspconfig.nvim")
-  use("neovim/nvim-lspconfig")
-  use({
+  optuse("neovim/nvim-lspconfig")
+  optuse({
     "TisnKu/lsp-setup.nvim",
     requires = {
       { "neovim/nvim-lspconfig",             opt = true },
@@ -139,7 +142,7 @@ require("packer").startup(function(use)
       { "williamboman/mason-lspconfig.nvim", opt = true },
     },
   })
-  use({
+  optuse({
     "pmizio/typescript-tools.nvim",
     requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
     config = function()
