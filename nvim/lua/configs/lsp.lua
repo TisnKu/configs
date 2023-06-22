@@ -95,18 +95,18 @@ require('lsp-setup').setup({
     eslint = {},
     jsonls = {},
     taplo = {},
-    tsserver = {
-      cmd = { 'typescript-language-server', '--stdio', '--log-level=4' },
-      init_options = {
-        maxTsServerMemory = 4096,
-      },
-      commands = {
-        OrganizeImports = {
-          lsp_organize_imports_sync,
-          description = "Organize Imports"
-        }
-      }
-    },
+    --tsserver = {
+    --  cmd = { 'typescript-language-server', '--stdio', '--log-level=4' },
+    --  init_options = {
+    --    maxTsServerMemory = 4096,
+    --  },
+    --  commands = {
+    --    OrganizeImports = {
+    --      lsp_organize_imports_sync,
+    --      description = "Organize Imports"
+    --    }
+    --  }
+    --},
     lua_ls = {
       settings = {
         Lua = {

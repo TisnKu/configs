@@ -6,11 +6,11 @@ vim.cmd("source ~/.vimrc")
 vim.cmd("let g:NERDDefaultAlign = 'left'")
 
 local has = function(feat)
-	if vim.fn.has(feat) == 1 then
-		return true
-	end
+  if vim.fn.has(feat) == 1 then
+    return true
+  end
 
-	return false
+  return false
 end
 
 vim.g.is_win = (has("win32") or has("win64")) and true or false
@@ -18,146 +18,147 @@ vim.g.is_linux = (has("unix") and (not has("macunix"))) and true or false
 vim.g.is_mac = has("macunix") and true or false
 vim.g.format = true
 vim.g.clipboard = {
-	name = 'win32yank',
-	copy = {
-		["+"] = 'win32yank.exe -i --crlf',
-		["*"] = 'win32yank.exe -i --crlf',
-	},
-	paste = {
-		["+"] = 'win32yank.exe -o --lf',
-		["*"] = 'win32yank.exe -o --lf',
-	},
-	cache_enabled = 0,
+  name = 'win32yank',
+  copy = {
+    ["+"] = 'win32yank.exe -i --crlf',
+    ["*"] = 'win32yank.exe -i --crlf',
+  },
+  paste = {
+    ["+"] = 'win32yank.exe -o --lf',
+    ["*"] = 'win32yank.exe -o --lf',
+  },
+  cache_enabled = 0,
 }
 
 -- Plugins
 local ensure_packer = function()
-	local fn = vim.fn
-	local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-	if fn.empty(fn.glob(install_path)) > 0 then
-		fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-		vim.cmd([[packadd packer.nvim]])
-		return true
-	end
-	return false
+  local fn = vim.fn
+  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+  if fn.empty(fn.glob(install_path)) > 0 then
+    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
+    vim.cmd([[packadd packer.nvim]])
+    return true
+  end
+  return false
 end
 
 local packer_bootstrap = ensure_packer()
 
 -- Plugins
 require("packer").startup(function(use)
-	local optuse = function(plugin, opts)
-		if opts == nil then
-			opts = { opt = true }
-		else
-			opts.opt = true
-		end
+  local optuse = function(plugin, opts)
+    if opts == nil then
+      opts = { opt = true }
+    else
+      opts.opt = true
+    end
 
-		use(plugin, opts)
-	end
+    use(plugin, opts)
+  end
 
-	optuse("wbthomason/packer.nvim")
-	optuse("projekt0n/github-nvim-theme")
-	optuse("kaicataldo/material.vim", { branch = "main" })
+  optuse("wbthomason/packer.nvim")
+  optuse("projekt0n/github-nvim-theme")
+  optuse("kaicataldo/material.vim", { branch = "main" })
 
-	optuse("machakann/vim-sandwich")
-	optuse("preservim/nerdtree")
-	optuse("scrooloose/nerdcommenter")
-	optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
-	optuse("windwp/nvim-autopairs")
-	optuse("yuttie/comfortable-motion.vim") -- Smooth scrolling
-	optuse({
-		"lukas-reineke/indent-blankline.nvim", -- Indentation lines
-		requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
-		config = function()
-			vim.opt.list = true
-			require("indent_blankline").setup({
-				show_current_context = true,
-			})
-		end,
-	})
+  optuse("machakann/vim-sandwich")
+  optuse("preservim/nerdtree")
+  optuse("scrooloose/nerdcommenter")
+  optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
+  optuse("windwp/nvim-autopairs")
+  optuse("yuttie/comfortable-motion.vim")  -- Smooth scrolling
+  optuse({
+    "lukas-reineke/indent-blankline.nvim", -- Indentation lines
+    requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
+    config = function()
+      vim.opt.list = true
+      require("indent_blankline").setup({
+        show_current_context = true,
+      })
+    end,
+  })
 
-	optuse({
-		'toppair/peek.nvim',
-		run = 'deno task --quiet build:fast',
-	})
+  optuse({
+    'toppair/peek.nvim',
+    run = 'deno task --quiet build:fast',
+  })
 
-	optuse {
-		'saecki/crates.nvim',
-		requires = { 'nvim-lua/plenary.nvim' },
-		config = function()
-		end,
-	}
-	optuse("dstein64/vim-startuptime")
-	optuse("github/copilot.vim")
-	optuse("nvim-lualine/lualine.nvim")
-	optuse("nvim-lua/plenary.nvim")
-	optuse("lewis6991/gitsigns.nvim")
-	optuse { 'sindrets/diffview.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  optuse {
+    'saecki/crates.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+    end,
+  }
+  optuse("dstein64/vim-startuptime")
+  optuse("github/copilot.vim")
+  optuse("nvim-lualine/lualine.nvim")
+  optuse("nvim-lua/plenary.nvim")
+  optuse("lewis6991/gitsigns.nvim")
+  optuse { 'sindrets/diffview.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
-	optuse({ "junegunn/fzf", run = ":call fzf#install()" })
-	if vim.g.is_win then
-		optuse { "nvim-telescope/telescope.nvim", tag = "0.1.0",
-			requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" } }
-	else
-		optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
-	end
-	optuse({ "hood/popui.nvim", requires = { 'RishabhRD/popfix' } })
+  optuse({ "junegunn/fzf", run = ":call fzf#install()" })
+  if vim.g.is_win then
+    optuse { "nvim-telescope/telescope.nvim", tag = "0.1.0",
+      requires = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-fzy-native.nvim" } }
+  else
+    optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
+  end
+  optuse({ "hood/popui.nvim", requires = { 'RishabhRD/popfix' } })
 
-	optuse({
-		"klen/nvim-test",
-		config = function()
-			require('nvim-test').setup()
-		end
-	})
+  optuse({
+    "klen/nvim-test",
+    config = function()
+      require('nvim-test').setup()
+    end
+  })
 
-	-- Visualize lsp progress
-	optuse({
-		"j-hui/fidget.nvim",
-		config = function()
-			require("fidget").setup()
-		end
-	})
-	-- LSP log panel
-	optuse({
-		"mhanberg/output-panel.nvim",
-		config = function()
-			require("output_panel").setup()
-		end
-	})
-	optuse("simrat39/rust-tools.nvim")
-	optuse("williamboman/mason.nvim")
-	optuse("jose-elias-alvarez/null-ls.nvim")
-	optuse("williamboman/mason-lspconfig.nvim")
-	optuse("neovim/nvim-lspconfig")
-	optuse({
-		"TisnKu/lsp-setup.nvim",
-		requires = {
-			{ "neovim/nvim-lspconfig",             opt = true },
-			{ "williamboman/mason.nvim",           opt = true },
-			{ "williamboman/mason-lspconfig.nvim", opt = true },
-		},
-	})
-	optuse({
-		"pmizio/typescript-tools.nvim",
-		requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-		config = function()
-			require("typescript-tools").setup {}
-		end,
-	})
-	-- coc
-	--optuse({ "neoclide/coc.nvim", run = ":call coc#util#install()", branch = "release" })
+  -- Visualize lsp progress
+  optuse({
+    "j-hui/fidget.nvim",
+    tag = 'legacy',
+    config = function()
+      require("fidget").setup()
+    end
+  })
+  -- LSP log panel
+  optuse({
+    "mhanberg/output-panel.nvim",
+    config = function()
+      require("output_panel").setup()
+    end
+  })
+  optuse("simrat39/rust-tools.nvim")
+  optuse("williamboman/mason.nvim")
+  optuse("jose-elias-alvarez/null-ls.nvim")
+  optuse("williamboman/mason-lspconfig.nvim")
+  use("neovim/nvim-lspconfig")
+  use({
+    "TisnKu/lsp-setup.nvim",
+    requires = {
+      { "neovim/nvim-lspconfig",             opt = true },
+      { "williamboman/mason.nvim",           opt = true },
+      { "williamboman/mason-lspconfig.nvim", opt = true },
+    },
+  })
+  use({
+    "pmizio/typescript-tools.nvim",
+    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    config = function()
+      require("typescript-tools").setup {}
+    end,
+  })
+  -- coc
+  --optuse({ "neoclide/coc.nvim", run = ":call coc#util#install()", branch = "release" })
 
-	optuse("hrsh7th/cmp-nvim-lsp")
-	optuse("hrsh7th/cmp-buffer")
-	optuse("hrsh7th/cmp-path")
-	optuse("hrsh7th/cmp-cmdline")
-	optuse("hrsh7th/cmp-vsnip")
-	optuse("hrsh7th/vim-vsnip")
-	optuse("hrsh7th/nvim-cmp")
+  optuse("hrsh7th/cmp-nvim-lsp")
+  optuse("hrsh7th/cmp-buffer")
+  optuse("hrsh7th/cmp-path")
+  optuse("hrsh7th/cmp-cmdline")
+  optuse("hrsh7th/cmp-vsnip")
+  optuse("hrsh7th/vim-vsnip")
+  optuse("hrsh7th/nvim-cmp")
 
-	if packer_bootstrap then
-		require("packer").sync()
-	end
+  if packer_bootstrap then
+    require("packer").sync()
+  end
 end)
 -- End plugins
