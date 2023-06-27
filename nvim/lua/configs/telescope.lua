@@ -21,12 +21,13 @@ telescope.setup {
     },
   },
 }
-telescope.load_extension('fzy_native')
+telescope.load_extension('fzf')
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>f", "<cmd>Telescope find_files<CR>", opts)
 vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>", opts)
-vim.keymap.set("n", "<leader>rg", "<cmd>Telescope live_grep<CR>", opts)
-vim.keymap.set("n", "gw", "<cmd>Telescope grep_string<CR>", opts)
+vim.keymap.set("n", "<leader>rg",
+  ":lua require('telescope.builtin').grep_string({search = vim.fn.input('Search term: ')})<CR>", opts)
+vim.keymap.set("n", "<leader>gw", "<cmd>Telescope grep_string<CR>", opts)
 vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)
