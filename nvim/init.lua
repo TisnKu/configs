@@ -68,7 +68,7 @@ require("packer").startup(function(use)
   optuse("scrooloose/nerdcommenter")
   optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   optuse("windwp/nvim-autopairs")
-  optuse("yuttie/comfortable-motion.vim") -- Smooth scrolling
+  optuse("yuttie/comfortable-motion.vim")  -- Smooth scrolling
   optuse({
     "lukas-reineke/indent-blankline.nvim", -- Indentation lines
     requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
@@ -100,8 +100,7 @@ require("packer").startup(function(use)
 
   optuse({ "junegunn/fzf", run = ":call fzf#install()" })
   if vim.g.is_win then
-    optuse { 'nvim-telescope/telescope-fzf-native.nvim',
-      run = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build' }
+    optuse { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     optuse { "nvim-telescope/telescope.nvim", tag = "0.1.0",
       requires = { "nvim-lua/plenary.nvim" } }
   else
@@ -139,8 +138,8 @@ require("packer").startup(function(use)
   optuse({
     "TisnKu/lsp-setup.nvim",
     requires = {
-      { "neovim/nvim-lspconfig", opt = true },
-      { "williamboman/mason.nvim", opt = true },
+      { "neovim/nvim-lspconfig",             opt = true },
+      { "williamboman/mason.nvim",           opt = true },
       { "williamboman/mason-lspconfig.nvim", opt = true },
     },
   })
