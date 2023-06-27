@@ -34,3 +34,9 @@ vim.keymap.set('v', '<leader>gw', ':lua require("fzf-lua").grep_visual()<CR>', o
 vim.keymap.set('n', '<leader>m', ':lua require("fzf-lua").keymaps()<CR>', opts)
 vim.keymap.set('n', '<leader>b', ':lua require("fzf-lua").buffers()<CR>', opts)
 vim.keymap.set('n', '<leader>rs', ':lua require("fzf-lua").resume()<CR>', opts)
+
+-- lsp keymaps
+vim.keymap.set('n', 'gd', ':lua require("fzf-lua").lsp_definitions()<CR>', opts)
+vim.keymap.set('n', 'gi', ':lua require("fzf-lua").lsp_implementations()<CR>', opts)
+vim.keymap.set('n', 'gr', ':lua require("fzf-lua").lsp_references()<CR>', opts)
+vim.keymap.set('n', 'gt', ':lua require("fzf-lua").lsp_typedefs()<CR>', opts)

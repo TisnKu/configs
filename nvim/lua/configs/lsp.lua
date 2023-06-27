@@ -1,13 +1,7 @@
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', 'gd', ':lua require("fzf-lua").lsp_definitions()<CR>', opts)
-vim.keymap.set('n', 'gi', ':lua require("fzf-lua").lsp_implementations()<CR>', opts)
-vim.keymap.set('n', 'gr', ':lua require("fzf-lua").lsp_references()<CR>', opts)
 
 local mappings = {
   gD = 'lua vim.lsp.buf.declaration({ timeout_ms = 10000 })',
-  ['<space>gd'] = 'lua vim.lsp.buf.definition()',
-  ['<space>gr'] = 'lua vim.lsp.buf.references()',
-  gt = 'lua vim.lsp.buf.type_definition()',
   K = 'lua vim.lsp.buf.hover()',
   ['<c-k>'] = 'lua vim.lsp.buf.signature_help()',
   ['<space>rn'] = 'lua vim.lsp.buf.rename()',
@@ -15,10 +9,8 @@ local mappings = {
   ['<space>e'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
   [']d'] = 'lua vim.diagnostic.goto_next()',
-  ['<space>sts'] = 'LspRestart tsserver',
   ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
   ['<space>o'] = 'OrganizeImports',
-  ['<space>ll'] = 'lua print(vim.inspect(vim.lsp.buf_get_clients()))'
 }
 vim.keymap.set('v', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
