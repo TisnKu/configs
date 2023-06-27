@@ -6,6 +6,21 @@ end
 local actions = require("telescope.actions")
 telescope.setup {
   defaults = {
+    sorting_strategy = "ascending",
+    layout_strategy = "horizontal",
+    layout_config = {
+      horizontal = {
+        width = 0.9,
+        height = 0.75,
+        preview_width = 0.6,
+      },
+      vertical = {
+        width = 0.9,
+        height = 0.8,
+        preview_height = 0.5,
+      },
+      prompt_position = "top",
+    },
     file_ignore_patterns = { "node_modules" },
     preview = {
       treesitter = false,
