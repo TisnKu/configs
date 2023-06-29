@@ -59,6 +59,16 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 })
 
+require('typescript-tools').setup({
+  on_attach = function(client, _)
+    require('lsp-setup.utils').disable_formatting(client)
+  end,
+  settings = {
+    tsserver_max_memory = 8092,
+    separate_diagnostic_server = false,
+  }
+})
+
 require('lsp-setup').setup({
   default_mappings = false,
   mappings = mappings,
@@ -76,21 +86,6 @@ require('lsp-setup').setup({
   capabilities = vim.lsp.protocol.make_client_capabilities(),
   -- Configuration of LSP servers
   servers = {
-    ['typescript-tools'] = {
-      ensure_installed = false,
-      settings = {
-        tsserver_max_memory = 8092,
-        separate_diagnostic_server = false,
-        typescript = {
-          format = {
-            enable = false,
-          },
-        },
-      },
-    },
-    ['null-ls'] = {
-      ensure_installed = false,
-    },
     ['powershell_es'] = {
       ensure_installed = false,
       bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\powershell-editor-services',

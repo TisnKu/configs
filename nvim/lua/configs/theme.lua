@@ -35,7 +35,6 @@ dashboard.section.buttons.val = {
 
 -- Send config to alpha
 alpha.setup(dashboard.opts)
-vim.cmd("Alpha")
 
 -- Disable folding on alpha buffer
 vim.cmd([[
