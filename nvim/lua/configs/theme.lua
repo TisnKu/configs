@@ -40,3 +40,8 @@ alpha.setup(dashboard.opts)
 vim.cmd([[
     autocmd FileType alpha setlocal nofoldenable
 ]])
+
+-- Open alpha buffer on startup only when directory is opened
+vim.cmd([[
+    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | Alpha | endif
+]])
