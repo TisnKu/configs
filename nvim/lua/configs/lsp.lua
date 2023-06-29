@@ -34,12 +34,8 @@ _G.lsp_organize_imports_sync = function(bufnr)
     title = ""
   }
 
-  -- perform a syncronous request
-  -- 500ms timeout depending on the size of file a bigger timeout may be needed
-  --print("Organizing imports...")
   vim.lsp.buf_request_sync(bufnr, "workspace/executeCommand", params, 2000)
   vim.lsp.buf.format({ timeout_ms = 2000 })
-  --print("Organizing imports done.")
 end
 
 local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
@@ -48,12 +44,11 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   callback = function()
     local current_folder = vim.loop.cwd()
     local skipFolders = {
-      'teams-modular-packages',
-      'Teamspace-Web'
-    }
+      ['Teamspace-Web'] = { 'json', 'tsx' },
+    };
 
-    for _, folder in ipairs(skipFolders) do
-      if string.find(current_folder, folder, 1, true) ~= nil then
+    for folder, extensions in pairs(skipFolders) do
+      if string.find(current_folder, folder, 1, true) ~= nil and _G.contains(extensions, vim.bo.filetype) then
         print('Skipping formatting for ' .. current_folder)
         return
       end
@@ -67,8 +62,9 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 require('lsp-setup').setup({
   default_mappings = false,
   mappings = mappings,
-  on_attach = function(client, bufnr)
+  on_attach = function(client, _)
     local clients_no_formatting = {
+      'typescript-tools',
       'jsonls',
       'taplo'
     };
@@ -79,10 +75,19 @@ require('lsp-setup').setup({
   -- Global capabilities
   capabilities = vim.lsp.protocol.make_client_capabilities(),
   -- Configuration of LSP servers
-
   servers = {
-    -- Install LSP servers automatically
-    -- LSP server configuration please see: https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+    ['typescript-tools'] = {
+      ensure_installed = false,
+      settings = {
+        tsserver_max_memory = 8092,
+        separate_diagnostic_server = false,
+        typescript = {
+          format = {
+            enable = false,
+          },
+        },
+      },
+    },
     ['null-ls'] = {
       ensure_installed = false,
     },

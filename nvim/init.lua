@@ -68,7 +68,7 @@ require("packer").startup(function(use)
   optuse("scrooloose/nerdcommenter")
   optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   optuse("windwp/nvim-autopairs")
-  optuse("yuttie/comfortable-motion.vim")  -- Smooth scrolling
+  optuse("yuttie/comfortable-motion.vim") -- Smooth scrolling
   optuse({
     "lukas-reineke/indent-blankline.nvim", -- Indentation lines
     requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
@@ -138,25 +138,12 @@ require("packer").startup(function(use)
   optuse({
     "TisnKu/lsp-setup.nvim",
     requires = {
-      { "neovim/nvim-lspconfig",             opt = true },
-      { "williamboman/mason.nvim",           opt = true },
+      { "neovim/nvim-lspconfig", opt = true },
+      { "williamboman/mason.nvim", opt = true },
       { "williamboman/mason-lspconfig.nvim", opt = true },
     },
   })
-  optuse({
-    "pmizio/typescript-tools.nvim",
-    requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
-    config = function()
-      require("typescript-tools").setup {
-        settings = {
-          tsserver_max_memory = 8092,
-          separate_diagnostic_server = false,
-        }
-      }
-    end,
-  })
-  -- coc
-  --optuse({ "neoclide/coc.nvim", run = ":call coc#util#install()", branch = "release" })
+  optuse({ "pmizio/typescript-tools.nvim", requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } })
 
   optuse("hrsh7th/cmp-nvim-lsp")
   optuse("hrsh7th/cmp-buffer")
