@@ -46,13 +46,20 @@ local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = tr
 vim.api.nvim_create_autocmd('BufWritePre', {
   group = lsp_format_augroup,
   callback = function()
-    --if vim.bo.filetype == 'typescript' then
-    --  lsp_organize_imports_sync()
-    --end
     local current_folder = vim.loop.cwd()
-    if current_folder:find('Teamspace-Web') then
-      return
+    local skipFolders = {
+      'teams-modular-packages',
+      'Teamspace-Web'
+    }
+
+    for _, folder in ipairs(skipFolders) do
+      if string.find(current_folder, folder, 1, true) ~= nil then
+        print('Skipping formatting for ' .. current_folder)
+        return
+      end
     end
+
+    print('Formatting...')
     vim.lsp.buf.format({ timeout_ms = 2000 })
   end,
 })
