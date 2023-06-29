@@ -1,15 +1,14 @@
 -- Load immediately after startup
-require("configs.nerdtree")
 require("configs.theme")
 require("utils").trySetup("lualine", {
   theme = "auto",
-  extensions = { "nerdtree" },
-  --options = {
-  --theme = require('material.lualine'),
-  --}
+  extensions = { "fern" },
+  options = {
+    theme = 'auto'
+  }
 })
 require("configs.cmp")
-
+require("configs.fern")
 
 -- Defer loading until after vim has started
 vim.defer_fn(function()
@@ -17,13 +16,11 @@ vim.defer_fn(function()
   require("configs.diffview")
   require("configs.gitsigns")
   require("configs.lsp")
-  --require('configs.coc')
   require("configs.null-ls")
   require("configs.popui")
   require("configs.treesitter")
   require("configs.fzflua")
   require("configs.telescope")
-  require("configs.nerdtree")
   require("configs.theme")
   require("configs.peek")
   require('configs.crates')

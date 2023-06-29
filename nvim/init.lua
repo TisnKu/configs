@@ -13,6 +13,8 @@ local has = function(feat)
   return false
 end
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 vim.g.is_win = (has("win32") or has("win64")) and true or false
 vim.g.is_linux = (has("unix") and (not has("macunix"))) and true or false
 vim.g.is_mac = has("macunix") and true or false
@@ -62,9 +64,16 @@ require("packer").startup(function(use)
   optuse("wbthomason/packer.nvim")
   optuse("projekt0n/github-nvim-theme")
   optuse("kaicataldo/material.vim", { branch = "main" })
+  use {
+    'goolord/alpha-nvim',
+    requires = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+    end
+  }
 
   optuse("machakann/vim-sandwich")
-  optuse("preservim/nerdtree")
+  optuse("lambdalisue/fern.vim")
   optuse("scrooloose/nerdcommenter")
   optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   optuse("windwp/nvim-autopairs")
