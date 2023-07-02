@@ -5,14 +5,13 @@ local mappings = {
   K = 'lua vim.lsp.buf.hover()',
   ['<c-k>'] = 'lua vim.lsp.buf.signature_help()',
   ['<space>rn'] = 'lua vim.lsp.buf.rename()',
-  ['<space>f'] = 'lua vim.lsp.buf.format({ timeout_ms = 2000 })',
   ['<space>e'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
   [']d'] = 'lua vim.diagnostic.goto_next()',
-  ['<space>ca'] = 'lua vim.lsp.buf.code_action()',
   ['<space>o'] = 'OrganizeImports',
 }
-vim.keymap.set('v', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set('n', '<space>f', '<cmd>lua vim.lsp.buf.format({ timeout_ms = 2000 })<CR>')
 
 _G.contains = function(table, element)
   for _, value in pairs(table) do
@@ -60,8 +59,9 @@ vim.api.nvim_create_autocmd('BufWritePre', {
 })
 
 require('typescript-tools').setup({
-  on_attach = function(client, _)
+  on_attach = function(client, bufnr)
     require('lsp-setup.utils').disable_formatting(client)
+    require('lsp-setup.utils').mappings(bufnr, mappings)
   end,
   settings = {
     tsserver_max_memory = 8092,
