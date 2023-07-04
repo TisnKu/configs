@@ -51,8 +51,8 @@ vim.keymap.set("n", "<leader>m", "<cmd>Telescope keymaps<CR>", opts)
 vim.keymap.set("n", "<leader>gst", "<cmd>Telescope git_status<CR>", opts)
 vim.keymap.set("n", "<leader>rs", "<cmd>Telescope resume<CR>", opts)
 
-vim.cmd("cnoreabbrev TP Telescope")
-vim.cmd("cnoreabbrev Tp Telescope")
+vim.cmd("cnoreabbrev TL Telescope")
+vim.cmd("cnoreabbrev Tl Telescope")
 vim.cmd [[
   autocmd User TelescopePreviewerLoaded setlocal wrap
 ]]
