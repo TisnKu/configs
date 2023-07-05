@@ -8,8 +8,8 @@ end)
 
 return {
   font = wezterm.font 'JetBrains Mono',
-  --default_domain = 'WSL:Ubuntu',
-  default_prog = { 'pwsh' },
+  default_domain = 'WSL:Ubuntu',
+  --default_prog = { 'pwsh' },
   keys = {
     {
       key = 'a', mods = 'ALT', action = wezterm.action.ShowLauncher,
