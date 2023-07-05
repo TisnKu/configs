@@ -8,17 +8,17 @@ end)
 
 return {
   font = wezterm.font 'JetBrains Mono',
-  default_domain = 'WSL:Ubuntu',
-  --default_prog = { 'pwsh.exe' },
+  --default_domain = 'WSL:Ubuntu',
+  default_prog = { 'pwsh' },
   keys = {
     {
-      key = 'z', mods = 'ALT', action = wezterm.action.ShowLauncher,
+      key = 'a', mods = 'ALT', action = wezterm.action.ShowLauncher,
     }
   },
   launch_menu = {
     {
-      label = "Powershell Core",
-      args = { "pwsh.exe" }
+      label = "PowerShell Core",
+      args = { "pwsh" }
     }
   },
   window_decorations = "RESIZE"
