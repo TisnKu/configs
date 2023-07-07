@@ -74,7 +74,7 @@ require("packer").startup(function(use)
 
 
   optuse("machakann/vim-sandwich")
-  optuse("lambdalisue/fern.vim")
+  --optuse("lambdalisue/fern.vim")
   optuse("preservim/nerdtree")
   optuse("scrooloose/nerdcommenter")
   optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })

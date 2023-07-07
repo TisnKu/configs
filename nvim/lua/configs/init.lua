@@ -11,8 +11,8 @@ require("configs.cmp")
 
 -- Defer loading until after vim has started
 vim.defer_fn(function()
-  --require('configs.nerdtree')
-  require("configs.fern")
+  require('configs.nerdtree')
+  --require("configs.fern")
   require("utils").trySetup("nvim-autopairs")
   require("configs.diffview")
   require("configs.gitsigns")
