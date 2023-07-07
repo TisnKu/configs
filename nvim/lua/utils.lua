@@ -1,4 +1,5 @@
 local M = {};
+
 M.trySetup = function(package, opts)
   local ok, p = pcall(require, package)
   if not ok then

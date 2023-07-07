@@ -22,16 +22,16 @@ vim.g.format = true
 vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") ~= "" and true or false
 if vim.g.is_wsl then
   vim.g.clipboard = {
-      name = 'win32yank',
-      copy = {
-          ["+"] = 'win32yank.exe -i --crlf',
-          ["*"] = 'win32yank.exe -i --crlf',
-      },
-      paste = {
-          ["+"] = 'win32yank.exe -o --lf',
-          ["*"] = 'win32yank.exe -o --lf',
-      },
-      cache_enabled = 0,
+    name = 'win32yank',
+    copy = {
+      ["+"] = 'win32yank.exe -i --crlf',
+      ["*"] = 'win32yank.exe -i --crlf',
+    },
+    paste = {
+      ["+"] = 'win32yank.exe -o --lf',
+      ["*"] = 'win32yank.exe -o --lf',
+    },
+    cache_enabled = 0,
   }
 end
 
@@ -65,40 +65,42 @@ require("packer").startup(function(use)
   optuse("projekt0n/github-nvim-theme")
   optuse("kaicataldo/material.vim", { branch = "main" })
   use {
-      'goolord/alpha-nvim',
-      requires = { 'nvim-tree/nvim-web-devicons' },
-      config = function()
-        require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
-      end
+    'goolord/alpha-nvim',
+    requires = { 'nvim-tree/nvim-web-devicons' },
+    config = function()
+      require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+    end
   }
+
 
   optuse("machakann/vim-sandwich")
   optuse("lambdalisue/fern.vim")
+  optuse("preservim/nerdtree")
   optuse("scrooloose/nerdcommenter")
   optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   optuse("windwp/nvim-autopairs")
-  optuse("yuttie/comfortable-motion.vim") -- Smooth scrolling
+  optuse("yuttie/comfortable-motion.vim")  -- Smooth scrolling
   optuse({
-      "lukas-reineke/indent-blankline.nvim", -- Indentation lines
-      requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
-      config = function()
-        vim.opt.list = true
-        require("indent_blankline").setup({
-            show_current_context = true,
-        })
-      end,
+    "lukas-reineke/indent-blankline.nvim", -- Indentation lines
+    requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
+    config = function()
+      vim.opt.list = true
+      require("indent_blankline").setup({
+        show_current_context = true,
+      })
+    end,
   })
 
   optuse({
-      'toppair/peek.nvim',
-      run = 'deno task --quiet build:fast',
+    'toppair/peek.nvim',
+    run = 'deno task --quiet build:fast',
   })
 
   optuse {
-      'saecki/crates.nvim',
-      requires = { 'nvim-lua/plenary.nvim' },
-      config = function()
-      end,
+    'saecki/crates.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+    end,
   }
   optuse("dstein64/vim-startuptime")
   optuse("github/copilot.vim")
@@ -111,33 +113,33 @@ require("packer").startup(function(use)
   if vim.g.is_win or vim.g.is_wsl then
     optuse { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     optuse { "nvim-telescope/telescope.nvim", tag = "0.1.0",
-        requires = { "nvim-lua/plenary.nvim" } }
+      requires = { "nvim-lua/plenary.nvim" } }
   else
     optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   end
   optuse({ "hood/popui.nvim", requires = { 'RishabhRD/popfix' } })
 
   optuse({
-      "klen/nvim-test",
-      config = function()
-        require('nvim-test').setup()
-      end
+    "klen/nvim-test",
+    config = function()
+      require('nvim-test').setup()
+    end
   })
 
   -- Visualize lsp progress
   optuse({
-      "j-hui/fidget.nvim",
-      tag = 'legacy',
-      config = function()
-        require("fidget").setup()
-      end
+    "j-hui/fidget.nvim",
+    tag = 'legacy',
+    config = function()
+      require("fidget").setup()
+    end
   })
   -- LSP log panel
   optuse({
-      "mhanberg/output-panel.nvim",
-      config = function()
-        require("output_panel").setup()
-      end
+    "mhanberg/output-panel.nvim",
+    config = function()
+      require("output_panel").setup()
+    end
   })
   optuse("simrat39/rust-tools.nvim")
   optuse("williamboman/mason.nvim")
@@ -145,12 +147,12 @@ require("packer").startup(function(use)
   optuse("williamboman/mason-lspconfig.nvim")
   optuse("neovim/nvim-lspconfig")
   optuse({
-      "TisnKu/lsp-setup.nvim",
-      requires = {
-          { "neovim/nvim-lspconfig",             opt = true },
-          { "williamboman/mason.nvim",           opt = true },
-          { "williamboman/mason-lspconfig.nvim", opt = true },
-      },
+    "TisnKu/lsp-setup.nvim",
+    requires = {
+      { "neovim/nvim-lspconfig",             opt = true },
+      { "williamboman/mason.nvim",           opt = true },
+      { "williamboman/mason-lspconfig.nvim", opt = true },
+    },
   })
   optuse({ "pmizio/typescript-tools.nvim", requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } })
 

@@ -2,16 +2,17 @@
 require("configs.theme")
 require("utils").trySetup("lualine", {
   theme = "auto",
-  extensions = { "fern" },
+  --extensions = { "fern" },
   options = {
     theme = 'auto'
   }
 })
 require("configs.cmp")
-require("configs.fern")
 
 -- Defer loading until after vim has started
 vim.defer_fn(function()
+  --require('configs.nerdtree')
+  require("configs.fern")
   require("utils").trySetup("nvim-autopairs")
   require("configs.diffview")
   require("configs.gitsigns")
