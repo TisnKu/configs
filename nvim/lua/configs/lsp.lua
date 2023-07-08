@@ -63,7 +63,7 @@ require('typescript-tools').setup({
     require('lsp-setup.utils').mappings(bufnr, mappings)
   end,
   settings = {
-    tsserver_max_memory = 8092,
+    tsserver_max_memory = 12288,
     separate_diagnostic_server = false,
   }
 })
@@ -130,3 +130,19 @@ require('lsp-setup').setup({
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
   border = "rounded",
 })
+
+function vim.g.buf_update_diagnostics()
+  local clients = vim.lsp.buf_get_clients()
+  local buf = vim.api.nvim_get_current_buf()
+
+  for _, client in ipairs(clients) do
+    if vim.lsp.diagnostic.get then
+      local diagnostics = vim.lsp.diagnostic.get(buf, client.id)
+      vim.lsp.diagnostic.display(diagnostics, buf, client.id)
+    end
+  end
+end
+
+vim.api.nvim_exec([[
+    au CursorHold <buffer> lua vim.g.buf_update_diagnostics()
+]], false)
