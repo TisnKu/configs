@@ -1,3 +1,6 @@
+vim.cmd("cnoreabbrev Dom DiffviewOpen master")
+vim.cmd("cnoreabbrev DOm DiffviewOpen master")
+vim.cmd("cnoreabbrev DOM DiffviewOpen master")
 vim.cmd("cnoreabbrev DO DiffviewOpen")
 vim.cmd("cnoreabbrev Do DiffviewOpen")
 vim.cmd("cnoreabbrev DFH DiffviewFileHistory")
