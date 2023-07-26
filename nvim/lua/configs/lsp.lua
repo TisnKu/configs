@@ -43,11 +43,11 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   callback = function()
     local current_folder = vim.loop.cwd()
     local skipFolders = {
-      ['Teamspace-Web'] = { 'json', 'tsx' },
+      ['Teamspace-Web'] = { 'json', 'tsx', 'typescript' },
     };
 
     for folder, extensions in pairs(skipFolders) do
-      if string.find(current_folder, folder, 1, true) ~= nil and _G.contains(extensions, vim.bo.filetype) then
+      if string.find(current_folder, folder, 1, true) ~= nil then
         print('Skipping formatting for ' .. current_folder)
         return
       end
