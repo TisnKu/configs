@@ -63,6 +63,30 @@ require("packer").startup(function(use)
 
   optuse("wbthomason/packer.nvim")
   optuse("projekt0n/github-nvim-theme")
+  use { "catppuccin/nvim", as = "catppuccin", opts = {
+    term_colors = true,
+    transparent_background = false,
+    styles = {
+      comments = {},
+      conditionals = {},
+      loops = {},
+      functions = {},
+      keywords = {},
+      strings = {},
+      variables = {},
+      numbers = {},
+      booleans = {},
+      properties = {},
+      types = {},
+    },
+    color_overrides = {
+      mocha = {
+        base = "#000000",
+        mantle = "#000000",
+        crust = "#000000",
+      },
+    },
+  } }
   optuse("kaicataldo/material.vim", { branch = "main" })
   use {
     'goolord/alpha-nvim',

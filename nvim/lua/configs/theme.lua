@@ -1,5 +1,5 @@
-require("github-theme").setup {}
-vim.cmd [[colorscheme github_dark_high_contrast]]
+--require("github-theme").setup {}
+vim.cmd [[colorscheme catppuccin-mocha]]
 --vim.cmd [[
 --  colorscheme material
 --  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
