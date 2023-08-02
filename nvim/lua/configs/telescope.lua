@@ -44,6 +44,7 @@ vim.keymap.set("n", "<leader>gb", "<cmd>Telescope current_buffer_fuzzy_find<CR>"
 vim.keymap.set("n", "<leader>gl", "<cmd>Telescope live_grep<CR>", opts)
 vim.keymap.set("n", "<leader>rg",
   ":lua require('telescope.builtin').grep_string({search = vim.fn.input('Search term: ')})<CR>", opts)
+vim.keymap.set("v", "<leader>gv", '"zy:Telescope grep_string search=<C-r>z<cr>', opts)
 vim.keymap.set("n", "<leader>gw", "<cmd>Telescope grep_string<CR>", opts)
 vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
