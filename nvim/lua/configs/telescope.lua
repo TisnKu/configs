@@ -36,15 +36,32 @@ telescope.setup {
     },
   },
 }
+
+table.unpack = table.unpack or unpack -- 5.1 compatibility
+
+-- Define a function to get visual selection in current line
+vim.g.get_visual_selection = function()
+  local _, ls, cs = table.unpack(vim.fn.getpos("'<"))
+  local _, le, ce = table.unpack(vim.fn.getpos("'>"))
+  local visual_selection = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+  return table.concat(visual_selection, "\n")
+end
+
 telescope.load_extension('fzf')
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>f", "<cmd>Telescope find_files<CR>", opts)
 vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>", opts)
 vim.keymap.set("n", "<leader>gb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
 vim.keymap.set("n", "<leader>gl", "<cmd>Telescope live_grep<CR>", opts)
+vim.keymap.set("n", "<leader>gf",
+  ":lua require('telescope.builtin').find_files({default_text = vim.fn.expand('<cword>')})<CR>",
+  opts)
+vim.keymap.set("v", "<leader>gf",
+  ":lua require('telescope.builtin').find_files({default_text = vim.g.get_visual_selection()})<CR>", opts)
 vim.keymap.set("n", "<leader>rg",
   ":lua require('telescope.builtin').grep_string({search = vim.fn.input('Search term: ')})<CR>", opts)
-vim.keymap.set("v", "<leader>gv", '"zy:Telescope grep_string search=<C-r>z<cr>', opts)
+vim.keymap.set("v", "<leader>gv",
+  ":lua require('telescope.builtin').grep_string({search = vim.g.get_visual_selection()})<CR>", opts)
 vim.keymap.set("n", "<leader>gw", "<cmd>Telescope grep_string<CR>", opts)
 vim.keymap.set("n", "gt", "<cmd>Telescope lsp_type_definitions<CR>", opts)
 vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
