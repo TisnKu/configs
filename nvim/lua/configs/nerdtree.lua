@@ -4,7 +4,9 @@ vim.cmd [[
       if exists("g:NERDTree") && g:NERDTree.IsOpen()
           NERDTreeClose
       elseif filereadable(expand('%'))
-          NERDTreeFind
+          let filename = expand('%')
+          NERDTree %
+          execute 'NERDTreeFind ' . filename
       else
           NERDTree
       endif
