@@ -13,7 +13,7 @@ local has = function(feat)
   return false
 end
 
--- Define a function to get visual selection in current line
+table.unpack = table.unpack or unpack
 vim.g.get_visual_selection = function()
   local _, ls, cs = table.unpack(vim.fn.getpos("'<"))
   local _, le, ce = table.unpack(vim.fn.getpos("'>"))

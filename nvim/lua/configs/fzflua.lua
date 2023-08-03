@@ -25,14 +25,19 @@ vim.cmd("cnoreabbrev FL FzfLua")
 local opts = { noremap = true, silent = true }
 --vim.keymap.set('n', '<space>ca', ':lua require("fzf-lua").lsp_code_actions({winopts = {win_width= 0.3}})<CR>', opts)
 vim.keymap.set('n', '<leader>f', ':lua require("fzf-lua").files()<CR>', opts)
-vim.keymap.set('n', '<leader>gst', ':lua require("fzf-lua").git_status()<CR>', opts)
-vim.keymap.set('n', '<leader>rg', ':lua require("fzf-lua").grep()<CR>', opts)
+vim.keymap.set('n', '<leader>gf', ':lua require("fzf-lua").files({query = vim.fn.expand("<cword>")})<CR>', opts)
+vim.keymap.set('v', '<leader>gf', ':lua require("fzf-lua").files({query = vim.g.get_visual_selection()})<CR>', opts)
+
+vim.keymap.set('n', '<leader>gb', ':lua require("fzf-lua").grep_curbuf()<CR>', opts)
 vim.keymap.set('n', '<leader>gl', ':lua require("fzf-lua").grep_last()<CR>', opts)
+vim.keymap.set('n', '<leader>rg', ':lua require("fzf-lua").grep()<CR>', opts)
 vim.keymap.set('n', '<leader>gw', ':lua require("fzf-lua").grep_cword()<CR>', opts)
 vim.keymap.set('n', '<leader>gW', ':lua require("fzf-lua").grep_cWORD()<CR>', opts)
 vim.keymap.set('v', '<leader>gv', ':lua require("fzf-lua").grep_visual()<CR>', opts)
-vim.keymap.set('n', '<leader>m', ':lua require("fzf-lua").keymaps()<CR>', opts)
+
 vim.keymap.set('n', '<leader>b', ':lua require("fzf-lua").buffers()<CR>', opts)
+vim.keymap.set('n', '<leader>m', ':lua require("fzf-lua").keymaps()<CR>', opts)
+vim.keymap.set('n', '<leader>gst', ':lua require("fzf-lua").git_status()<CR>', opts)
 vim.keymap.set('n', '<leader>rs', ':lua require("fzf-lua").resume()<CR>', opts)
 
 -- lsp keymaps
