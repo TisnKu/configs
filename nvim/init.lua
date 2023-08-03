@@ -134,7 +134,7 @@ require("packer").startup(function(use)
   optuse { 'sindrets/diffview.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
   optuse({ "junegunn/fzf", run = ":call fzf#install()" })
-  if vim.g.is_win or vim.g.is_wsl or vim.g.is_mac or vim.g.is_linux then
+  if vim.g.is_win then
     optuse { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     optuse { "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } }
   else
