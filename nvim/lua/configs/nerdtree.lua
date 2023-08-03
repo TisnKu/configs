@@ -5,7 +5,11 @@ vim.cmd [[
           NERDTreeClose
       elseif filereadable(expand('%'))
           let filename = expand('%')
-          NERDTree %
+          let parent_dir = fnamemodify(filename, ":h")
+          if !exists("g:NERDTreeCurDir") || g:NERDTreeCurDir!= parent_dir
+              let g:NERDTreeCurDir = parent_dir
+              NERDTree %
+          endif
           execute 'NERDTreeFind ' . filename
       else
           NERDTree
