@@ -13,6 +13,14 @@ local has = function(feat)
   return false
 end
 
+-- Define a function to get visual selection in current line
+vim.g.get_visual_selection = function()
+  local _, ls, cs = table.unpack(vim.fn.getpos("'<"))
+  local _, le, ce = table.unpack(vim.fn.getpos("'>"))
+  local visual_selection = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
+  return table.concat(visual_selection, "\n")
+end
+
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.is_win = (has("win32") or has("win64")) and true or false
