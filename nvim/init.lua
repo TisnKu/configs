@@ -42,6 +42,7 @@ if vim.g.is_wsl then
     cache_enabled = 0,
   }
 end
+require("completeCurrentLine")
 
 -- Plugins
 local ensure_packer = function()
