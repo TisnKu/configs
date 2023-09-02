@@ -125,6 +125,13 @@ require("packer").startup(function(use)
   })
 
   optuse({
+    "ThePrimeagen/refactoring.nvim",
+    requires = {
+      { "nvim-lua/plenary.nvim" },
+      { "nvim-treesitter/nvim-treesitter" }
+    }
+  })
+  optuse({
     'toppair/peek.nvim',
     run = 'deno task --quiet build:fast',
   })
