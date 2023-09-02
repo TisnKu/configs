@@ -72,4 +72,4 @@ vim.cmd('command! -nargs=0 CompleteLine lua Complete_line()')
 
 -- Map "\+c" to trigger the completion
 vim.api.nvim_set_keymap('n', '\\c', ':CompleteLine<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '\\c', '<cmd>CompleteLine<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('i', '\\c', '<esc>:CompleteLine<CR>', { noremap = true, silent = true })
