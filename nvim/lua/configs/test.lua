@@ -1,2 +1,2 @@
 require('nvim-test').setup()
-vim.api.nvim_set_keymap('n', '\\te', ':TestEdit<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>te', ':TestEdit<CR>', { noremap = true })
