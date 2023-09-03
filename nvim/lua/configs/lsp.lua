@@ -127,9 +127,10 @@ require('lsp-setup').setup({
   },
 })
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-  border = "rounded",
-})
+-- let noice handle it
+--vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+--  border = "rounded",
+--})
 
 function vim.g.buf_update_diagnostics()
   local clients = vim.lsp.buf_get_clients()

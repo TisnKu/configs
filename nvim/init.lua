@@ -105,6 +105,10 @@ require("packer").startup(function(use)
     end
   }
 
+  --optuse({
+  --  "folke/noice.nvim",
+  --  requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
+  --})
 
   optuse("machakann/vim-sandwich")
   --optuse("lambdalisue/fern.vim")

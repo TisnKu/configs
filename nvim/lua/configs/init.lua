@@ -25,6 +25,8 @@ vim.defer_fn(function()
   require("configs.theme")
   require("configs.peek")
   require('configs.crates')
+  require('configs.test')
+  --require('configs.noice')
 end, 0)
 
 -- Keybindings

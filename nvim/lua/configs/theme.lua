@@ -1,5 +1,6 @@
 --require("github-theme").setup {}
 vim.cmd [[colorscheme catppuccin-mocha]]
+vim.cmd [[set termguicolors]]
 --vim.cmd [[
 --  colorscheme material
 --  let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
