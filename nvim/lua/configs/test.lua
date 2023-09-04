@@ -7,8 +7,10 @@ function _G.open_test_file()
   local extension = vim.fn.expand('%:e')
   local path = vim.fn.expand('%:p:h')
 
-  -- Close all other splits in the current tab
-  vim.cmd('only')
+  -- If there are multiple splits, close all but the current one
+  if vim.fn.winnr('$') > 1 then
+    vim.cmd('only')
+  end
 
   -- if current buffer is a test file, open the source file
   if string.match(filename, '.test') then
