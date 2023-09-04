@@ -29,9 +29,10 @@ _G.lsp_organize_imports_sync = function(bufnr)
   -- params for the request
   local params = {
     command = "_typescript.organizeImports",
-    arguments = { vim.api.nvim_buf_get_name(bufnr) },
+    arguments = { vim.api.nvim_buf_get_name(0) },
     title = ""
   }
+  --vim.lsp.buf.execute_command(params)
 
   vim.lsp.buf_request_sync(bufnr, "workspace/executeCommand", params, 2000)
   vim.lsp.buf.format({ timeout_ms = 2000 })
@@ -65,7 +66,15 @@ require('typescript-tools').setup({
   settings = {
     tsserver_max_memory = 12288,
     separate_diagnostic_server = false,
-  }
+  },
+  commands = {
+    OrganizeImports = {
+      function()
+        lsp_organize_imports_sync()
+      end,
+      description = "Organize Imports"
+    }
+  },
 })
 
 require('lsp-setup').setup({
