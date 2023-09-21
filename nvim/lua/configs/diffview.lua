@@ -44,11 +44,11 @@ require("diffview").setup({
       { { "n", "x" }, "3do", actions.diffget("theirs") }, -- Obtain the diff hunk from the THEIRS version of the file
     },
     file_panel = {
-      ["j"]             = actions.select_next_entry, -- Bring the cursor to the next file entry
+      ["j"]             = actions.next_entry,   -- Bring the cursor to the next file entry
       ["<down>"]        = actions.next_entry,
-      ["k"]             = actions.select_prev_entry, -- Bring the cursor to the previous file entry.
+      ["k"]             = actions.prev_entry,   -- Bring the cursor to the previous file entry.
       ["<up>"]          = actions.prev_entry,
-      ["<cr>"]          = actions.select_entry,      -- Open the diff for the selected entry.
+      ["<cr>"]          = actions.select_entry, -- Open the diff for the selected entry.
       ["o"]             = actions.select_entry,
       ["<2-LeftMouse>"] = actions.select_entry,
       ["-"]             = actions.toggle_stage_entry, -- Stage / unstage the selected entry.
