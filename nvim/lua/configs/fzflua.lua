@@ -34,6 +34,7 @@ vim.keymap.set('n', '<leader>rg', ':lua require("fzf-lua").grep()<CR>', opts)
 vim.keymap.set('n', '<leader>gw', ':lua require("fzf-lua").grep_cword()<CR>', opts)
 vim.keymap.set('n', '<leader>gW', ':lua require("fzf-lua").grep_cWORD()<CR>', opts)
 vim.keymap.set('v', '<leader>gv', ':lua require("fzf-lua").grep_visual()<CR>', opts)
+vim.keymap.set('v', '<leader>gw', ':lua require("fzf-lua").grep_visual()<CR>', opts)
 
 vim.keymap.set('n', '<leader>b', ':lua require("fzf-lua").buffers()<CR>', opts)
 vim.keymap.set('n', '<leader>m', ':lua require("fzf-lua").keymaps()<CR>', opts)

@@ -53,6 +53,8 @@ vim.keymap.set("n", "<leader>gl", "<cmd>Telescope live_grep<CR>", opts)
 vim.keymap.set("n", "<leader>rg",
   ":lua require('telescope.builtin').grep_string({search = vim.fn.input('Search term: ')})<CR>", opts)
 vim.keymap.set("n", "<leader>gw", "<cmd>Telescope grep_string<CR>", opts)
+vim.keymap.set("v", "<leader>gw",
+  ":lua require('telescope.builtin').grep_string({search = vim.g.get_visual_selection()})<CR>", opts)
 vim.keymap.set("v", "<leader>gv",
   ":lua require('telescope.builtin').grep_string({search = vim.g.get_visual_selection()})<CR>", opts)
 
