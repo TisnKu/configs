@@ -111,7 +111,7 @@ function ko() {
 
 # vpn
 function vpn() {
-    export ALL_PROXY=http://127.0.0.1:4780
+    export ALL_PROXY=http://127.0.0.1:7890
 }
 
 function unvpn() {
