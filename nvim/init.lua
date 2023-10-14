@@ -121,7 +121,6 @@ require("packer").startup(function(use)
     "lukas-reineke/indent-blankline.nvim", -- Indentation lines
     requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
     config = function()
-      vim.opt.list = true
       require("ibl").setup({})
     end,
   })
