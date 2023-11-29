@@ -24,5 +24,13 @@ function _G.open_test_file()
   end
 end
 
+function _G.run_tmp_test()
+  local filePath = vim.fn.expand('%:p')
+  -- replace backslashes with forward slashes
+  filePath = string.gsub(filePath, '\\', '\\\\')
+  vim.cmd('!pwsh -noexit -command tmptest ' .. filePath)
+end
+
+vim.api.nvim_set_keymap('n', '<Bslash>tt', ':lua run_tmp_test()<CR>', { noremap = true })
 --bind open_test_file to <leader>tv
 vim.api.nvim_set_keymap('n', '<leader>t', ':lua open_test_file()<CR>', { noremap = true })
