@@ -26,6 +26,7 @@ vim.defer_fn(function()
   require("configs.peek")
   require('configs.crates')
   require('configs.test')
+  require('configs.file')
   --require('configs.noice')
 end, 0)
 
