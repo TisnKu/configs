@@ -127,12 +127,10 @@ require("packer").startup(function(use)
   optuse { 'sindrets/diffview.nvim', requires = { 'nvim-lua/plenary.nvim' } }
 
   optuse({ "junegunn/fzf", run = ":call fzf#install()" })
-  if vim.g.is_win or vim.g.is_linux then
-    optuse { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    optuse { "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } }
-  else
-    optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
-  end
+  optuse { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+  optuse { "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } }
+  optuse { 'nvim-telescope/telescope-ui-select.nvim' }
+  --optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   optuse { 'stevearc/dressing.nvim' }
 
   optuse({

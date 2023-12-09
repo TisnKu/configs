@@ -35,11 +35,18 @@ telescope.setup {
       },
     },
   },
+  extensions = {
+    ["ui-select"] = {
+      require("telescope.themes").get_cursor()
+    }
+  }
 }
 
 table.unpack = table.unpack or unpack -- 5.1 compatibility
 
 telescope.load_extension('fzf')
+telescope.load_extension("ui-select")
+
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<leader>f", "<cmd>Telescope find_files<CR>", opts)
 vim.keymap.set("n", "<leader>gf",
