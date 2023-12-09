@@ -73,30 +73,10 @@ require("packer").startup(function(use)
 
   optuse("wbthomason/packer.nvim")
   optuse("projekt0n/github-nvim-theme")
-  use { "catppuccin/nvim", as = "catppuccin", opts = {
-    term_colors = true,
-    transparent_background = false,
-    styles = {
-      comments = {},
-      conditionals = {},
-      loops = {},
-      functions = {},
-      keywords = {},
-      strings = {},
-      variables = {},
-      numbers = {},
-      booleans = {},
-      properties = {},
-      types = {},
-    },
-    color_overrides = {
-      mocha = {
-        base = "#000000",
-        mantle = "#000000",
-        crust = "#000000",
-      },
-    },
-  } }
+  optuse {
+    "catppuccin/nvim",
+    name = "catppuccin",
+  }
   optuse("kaicataldo/material.vim", { branch = "main" })
   use {
     'goolord/alpha-nvim',
@@ -105,11 +85,6 @@ require("packer").startup(function(use)
       require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
     end
   }
-
-  --optuse({
-  --  "folke/noice.nvim",
-  --  requires = { "MunifTanjim/nui.nvim", "rcarriga/nvim-notify" },
-  --})
 
   optuse("machakann/vim-sandwich")
   --optuse("lambdalisue/fern.vim")
@@ -158,7 +133,7 @@ require("packer").startup(function(use)
   else
     optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   end
-  optuse({ "hood/popui.nvim", requires = { 'RishabhRD/popfix' } })
+  optuse { 'stevearc/dressing.nvim' }
 
   optuse({
     "klen/nvim-test",

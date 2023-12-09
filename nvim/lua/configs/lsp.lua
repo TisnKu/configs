@@ -11,7 +11,8 @@ local mappings = {
   [']d'] = 'lua vim.diagnostic.goto_next()',
   ['<space>o'] = 'OrganizeImports',
 }
-vim.keymap.set('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set('v', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
 _G.contains = function(table, element)
   for _, value in pairs(table) do
@@ -20,22 +21,6 @@ _G.contains = function(table, element)
     end
   end
   return false
-end
-
-_G.lsp_organize_imports_sync = function(bufnr)
-  -- gets the current bufnr if no bufnr is passed
-  if not bufnr then bufnr = vim.api.nvim_get_current_buf() end
-
-  -- params for the request
-  local params = {
-    command = "_typescript.organizeImports",
-    arguments = { vim.api.nvim_buf_get_name(0) },
-    title = ""
-  }
-  --vim.lsp.buf.execute_command(params)
-
-  vim.lsp.buf_request_sync(bufnr, "workspace/executeCommand", params, 2000)
-  vim.lsp.buf.format({ timeout_ms = 2000 })
 end
 
 local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
@@ -66,14 +51,7 @@ require('typescript-tools').setup({
   settings = {
     tsserver_max_memory = 12288,
     separate_diagnostic_server = false,
-  },
-  commands = {
-    OrganizeImports = {
-      function()
-        lsp_organize_imports_sync()
-      end,
-      description = "Organize Imports"
-    }
+    expose_as_code_action = "all"
   },
 })
 
