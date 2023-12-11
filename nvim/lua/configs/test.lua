@@ -32,6 +32,16 @@ function _G.run_tmp_test()
 end
 
 function _G.run_cmd(cmd)
+  if cmd == '' then
+    return
+  end
+
+  -- if cmd ends with `;`, do not append file path
+  if string.sub(cmd, -1) == ';' then
+    vim.cmd('!pwsh -noexit -command ' .. cmd)
+    return
+  end
+
   local filePath = vim.fn.expand('%:p')
   vim.cmd('!pwsh -noexit -command ' .. cmd .. ' ' .. filePath)
 end
