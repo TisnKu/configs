@@ -98,4 +98,5 @@ return {
   default_cursor_style = 'SteadyBar',
   warn_about_missing_glyphs = false,
   hide_tab_bar_if_only_one_tab = true,
+  front_end = "WebGpu",
 }
