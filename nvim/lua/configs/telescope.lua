@@ -37,7 +37,13 @@ telescope.setup {
   },
   extensions = {
     ["ui-select"] = {
-      require("telescope.themes").get_cursor()
+      require("telescope.themes").get_cursor {
+        layout_config = {
+          height = function(_, _, _)
+            return 12
+          end,
+        },
+      }
     }
   }
 }

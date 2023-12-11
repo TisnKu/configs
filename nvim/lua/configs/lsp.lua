@@ -11,8 +11,8 @@ local mappings = {
   [']d'] = 'lua vim.diagnostic.goto_next()',
   ['<space>o'] = 'OrganizeImports',
 }
-vim.keymap.set('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-vim.keymap.set('v', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set({ 'n', 'x' }, '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set({ 'n', 'x' }, '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 
 _G.contains = function(table, element)
   for _, value in pairs(table) do
