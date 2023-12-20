@@ -44,8 +44,7 @@
       },
       "to": [
         {
-          "key_code": "left_gui",
-          "repeat": false
+          "key_code": "left_gui"
         }
       ],
       "type": "basic"
