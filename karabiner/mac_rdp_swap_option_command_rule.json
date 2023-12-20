@@ -1,0 +1,102 @@
+{
+  "description": "Mac OSX RDP: Opt swap with command",
+  "manipulators": [
+    {
+      "conditions": [
+        {
+          "bundle_identifiers": [
+            "^com\\.microsoft\\.rdc$",
+            "^com\\.microsoft\\.rdc\\.mac$",
+            "^com\\.microsoft\\.rdc\\.macos$",
+            "^com\\.microsoft\\.rdc\\.osx\\.beta$",
+            "^com\\.thinomenon\\.RemoteDesktopConnection$",
+            "^com\\.teamviewer\\.TeamViewer$"
+          ],
+          "type": "frontmost_application_if"
+        }
+      ],
+      "from": {
+        "key_code": "left_gui"
+      },
+      "to": [
+        {
+          "key_code": "left_alt"
+        }
+      ],
+      "type": "basic"
+    },
+    {
+      "conditions": [
+        {
+          "bundle_identifiers": [
+            "^com\\.microsoft\\.rdc$",
+            "^com\\.microsoft\\.rdc\\.mac$",
+            "^com\\.microsoft\\.rdc\\.macos$",
+            "^com\\.microsoft\\.rdc\\.osx\\.beta$",
+            "^com\\.thinomenon\\.RemoteDesktopConnection$",
+            "^com\\.teamviewer\\.TeamViewer$"
+          ],
+          "type": "frontmost_application_if"
+        }
+      ],
+      "from": {
+        "key_code": "left_alt"
+      },
+      "to": [
+        {
+          "key_code": "left_gui",
+          "repeat": false
+        }
+      ],
+      "type": "basic"
+    },
+    {
+      "conditions": [
+        {
+          "bundle_identifiers": [
+            "^com\\.microsoft\\.rdc$",
+            "^com\\.microsoft\\.rdc\\.mac$",
+            "^com\\.microsoft\\.rdc\\.macos$",
+            "^com\\.microsoft\\.rdc\\.osx\\.beta$",
+            "^com\\.thinomenon\\.RemoteDesktopConnection$",
+            "^com\\.teamviewer\\.TeamViewer$"
+          ],
+          "type": "frontmost_application_if"
+        }
+      ],
+      "from": {
+        "key_code": "right_alt"
+      },
+      "to": [
+        {
+          "key_code": "right_control"
+        }
+      ],
+      "type": "basic"
+    },
+    {
+      "conditions": [
+        {
+          "bundle_identifiers": [
+            "^com\\.microsoft\\.rdc$",
+            "^com\\.microsoft\\.rdc\\.mac$",
+            "^com\\.microsoft\\.rdc\\.macos$",
+            "^com\\.microsoft\\.rdc\\.osx\\.beta$",
+            "^com\\.thinomenon\\.RemoteDesktopConnection$",
+            "^com\\.teamviewer\\.TeamViewer$"
+          ],
+          "type": "frontmost_application_if"
+        }
+      ],
+      "from": {
+        "key_code": "right_gui"
+      },
+      "to": [
+        {
+          "key_code": "right_alt"
+        }
+      ],
+      "type": "basic"
+    }
+  ]
+}
