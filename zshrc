@@ -1,3 +1,15 @@
+#zmodload zsh/zprof
+
+# If you come from bash you might have to change your $PATH.
+export PATH=$HOME/bin:/usr/local/bin:$PATH
+
+# Path to your oh-my-zsh installation.
+#export ZSH="$HOME/.oh-my-zsh"
+#ZSH_THEME="robbyrussell"
+#plugins=(git)
+#source $ZSH/oh-my-zsh.sh
+
+
 # kill port
 function ko() {
     kill $(lsof -i:$1 -t)
@@ -11,6 +23,12 @@ function vpn() {
 function unvpn() {
     unset ALL_PROXY
 }
+
+
+# autojump
+if [[ $(uname) == "Darwin" ]]; then
+  [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+fi
 
 # arch
 function x86() {
@@ -32,10 +50,60 @@ function otp {
     echo $code
 }
 
+# git alias
+function gcob() {
+    saveIFS="$IFS"
+    IFS="\\n"
+    branches=("${(@f)$(git branch -a)}")
+    IFS="$saveIFS"
+
+    for branch in $branches; do
+        if [[ $branch == *$1* ]]; then
+            git checkout "$(echo $branch | sed -E "s/\*?[[:space:]]?(remotes\/origin\/)?//g")"
+            break
+        fi
+    done;
+}
+
+alias currentbranch="git branch | grep \* | cut -d ' ' -f2"
+
+function gps() {
+    gp --set-upstream origin $(currentbranch);
+}
+
+function pruneBranches() {
+    git remote prune origin && git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -D
+}
+
 # UUID
 function uuid() {
     uuidgen | tr -d '\n' | tr '[:upper:]' '[:lower:]' | pbcopy
 }
+
+# user/bin to path
+
+function pullmain() {
+    git pull origin main
+}
+
+# qemu
+alias qemu="qemu-system-x86_64"
+
+# Teams
+alias tmp="cd ~/projects/teams-modular-packages"
+alias tsw="cd ~/projects/teamspace-web"
+
+# rust
+export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
+export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
+
+# os-tutorial gcc cross compile
+# export CC=/opt/homebrew/Cellar/gcc/11.2.0_3
+#export CC=/usr/bin/gcc
+#export LD=/opt/homebrew/Cellar/gcc/11.2.0_3
+#export GCC_PREFIX="/usr/local/i386elfgcc"
+#export TARGET=i386-elf
+#export PATH="$GCC_PREFIX/bin:$PATH"
 
 if [[ $(uname) == "Darwin" ]]; then
   # Brew usts mirror
@@ -49,6 +117,17 @@ if [[ $(uname) == "Darwin" ]]; then
 
   eval "$(nodenv init -)"
 fi
+
+#zprof
+
+#export PATH="$PATH:/Users/txku/riscv64-gcc/bin"
+#PATH=$PATH:/usr/local/opt/riscv-gnu-toolchain/bin
+
+
+function clearRemoteRef {
+  #git branch -a | awk -F/ '/\/origin\/.*/ {branchName=$0; sub("remotes/","",branchName); print branchName}' | xargs -I {} git branch -d -r {}
+  git branch -r | awk -F/ '/origin\/.*/ {branchName=$0; sub("origin/","",branchName); print branchName}' | xargs -I {} git branch -d -r origin/{}
+}
 
 # Search and open files/folders with vim using fzf (directories only)
 function vif() {
@@ -87,33 +166,3 @@ function syncm() {
 function gcne() {
   git commit --no-edit
 }
-
-function clearRemoteRef {
-  #git branch -a | awk -F/ '/\/origin\/.*/ {branchName=$0; sub("remotes/","",branchName); print branchName}' | xargs -I {} git branch -d -r {}
-  git branch -r | awk -F/ '/origin\/.*/ {branchName=$0; sub("origin/","",branchName); print branchName}' | xargs -I {} git branch -d -r origin/{}
-}
-
-function gcob() {
-    saveIFS="$IFS"
-    IFS="\\n"
-    branches=("${(@f)$(git branch -a)}")
-    IFS="$saveIFS"
-
-    for branch in $branches; do
-        if [[ $branch == *$1* ]]; then
-            git checkout "$(echo $branch | sed -E "s/\*?[[:space:]]?(remotes\/origin\/)?//g")"
-            break
-        fi
-    done;
-}
-
-alias currentbranch="git branch | grep \* | cut -d ' ' -f2"
-
-function gps() {
-    gp --set-upstream origin $(currentbranch);
-}
-
-function pruneBranches() {
-    git remote prune origin && git branch -r | awk '{print $1}' | egrep -v -f /dev/fd/0 <(git branch -vv | grep origin) | awk '{print $1}' | xargs git branch -D
-}
-
