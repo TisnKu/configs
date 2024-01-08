@@ -29,6 +29,7 @@ vim.defer_fn(function()
   require('configs.file')
   require('configs.refactor')
   require('configs.dressing')
+  require('configs.terminal')
   --require('configs.noice')
 end, 0)
 

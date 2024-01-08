@@ -35,25 +35,7 @@ function _G.run_tmp_test_in_terminal()
   vim.cmd('!start-process pwsh "-noexit -command tmptest ' .. filePath .. '"')
 end
 
-function _G.run_cmd(cmd)
-  if cmd == '' then
-    return
-  end
-
-  -- if cmd ends with `;`, do not append file path
-  if string.sub(cmd, -1) == ';' then
-    vim.cmd('!pwsh -noexit -command ' .. cmd)
-    return
-  end
-
-  local filePath = vim.fn.expand('%:p')
-  vim.cmd('!pwsh -noexit -command \'' .. cmd .. ' "' .. filePath .. '"\'')
-end
-
 vim.api.nvim_set_keymap('n', '<Bslash>tt', ':lua run_tmp_test_in_terminal()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Bslash>rt', ':lua run_tmp_test()<CR>', { noremap = true })
 --bind open_test_file to <leader>tv
 vim.api.nvim_set_keymap('n', '<leader>t', ':lua open_test_file()<CR>', { noremap = true })
-
-
-vim.api.nvim_set_keymap('n', '<Bslash>tr', ':lua run_cmd(vim.fn.input("pwsh: "))<CR>', { noremap = true })
