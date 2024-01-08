@@ -25,8 +25,9 @@ function _G.open_test_file()
 end
 
 function _G.run_tmp_test()
-  local filePath = vim.fn.expand('%:p')
-  vim.cmd('!pwsh -noexit -command tmptest ' .. filePath)
+  --local filePath = vim.fn.expand('%:p')
+  --vim.cmd('!pwsh -noexit -command tmptest ' .. filePath)
+  vim.cmd('!tmptest "%:p"')
 end
 
 function _G.run_tmp_test_in_terminal()
@@ -46,7 +47,7 @@ function _G.run_cmd(cmd)
   end
 
   local filePath = vim.fn.expand('%:p')
-  vim.cmd('!pwsh -noexit -command ' .. cmd .. ' ' .. filePath)
+  vim.cmd('!pwsh -noexit -command \'' .. cmd .. ' "' .. filePath .. '"\'')
 end
 
 vim.api.nvim_set_keymap('n', '<Bslash>tt', ':lua run_tmp_test_in_terminal()<CR>', { noremap = true })
