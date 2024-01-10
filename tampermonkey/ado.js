@@ -451,7 +451,7 @@ async function getProjectAndRepoIds() {
 
 function parsePRUrl() {
   const [, domain, project, repo, prId] = location.href.match(
-    /(https:\/\/[^\/]+\/.*)([^\/]+)\/_git\/([^\/]+)\/pullrequest\/(\d+)/,
+    /(https:\/\/.*)([^\/]+)\/_git\/([^\/]+)\/pullrequest\/(\d+)/,
   );
   return { apiUrl: `${domain}/${project}/_apis`, domain, project, repo, prId };
 }
