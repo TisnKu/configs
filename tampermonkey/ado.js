@@ -450,8 +450,10 @@ async function getProjectAndRepoIds() {
 }
 
 function parsePRUrl() {
+  //https://dev.azure.com/org/project/_git/repo/pullrequest/prId
+  //https://org.visualstudio.com/project/_git/repo/pullrequest/prId
   const [, domain, project, repo, prId] = location.href.match(
-    /(https:\/\/.*)([^\/]+)\/_git\/([^\/]+)\/pullrequest\/(\d+)/,
+    /(https:\/\/.*)\/([^\/]+)\/_git\/([^\/]+)\/pullrequest\/(\d+)/,
   );
   return { apiUrl: `${domain}/${project}/_apis`, domain, project, repo, prId };
 }
