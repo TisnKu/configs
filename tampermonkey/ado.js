@@ -296,6 +296,10 @@ function makeWorkItemNumClickable() {
     const data = [new ClipboardItem({ [type]: blob })];
     navigator.clipboard.write(data);
     workItemNumber.innerHTML += " ✓";
+
+    if (window.cifxDashboard) {
+      window.open(window.cifxDashboard, "_blank");
+    }
   };
 }
 

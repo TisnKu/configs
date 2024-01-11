@@ -14,3 +14,5 @@
 // @grant GM_xmlhttpRequest
 // @require     file://C:\Users\xxx\configs\tampermonkey\ado.js
 // ==/UserScript==
+
+window.cifxDashboard = "";
