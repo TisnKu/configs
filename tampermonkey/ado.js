@@ -331,7 +331,10 @@ function addCopyCifxTestNameButton() {
     const blob = new Blob([testCaseName], { type });
     const data = [new ClipboardItem({ [type]: blob })];
     navigator.clipboard.write(data);
-    workItemTitle.innerHTML += " ✓";
+
+    if (window.cifxDashboard) {
+      window.open(window.cifxDashboard, "_blank");
+    }
   };
   document
     .getElementById("vss_5")
