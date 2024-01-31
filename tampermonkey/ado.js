@@ -280,22 +280,22 @@ function makeWorkItemNumClickable() {
     return;
   }
   console.log("####, make work item number clickable");
-  const workItemNumber = document.querySelector('[aria-label="ID Field"]');
+  const workItemNumberEle = document.querySelector('[aria-label="ID Field"]');
 
-  if (!workItemNumber) {
+  if (!workItemNumberEle) {
     setTimeout(() => {
       makeWorkItemNumClickable();
     }, 300);
     return;
   }
-  workItemNumber.style.cursor = "pointer";
-  workItemNumber.onclick = () => {
+  workItemNumberEle.style.cursor = "pointer";
+  workItemNumberEle.onclick = () => {
     const type = "text/plain";
-    const workItemNumber = workItemNumber.innerHTML.match(/\d+/)[0];
+    const workItemNumber = workItemNumberEle.innerHTML.match(/\d+/)[0];
     const blob = new Blob([workItemNumber], { type });
     const data = [new ClipboardItem({ [type]: blob })];
     navigator.clipboard.write(data);
-    workItemNumber.innerHTML += " ✓";
+    workItemNumberEle.innerHTML += " ✓";
 
     if (window.cifxDashboard) {
       window.open(window.cifxDashboard, "_blank");
