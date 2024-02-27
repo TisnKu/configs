@@ -13,7 +13,7 @@ set matchtime=2 " Default 5 * 0.1s
 set clipboard=unnamedplus
 set showtabline=2
 set smartindent
-set linebreak " Soft wrap
+"set linebreak " Soft wrap
 set wildmode=longest:full,full
 set wildignore+=*.o,*~,*.pyc,*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store,*/node_modules/*
 "set whichwrap=<,>,h,l
