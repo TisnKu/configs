@@ -143,7 +143,6 @@ require("packer").startup(function(use)
   -- Visualize lsp progress
   optuse({
     "j-hui/fidget.nvim",
-    tag = 'legacy',
     config = function()
       require("fidget").setup()
     end
