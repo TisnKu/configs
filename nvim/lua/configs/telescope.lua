@@ -54,7 +54,7 @@ telescope.load_extension('fzf')
 telescope.load_extension("ui-select")
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<leader>f", ":lua require('telescope.builtin').find_files({ debounce = 150 })<CR>", opts)
+vim.keymap.set("n", "<leader>f", ":lua require('telescope.builtin').find_files({ debounce = 100 })<CR>", opts)
 vim.keymap.set("n", "<leader>gf",
   ":lua require('telescope.builtin').find_files({default_text = vim.fn.expand('<cword>')})<CR>",
   opts)
