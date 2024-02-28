@@ -62,6 +62,7 @@ require('lsp-setup').setup({
     local clients_no_formatting = {
       'typescript-tools',
       'jsonls',
+      'pylsp',
       'taplo'
     };
     if _G.contains(clients_no_formatting, client.name) then
