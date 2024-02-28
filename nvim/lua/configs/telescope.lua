@@ -6,6 +6,9 @@ end
 local actions = require("telescope.actions")
 telescope.setup {
   defaults = {
+    cache_picker = {
+      ignore_empty_prompt = false,
+    },
     sorting_strategy = "ascending",
     layout_strategy = "horizontal",
     layout_config = {
