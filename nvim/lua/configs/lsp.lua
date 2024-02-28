@@ -62,7 +62,6 @@ require('lsp-setup').setup({
     local clients_no_formatting = {
       'typescript-tools',
       'jsonls',
-      'pylsp',
       'taplo'
     };
     if _G.contains(clients_no_formatting, client.name) then
@@ -87,6 +86,24 @@ require('lsp-setup').setup({
             globals = { "vim" },
           },
         },
+      }
+    },
+    pylsp = {
+      settings = {
+        pylsp = {
+          plugins = {
+            pycodestyle = { ignore = { "E501" } },
+            --mccabe = { eanbled = false, },
+            autopep8 = { enabled = false },
+            --pyflakes = { enabled = false },
+            --pylint = { enabled = false },
+            --yapf = { enabled = false },
+            --isort = { enabled = false },
+            --flake8 = { enabled = false },
+            --mypy = { enabled = false },
+            --jedi = { enabled = false },
+          }
+        }
       }
     },
     -- Windows needs gzip as dependency for mason to unzip the server
