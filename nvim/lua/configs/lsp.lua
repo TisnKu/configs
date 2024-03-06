@@ -39,6 +39,10 @@ vim.api.nvim_create_autocmd('BufWritePre', {
       end
     end
 
+    -- If the command is available, run it
+    if vim.fn.exists(':TSToolsRemoveUnusedImports') ~= 0 then
+      vim.cmd('TSToolsRemoveUnusedImports sync')
+    end
     vim.lsp.buf.format({ timeout_ms = 2000 })
   end,
 })

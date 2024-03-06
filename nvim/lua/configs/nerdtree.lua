@@ -1,4 +1,5 @@
 vim.cmd [[
+  let g:NERDDefaultAlign = 'left'
   let NERDTreeQuitOnOpen=1
   function! NerdTreeToggleFind()
       if exists("g:NERDTree") && g:NERDTree.IsOpen()

@@ -47,7 +47,20 @@ telescope.setup {
           end,
         },
       }
-    }
+    },
+    file_browser = {
+      theme = "ivy",
+      -- disables netrw and use telescope-file-browser in its place
+      hijack_netrw = true,
+      mappings = {
+        ["i"] = {
+          -- your custom insert mode mappings
+        },
+        ["n"] = {
+          -- your custom normal mode mappings
+        },
+      },
+    },
   }
 }
 
@@ -55,8 +68,10 @@ table.unpack = table.unpack or unpack -- 5.1 compatibility
 
 telescope.load_extension('fzf')
 telescope.load_extension("ui-select")
+telescope.load_extension("file_browser")
 
 local opts = { noremap = true, silent = true }
+vim.keymap.set("n", "<leader>ef", ":Telescope file_browser<CR>", opts)
 vim.keymap.set("n", "<leader>f", ":lua require('telescope.builtin').find_files({ debounce = 100 })<CR>", opts)
 vim.keymap.set("n", "<leader>gf",
   ":lua require('telescope.builtin').find_files({default_text = vim.fn.expand('<cword>')})<CR>",

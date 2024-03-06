@@ -3,7 +3,6 @@ vim.cmd("source ~/.vimrc")
 -- End general configs
 
 -- Globals
-vim.cmd("let g:NERDDefaultAlign = 'left'")
 
 local has = function(feat)
   if vim.fn.has(feat) == 1 then
@@ -130,6 +129,10 @@ require("packer").startup(function(use)
   optuse { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   optuse { "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } }
   optuse { 'nvim-telescope/telescope-ui-select.nvim' }
+  optuse {
+    "nvim-telescope/telescope-file-browser.nvim",
+    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+  }
   --optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   optuse { 'stevearc/dressing.nvim' }
 
