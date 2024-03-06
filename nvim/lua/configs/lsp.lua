@@ -9,7 +9,7 @@ local mappings = {
   ['<space>e'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
   [']d'] = 'lua vim.diagnostic.goto_next()',
-  ['<space>o'] = 'OrganizeImports',
+  ['<space>o'] = 'TSToolsRemoveUnusedImports',
 }
 vim.keymap.set({ 'n', 'x' }, '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 vim.keymap.set({ 'n', 'x' }, '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
