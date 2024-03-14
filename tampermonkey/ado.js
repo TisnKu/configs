@@ -81,7 +81,7 @@ function queueExpired(apiUrl, prId) {
     .then(async (pr) => {
       const artifactId = `vstfs:///CodeReview/CodeReviewId/${pr.repository.project.id}/${pr.pullRequestId}`;
       const res = await fetch(
-        `${apiUrl}/policy/evaluations/${apiVersionQuery}&artifactId=${artifactId}`,
+        `${apiUrl}/policy/evaluations/${apiVersionQuery}&artifactId=${artifactId}`
       );
       return await res.json();
     })
@@ -94,14 +94,14 @@ function queueExpired(apiUrl, prId) {
           e.configuration.settings.buildDefinitionId &&
           (e.context?.isExpired ||
             (e.context?.buildId ?? 0) === 0 ||
-            e.status === "rejected"),
+            e.status === "rejected")
       );
       console.log(
         "Evaluations to queue: ",
         filteredEvaluations.map((e) => [
           e.configuration.settings.displayName,
           e,
-        ]),
+        ])
       );
       return Promise.all(
         filteredEvaluations.map((e) =>
@@ -109,9 +109,9 @@ function queueExpired(apiUrl, prId) {
             `${apiUrl}/policy/evaluations/${e.evaluationId}/${apiVersionQuery}`,
             {
               method: "patch",
-            },
-          ),
-        ),
+            }
+          )
+        )
       );
     })
     .then(console.log)
@@ -125,7 +125,7 @@ function queueBuild(apiUrl, prId) {
     .then(async (pr) => {
       const artifactId = `vstfs:///CodeReview/CodeReviewId/${pr.repository.project.id}/${pr.pullRequestId}`;
       const res = await fetch(
-        `${apiUrl}/policy/evaluations/${apiVersionQuery}&artifactId=${artifactId}`,
+        `${apiUrl}/policy/evaluations/${apiVersionQuery}&artifactId=${artifactId}`
       );
       return await res.json();
     })
@@ -135,7 +135,7 @@ function queueBuild(apiUrl, prId) {
       const filteredEvaluations = res.value.filter(
         (e) =>
           e.configuration.isBlocking &&
-          e.configuration.settings.buildDefinitionId,
+          e.configuration.settings.buildDefinitionId
       );
 
       return Promise.all(
@@ -144,9 +144,9 @@ function queueBuild(apiUrl, prId) {
             `${apiUrl}/policy/evaluations/${e.evaluationId}/${apiVersionQuery}`,
             {
               method: "patch",
-            },
-          ),
-        ),
+            }
+          )
+        )
       );
     })
     .then(console.log)
@@ -172,7 +172,7 @@ function addCopyPRNumberButton() {
   var prNumBtn = document.createElement("button");
   prNumBtn.id = "cpy-pr-btn";
   const matches = window.location.href.match(
-    /[^\d]+\/pullrequest\/(\d+)[^\d]*/,
+    /[^\d]+\/pullrequest\/(\d+)[^\d]*/
   );
   if (matches) {
     const prNumber = matches[1];
@@ -332,12 +332,8 @@ function addCopyCifxTestNameButton() {
       window.open(window.cifxDashboard, "_blank");
     }
   };
-  document
-    .getElementById("vss_5")
-    .parentElement.insertBefore(
-      copyCifxTestNameButton,
-      document.getElementById("vss_5"),
-    );
+  const cpTitleBtn = document.getElementById("vss_8");
+  cpTitleBtn.parentElement.insertBefore(copyCifxTestNameButton, cpTitleBtn);
 }
 
 function addReviewers() {
@@ -347,8 +343,8 @@ function addReviewers() {
     .then((ids) => {
       reviewersAliasEmailList.map((email) =>
         getUserId(email, serverUrl).then((userId) =>
-          addUserToReviewersById(ids[0], ids[1], userId, prIdStr, serverUrl),
-        ),
+          addUserToReviewersById(ids[0], ids[1], userId, prIdStr, serverUrl)
+        )
       );
     })
     .catch((error) => {
@@ -361,7 +357,7 @@ async function getUserId(email, serverUrl) {
   identityHeaders.append("content-type", "application/json");
   identityHeaders.append(
     "accept",
-    "application/json;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+    "application/json;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true"
   );
   var identityRequestOptions = {
     method: "POST",
@@ -396,7 +392,7 @@ async function getUserId(email, serverUrl) {
   try {
     const response = await fetch(
       `${serverUrl}/_apis/IdentityPicker/Identities/${apiVersionQuery}`,
-      identityRequestOptions,
+      identityRequestOptions
     );
     const data = await response.json();
     return data.results[0].identities[0].localId;
@@ -410,13 +406,13 @@ function addUserToReviewersById(
   repositoryId,
   userId,
   prId,
-  serverUrl,
+  serverUrl
 ) {
   var addReviewerHeaders = new Headers();
   addReviewerHeaders.append("content-type", "application/json");
   addReviewerHeaders.append(
     "accept",
-    "application/json;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+    "application/json;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true"
   );
   var addReviewerRequestOptions = {
     method: "put",
@@ -426,7 +422,7 @@ function addUserToReviewersById(
 
   fetch(
     `${serverUrl}/${projectId}/_apis/git/repositories/${repositoryId}/pullRequests/${prId}/reviewers/${userId}/${apiVersionQuery}`,
-    addReviewerRequestOptions,
+    addReviewerRequestOptions
   )
     .then((response) => response.text())
     .then((result) => console.log(result))
@@ -444,10 +440,10 @@ async function getProjectAndRepoIds() {
         return prPageResponseText;
       }));
   var projectId = result_1.match(
-    /(\"project\"\:\{\"id\"\:\")([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})/,
+    /(\"project\"\:\{\"id\"\:\")([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})/
   )[2];
   var repositoryId = result_1.match(
-    /(\"gitRepository\"\:\{\"id\"\:\")([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})/,
+    /(\"gitRepository\"\:\{\"id\"\:\")([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})/
   )[2];
   return [projectId, repositoryId];
 }
@@ -456,7 +452,7 @@ function parsePRUrl() {
   //https://dev.azure.com/org/project/_git/repo/pullrequest/prId
   //https://org.visualstudio.com/project/_git/repo/pullrequest/prId
   const [, domain, project, repo, prId] = location.href.match(
-    /(https:\/\/.*)\/([^\/]+)\/_git\/([^\/]+)\/pullrequest\/(\d+)/,
+    /(https:\/\/.*)\/([^\/]+)\/_git\/([^\/]+)\/pullrequest\/(\d+)/
   );
   return { apiUrl: `${domain}/${project}/_apis`, domain, project, repo, prId };
 }
