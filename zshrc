@@ -158,3 +158,9 @@ function syncm() {
 function gcne() {
   git commit --no-edit
 }
+
+function shallowfetch() {
+  git fetch --depth=1
+  git reflog expire --expire-unreachable=now --all
+  git gc --aggressive --prune=all
+}
