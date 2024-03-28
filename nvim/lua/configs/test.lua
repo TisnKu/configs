@@ -1,26 +1,42 @@
 require('nvim-test').setup()
---vim.api.nvim_set_keymap('n', '<leader>te', ':TestEdit<CR>', { noremap = true })
+local utils = require('utils')
+
 
 -- open test file in new vertical split, if current file is a test file, open the source file in a new vertical split
 function _G.open_test_file()
+  local test_file_suffix = { "test", "spec" }
+  local target_file_extensions = { "ts", "js", "tsx", "jsx" }
   local filename = vim.fn.expand('%:t:r')
-  local extension = vim.fn.expand('%:e')
   local path = vim.fn.expand('%:p:h')
+  local suffix = utils.find(test_file_suffix, function(suffix) return string.match(filename, '.' .. suffix) end)
+  local file_name_without_suffix = suffix and string.gsub(filename, '.' .. suffix, '') or filename
 
   -- If there are multiple splits, close all but the current one
   if vim.fn.winnr('$') > 1 then
     vim.cmd('only')
   end
 
-  -- if current buffer is a test file, open the source file
-  if string.match(filename, '.test') then
-    vim.cmd('vsplit ' .. path .. '/' .. string.gsub(filename, '.test', '') .. '.' .. extension)
-  elseif string.match(filename, '.spec') then
-    vim.cmd('vsplit ' .. path .. '/' .. string.gsub(filename, '.spec', '') .. '.' .. extension)
-  elseif vim.fn.filereadable(path .. '/' .. filename .. '.test.' .. extension) == 1 then
-    vim.cmd('vsplit ' .. path .. '/' .. filename .. '.test.' .. extension)
-  elseif vim.fn.filereadable(path .. '/' .. filename .. '.spec.' .. extension) == 1 then
-    vim.cmd('vsplit ' .. path .. '/' .. filename .. '.spec.' .. extension)
+  -- if test file suffix is found, open the source file
+  if suffix then
+    utils.find(target_file_extensions, function(target_extension)
+      local target_file_path = path .. '/' .. file_name_without_suffix .. '.' .. target_extension
+      if vim.fn.filereadable(target_file_path) == 1 then
+        vim.cmd('vsplit ' .. target_file_path)
+        return true
+      end
+    end)
+  else
+    utils.find(target_file_extensions, function(target_extension)
+      if utils.find(test_file_suffix, function(target_suffix)
+            local target_file_path = path .. '/' .. filename .. '.' .. target_suffix .. '.' .. target_extension
+            if vim.fn.filereadable(target_file_path) == 1 then
+              vim.cmd('vsplit ' .. target_file_path)
+              return true
+            end
+          end) then
+        return true
+      end
+    end)
   end
 end
 
