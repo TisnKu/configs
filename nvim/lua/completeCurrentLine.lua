@@ -1,12 +1,8 @@
--- Define a function to complete missing characters
-local completion_queue = {}
-
 function Complete_line()
   -- Get the current line
   local line = vim.fn.getline('.')
 
-  -- Clear the completion queue
-  completion_queue = {}
+  local completion_queue = {}
 
   for char in line:gmatch('.') do
     -- if char is a open bracket, push it to queue
