@@ -17,5 +17,5 @@ vim.cmd [[
       endif
   endfunction
 
-  nnoremap <space>t :call NerdTreeToggleFind()<CR>
+  nnoremap <space>e :call NerdTreeToggleFind()<CR>
 ]]

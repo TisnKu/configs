@@ -64,14 +64,14 @@ telescope.setup {
   }
 }
 
-table.unpack = table.unpack or unpack -- 5.1 compatibility
-
 telescope.load_extension('fzf')
 telescope.load_extension("ui-select")
 telescope.load_extension("file_browser")
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set("n", "<leader>ef", ":Telescope file_browser<CR>", opts)
+vim.keymap.set("n", "<space>t", ":<C-u>Telescope builtin include_extensions=true<CR>", opts)
+vim.keymap.set({ "n", "v" }, "<space>;", ":<C-u>Telescope commands<CR>", opts)
+vim.keymap.set({ "n", "v" }, "<space>c", ":<C-u>Telescope commands<CR>", opts)
 vim.keymap.set("n", "<leader>f", ":lua require('telescope.builtin').find_files({ debounce = 100 })<CR>", opts)
 vim.keymap.set("n", "<leader>gf",
   ":lua require('telescope.builtin').find_files({default_text = vim.fn.expand('<cword>')})<CR>",
@@ -89,7 +89,6 @@ vim.keymap.set("v", "<leader>gw",
 vim.keymap.set("v", "<leader>gv",
   ":lua require('telescope.builtin').grep_string({search = vim.g.get_visual_selection()})<CR>", opts)
 
-vim.keymap.set("n", "<leader>b", "<cmd>Telescope buffers<CR>", opts)
 vim.keymap.set("n", "<leader>m", "<cmd>Telescope keymaps<CR>", opts)
 vim.keymap.set("n", "<leader>gst", "<cmd>Telescope git_status<CR>", opts)
 vim.keymap.set("n", "<leader>rs", "<cmd>Telescope resume<CR>", opts)

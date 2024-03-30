@@ -54,4 +54,4 @@ end
 vim.api.nvim_set_keymap('n', '<Bslash>tt', ':lua run_tmp_test_in_terminal()<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<Bslash>rt', ':lua run_tmp_test()<CR>', { noremap = true })
 --bind open_test_file to <leader>tv
-vim.api.nvim_set_keymap('n', '<leader>t', ':lua open_test_file()<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<Bslash>t', ':lua open_test_file()<CR>', { noremap = true })

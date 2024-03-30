@@ -10,4 +10,4 @@ crates.setup {
 }
 
 local opts = { silent = true }
-vim.keymap.set('n', '<space>cf', crates.show_features_popup, opts)
+vim.keymap.set('n', '<space>f', crates.show_features_popup, opts)

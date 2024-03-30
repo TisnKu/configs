@@ -1,4 +1,3 @@
-local opts = { noremap = true, silent = true }
 local utils = require('utils')
 
 local mappings = {
@@ -6,8 +5,8 @@ local mappings = {
   K = 'lua vim.lsp.buf.hover()',
   ['<c-k>'] = 'lua vim.lsp.buf.signature_help()',
   ['<space>rn'] = 'lua vim.lsp.buf.rename()',
-  ['<space>f'] = 'lua vim.lsp.buf.format({ timeout_ms = 2000 })',
-  ['<space>e'] = 'lua vim.diagnostic.open_float()',
+  ['<Bslash>f'] = 'lua vim.lsp.buf.format({ timeout_ms = 2000 })',
+  ['<space>d'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
   [']d'] = 'lua vim.diagnostic.goto_next()',
   ['<space>o'] = 'TSToolsOrganizeImports',

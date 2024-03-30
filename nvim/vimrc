@@ -48,6 +48,7 @@ cnoremap <C-h> <esc>
 vnoremap <C-h> <esc>
 inoremap WW <esc>:w<cr>
 nnoremap WW <esc>:w<cr>
+inoremap <C-s> <esc>:w<cr>
 
 " Map leader key to comma
 nnoremap <leader>q :q<CR>
@@ -59,8 +60,8 @@ noremap QQ :q!<cr>
 noremap WQ :wqall<cr>
 noremap <leader>bp :bprevious<cr>
 noremap <leader>bn :bnext<cr>
-noremap <leader>o o<Esc>
-noremap <leader>O O<Esc>
+noremap <space>o o<Esc>
+noremap <space>O O<Esc>
 
 map <silent> <leader><cr> :noh<cr>
 

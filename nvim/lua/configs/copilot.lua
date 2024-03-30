@@ -1,18 +1,37 @@
-require('utils').trySetup("CopilotChat", {
+-- Configuration for CopilotChat
+local copilotChatConfig = {
   window = {
     layout = 'float',
+  },
+  mappings = {
+    close = {
+      normal = '<esc>',
+    },
+    submit_prompt = {
+      normal = '<cr>',
+      insert = '<cr>',
+    },
+  },
+  selection = function(source)
+    local select = require('CopilotChat.select')
+    return select.visual(source) or select.buffer(source)
+  end,
+  prompts = {
+    Refactor = {
+      prompt = '/COPILOT_REFACTOR Refactor the selected code to be cleaner and more readable.'
+    },
+    Performance = {
+      prompt = '/COPILOT_REFACTOR Improve the performance of the code.'
+    },
   }
-})
+}
 
--- Keybindings
--- github copilot keys
-if vim.g.is_mac then
-  vim.api.nvim_set_keymap('i', '¬', '<Plug>(copilot-next)', {})
-  vim.api.nvim_set_keymap('i', '˙', '<Plug>(copilot-previous)', {})
-else
-  vim.api.nvim_set_keymap('i', '<A-l>', '<Plug>(copilot-next)', {})
-  vim.api.nvim_set_keymap('i', '<A-h>', '<Plug>(copilot-previous)', {})
-end
+-- Setup CopilotChat with the configuration
+require('utils').trySetup("CopilotChat", copilotChatConfig)
 
--- Copilot chat
-vim.api.nvim_set_keymap('n', '<space>cc', '<ESC>:CopilotChatToggle<CR>', { noremap = true, silent = true })
+-- Keybindings for GitHub Copilot
+local isMac = vim.g.is_mac
+local nextKey, previousKey = isMac and '¬' or '<A-l>', isMac and '˙' or '<A-h>'
+
+vim.api.nvim_set_keymap('i', nextKey, '<Plug>(copilot-next)', {})
+vim.api.nvim_set_keymap('i', previousKey, '<Plug>(copilot-previous)', {})

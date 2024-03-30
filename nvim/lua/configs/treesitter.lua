@@ -8,8 +8,8 @@ ts.setup {
     enable = true,
     keymaps = {
       init_selection = "00",
-      node_incremental = "v",
-      node_decremental = "V",
+      node_incremental = "v", -- expand selection
+      node_decremental = "V", -- shrink selection
     }
   },
   highlight = {

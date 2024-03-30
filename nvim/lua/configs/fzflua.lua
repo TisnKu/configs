@@ -23,7 +23,6 @@ require('fzf-lua').setup {
 
 vim.cmd("cnoreabbrev FL FzfLua")
 local opts = { noremap = true, silent = true }
---vim.keymap.set('n', '<space>ca', ':lua require("fzf-lua").lsp_code_actions({winopts = {win_width= 0.3}})<CR>', opts)
 vim.keymap.set('n', '<leader>f', ':lua require("fzf-lua").files()<CR>', opts)
 vim.keymap.set('n', '<leader>gf', ':lua require("fzf-lua").files({query = vim.fn.expand("<cword>")})<CR>', opts)
 vim.keymap.set('v', '<leader>gf', ':lua require("fzf-lua").files({query = vim.g.get_visual_selection()})<CR>', opts)
