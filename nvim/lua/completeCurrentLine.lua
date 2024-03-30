@@ -1,3 +1,5 @@
+require('utils')
+
 function Complete_line()
   -- Get the current line
   local line = vim.fn.getline('.')
@@ -41,7 +43,7 @@ function Complete_line()
 
   -- Check if the language needs a semicolon
   local filetype = vim.bo.filetype
-  local need_semicolon = _G.contains({
+  local need_semicolon = utils.contains({
     'c', 'cpp', 'java', 'javascript', 'typescript', 'typescriptreact', 'javascriptreact', 'rust', 'go', 'python'
   }, filetype)
 

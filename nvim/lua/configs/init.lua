@@ -33,4 +33,3 @@ vim.defer_fn(function()
   require('configs.copilot')
   --require('configs.noice')
 end, 0)
-

@@ -1,5 +1,7 @@
 require('utils').trySetup("CopilotChat", {
-  debug = true
+  window = {
+    layout = 'float',
+  }
 })
 
 -- Keybindings

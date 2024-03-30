@@ -1,4 +1,5 @@
 local opts = { noremap = true, silent = true }
+local utils = require('utils')
 
 local mappings = {
   gD = 'lua vim.lsp.buf.declaration({ timeout_ms = 10000 })',
@@ -13,15 +14,6 @@ local mappings = {
 }
 vim.keymap.set({ 'n', 'x' }, '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 vim.keymap.set({ 'n', 'x' }, '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-
-_G.contains = function(table, element)
-  for _, value in pairs(table) do
-    if value == element then
-      return true
-    end
-  end
-  return false
-end
 
 local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePre', {
@@ -68,7 +60,7 @@ require('lsp-setup').setup({
       'jsonls',
       'taplo'
     };
-    if _G.contains(clients_no_formatting, client.name) then
+    if utils.contains(clients_no_formatting, client.name) then
       require('lsp-setup.utils').disable_formatting(client)
     end
   end,
