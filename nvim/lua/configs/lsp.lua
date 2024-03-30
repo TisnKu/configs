@@ -13,7 +13,7 @@ local mappings = {
   ['<space>o'] = 'TSToolsOrganizeImports',
 }
 vim.keymap.set({ 'n', 'x' }, '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-vim.keymap.set({ 'n', 'x' }, '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set('v', '<space>a', ":'<,'>lua vim.lsp.buf.code_action()<CR>")
 
 local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePre', {
