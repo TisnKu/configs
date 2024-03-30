@@ -40,18 +40,19 @@ function _G.open_test_file()
   end
 end
 
-function _G.run_tmp_test()
-  --local filePath = vim.fn.expand('%:p')
-  --vim.cmd('!pwsh -noexit -command tmptest ' .. filePath)
-  vim.cmd('!tmptest "%:p"')
-end
+-- register command to run test in terminal
+vim.cmd([[
+  command! -nargs=0 RunTmpTest :!tmptest "%:p"
+]])
 
-function _G.run_tmp_test_in_terminal()
-  local filePath = vim.fn.expand('%:p')
-  vim.cmd('!start-process pwsh "-noexit -command tmptest ' .. filePath .. '"')
-end
+vim.cmd([[
+  command! -nargs=0 RunTmpTestTerminal :!start-process pwsh "-noexit -command tmptest ' .. filePath .. '"
+]])
 
-vim.api.nvim_set_keymap('n', '<Bslash>tt', ':lua run_tmp_test_in_terminal()<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<Bslash>rt', ':lua run_tmp_test()<CR>', { noremap = true })
+vim.cmd([[
+  command! -nargs=0 OpenTestFile :lua open_test_file()
+]])
+
+vim.api.nvim_set_keymap('n', '<Bslash>rt', ':RunTmpTestTerminal<CR>', { noremap = true })
 --bind open_test_file to <leader>tv
 vim.api.nvim_set_keymap('n', '<Bslash>t', ':lua open_test_file()<CR>', { noremap = true })
