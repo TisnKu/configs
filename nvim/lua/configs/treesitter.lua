@@ -15,7 +15,7 @@ ts.setup {
   highlight = {
     enable = false
   },
-  ensure_installed = { "vim", "javascript", "typescript", "lua", "rust" },
+  ensure_installed = { "vim", "javascript", "typescript", "lua", "rust", "diff" },
   auto_install = true,
   sync_install = false,
   indent = {

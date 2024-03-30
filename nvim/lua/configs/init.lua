@@ -30,15 +30,7 @@ vim.defer_fn(function()
   require('configs.refactor')
   require('configs.dressing')
   require('configs.terminal')
+  require('configs.copilot')
   --require('configs.noice')
 end, 0)
 
--- Keybindings
--- github copilot keys
-if vim.g.is_mac then
-  vim.api.nvim_set_keymap('i', '¬', '<Plug>(copilot-next)', {})
-  vim.api.nvim_set_keymap('i', '˙', '<Plug>(copilot-previous)', {})
-else
-  vim.api.nvim_set_keymap('i', '<A-l>', '<Plug>(copilot-next)', {})
-  vim.api.nvim_set_keymap('i', '<A-h>', '<Plug>(copilot-previous)', {})
-end

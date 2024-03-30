@@ -120,6 +120,14 @@ require("packer").startup(function(use)
   }
   optuse("dstein64/vim-startuptime")
   optuse("github/copilot.vim")
+  optuse({
+    "CopilotC-Nvim/CopilotChat.nvim",
+    branch = "canary",
+    requires = {
+      "zbirenbaum/copilot.lua",
+      "nvim-lua/plenary.nvim",
+    },
+  })
   optuse("nvim-lualine/lualine.nvim")
   optuse("nvim-lua/plenary.nvim")
   optuse("lewis6991/gitsigns.nvim")
