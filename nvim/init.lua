@@ -56,12 +56,8 @@ local packer_bootstrap = ensure_packer()
 -- Plugins
 require("packer").startup(function(use)
   local optuse = function(plugin, opts)
-    if opts == nil then
-      opts = { opt = true }
-    else
-      opts.opt = true
-    end
-
+    opts = opts or {}
+    opts.opt = true
     use(plugin, opts)
   end
 
