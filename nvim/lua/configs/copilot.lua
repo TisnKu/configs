@@ -26,6 +26,22 @@ local copilotChatConfig = {
   }
 }
 
+function Ask_copilot()
+  vim.ui.input("Github Copilot Chat: ", function(prompt)
+    if not prompt or prompt == "" then
+      return
+    end
+    require('CopilotChat').ask(prompt, {
+      selection = function(source)
+        local select = require('CopilotChat.select')
+        return select.visual(source) or select.buffer(source)
+      end
+    })
+  end)
+end
+
+vim.keymap.set("n", "<space>p", ":lua Ask_copilot()<CR>", { noremap = true, silent = true })
+
 -- Setup CopilotChat with the configuration
 utils.trySetup("CopilotChat", copilotChatConfig)
 
