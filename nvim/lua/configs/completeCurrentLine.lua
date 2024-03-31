@@ -1,5 +1,3 @@
-local utils = require('utils')
-
 local function is_open_bracket(char)
   return char == '(' or char == '[' or char == '{'
 end

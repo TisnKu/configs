@@ -2,30 +2,19 @@
 vim.cmd("source ~/.vimrc")
 -- End general configs
 
+-- load utils
+require('utils')
+
 -- Globals
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
 
-local function has(feat)
-  return vim.fn.has(feat) == 1
-end
+vim.g.is_win = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
+vim.g.is_linux = vim.fn.has("unix") == 1 and not vim.fn.has("macunix") == 1
+vim.g.is_mac = vim.fn.has("macunix") == 1
+vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") ~= ""
 
--- Lua 5.1/LuaJIT and Lua 5.4 compatibility
-local unpack = table.unpack or unpack
-
-local function get_visual_selection()
-  local _, startLine, startColumn = unpack(vim.fn.getpos("'<"))
-  local _, endLine, endColumn = unpack(vim.fn.getpos("'>"))
-
-  -- Ensure column indices are within valid range
-  startColumn = startColumn > 0 and startColumn - 1 or 0
-  endColumn = endColumn > 0 and endColumn - 1 or 0
-
-  local visualSelectionText = vim.api.nvim_buf_get_text(0, startLine - 1, startColumn, endLine - 1, endColumn, {})
-  local result = table.concat(visualSelectionText, "\n")
-  print(result)
-  return result
-end
-
-local function configure_clipboard()
+if vim.g.is_wsl then
   vim.g.clipboard = {
     name = 'win32yank',
     copy = {
@@ -40,19 +29,6 @@ local function configure_clipboard()
   }
 end
 
-vim.g.get_visual_selection = get_visual_selection
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.is_win = has("win32") or has("win64")
-vim.g.is_linux = has("unix") and not has("macunix")
-vim.g.is_mac = has("macunix")
-vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") ~= ""
-
-if vim.g.is_wsl then
-  configure_clipboard()
-end
-
-require("completeCurrentLine")
 
 -- Plugins
 local ensure_packer = function()

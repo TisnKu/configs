@@ -1,6 +1,4 @@
 require('nvim-test').setup()
-local utils = require('utils')
-
 
 -- open test file in new vertical split, if current file is a test file, open the source file in a new vertical split
 function _G.open_test_file()

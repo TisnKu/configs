@@ -1,5 +1,3 @@
-local utils = require('utils')
-
 local mappings = {
   gD = 'lua vim.lsp.buf.declaration({ timeout_ms = 10000 })',
   K = 'lua vim.lsp.buf.hover()',
@@ -132,7 +130,7 @@ require('lsp-setup').setup({
 --  border = "rounded",
 --})
 
-function vim.g.buf_update_diagnostics()
+function Buf_update_diagnostics()
   local clients = vim.lsp.buf_get_clients()
   local buf = vim.api.nvim_get_current_buf()
 
@@ -145,5 +143,5 @@ function vim.g.buf_update_diagnostics()
 end
 
 vim.api.nvim_exec([[
-    au CursorHold <buffer> lua vim.g.buf_update_diagnostics()
+    au CursorHold <buffer> lua Buf_update_diagnostics()
 ]], false)

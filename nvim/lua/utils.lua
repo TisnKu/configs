@@ -1,6 +1,22 @@
-local M = {};
+local M = {}
 
-M.trySetup = function(package, opts)
+M.unpack = table.unpack or unpack
+
+function M.get_visual_selection()
+  local _, startLine, startColumn = unpack(vim.fn.getpos("'<"))
+  local _, endLine, endColumn = unpack(vim.fn.getpos("'>"))
+
+  -- Ensure column indices are within valid range
+  startColumn = startColumn > 0 and startColumn - 1 or 0
+  endColumn = endColumn > 0 and endColumn - 1 or 0
+
+  local visualSelectionText = vim.api.nvim_buf_get_text(0, startLine - 1, startColumn, endLine - 1, endColumn, {})
+  local result = table.concat(visualSelectionText, "\n")
+  print(result)
+  return result
+end
+
+function M.trySetup(package, opts)
   local ok, p = pcall(require, package)
   if not ok then
     vim.cmd("echom 'Failed to load " .. package .. "'")
@@ -15,14 +31,14 @@ M.trySetup = function(package, opts)
   end
 end
 
-M.reduce = function(fn, acc, list)
+function M.reduce(fn, acc, list)
   for _, v in ipairs(list) do
     acc = fn(acc, v)
   end
   return acc
 end
 
-M.map = function(fn, list)
+function M.map(fn, list)
   local result = {}
   for _, v in ipairs(list) do
     table.insert(result, fn(v))
@@ -30,7 +46,7 @@ M.map = function(fn, list)
   return result
 end
 
-M.filter = function(fn, list)
+function M.filter(fn, list)
   local result = {}
   for _, v in ipairs(list) do
     if fn(v) then
@@ -40,7 +56,7 @@ M.filter = function(fn, list)
   return result
 end
 
-M.find = function(list, fn)
+function M.find(list, fn)
   for _, v in ipairs(list) do
     if fn(v) then
       return v
@@ -49,7 +65,7 @@ M.find = function(list, fn)
   return nil
 end
 
-M.contains = function(table, element)
+function M.contains(table, element)
   for _, value in pairs(table) do
     if value == element then
       return true
@@ -58,4 +74,6 @@ M.contains = function(table, element)
   return false
 end
 
-return M;
+_G.utils = M
+
+return M

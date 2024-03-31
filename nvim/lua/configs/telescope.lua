@@ -77,7 +77,7 @@ vim.keymap.set("n", "<leader>gf",
   ":lua require('telescope.builtin').find_files({default_text = vim.fn.expand('<cword>')})<CR>",
   opts)
 vim.keymap.set("v", "<leader>gf",
-  ":lua require('telescope.builtin').find_files({default_text = vim.g.get_visual_selection()})<CR>", opts)
+  ":lua require('telescope.builtin').find_files({default_text = utils.get_visual_selection()})<CR>", opts)
 
 vim.keymap.set("n", "<leader>gb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
 vim.keymap.set("n", "<leader>gl", "<cmd>Telescope live_grep<CR>", opts)
@@ -85,9 +85,9 @@ vim.keymap.set("n", "<leader>rg",
   ":lua require('telescope.builtin').grep_string({search = vim.fn.input('Search term: ')})<CR>", opts)
 vim.keymap.set("n", "<leader>gw", "<cmd>Telescope grep_string<CR>", opts)
 vim.keymap.set("v", "<leader>gw",
-  ":lua require('telescope.builtin').grep_string({search = vim.g.get_visual_selection()})<CR>", opts)
+  ":lua require('telescope.builtin').grep_string({search = utils.get_visual_selection()})<CR>", opts)
 vim.keymap.set("v", "<leader>gv",
-  ":lua require('telescope.builtin').grep_string({search = vim.g.get_visual_selection()})<CR>", opts)
+  ":lua require('telescope.builtin').grep_string({search = utils.get_visual_selection()})<CR>", opts)
 
 vim.keymap.set("n", "<leader>m", "<cmd>Telescope keymaps<CR>", opts)
 vim.keymap.set("n", "<leader>gst", "<cmd>Telescope git_status<CR>", opts)

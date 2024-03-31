@@ -27,7 +27,7 @@ local copilotChatConfig = {
 }
 
 -- Setup CopilotChat with the configuration
-require('utils').trySetup("CopilotChat", copilotChatConfig)
+utils.trySetup("CopilotChat", copilotChatConfig)
 
 -- Keybindings for GitHub Copilot
 local isMac = vim.g.is_mac
