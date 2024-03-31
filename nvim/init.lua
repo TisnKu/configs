@@ -4,29 +4,28 @@ vim.cmd("source ~/.vimrc")
 
 -- Globals
 
-local has = function(feat)
-  if vim.fn.has(feat) == 1 then
-    return true
-  end
-
-  return false
+local function has(feat)
+  return vim.fn.has(feat) == 1
 end
 
-vim.g.get_visual_selection = function()
-  local _, ls, cs = table.unpack(vim.fn.getpos("'<"))
-  local _, le, ce = table.unpack(vim.fn.getpos("'>"))
-  local visual_selection = vim.api.nvim_buf_get_text(0, ls - 1, cs - 1, le - 1, ce, {})
-  return table.concat(visual_selection, "\n")
+-- Lua 5.1/LuaJIT and Lua 5.4 compatibility
+local unpack = table.unpack or unpack
+
+local function get_visual_selection()
+  local _, startLine, startColumn = unpack(vim.fn.getpos("'<"))
+  local _, endLine, endColumn = unpack(vim.fn.getpos("'>"))
+
+  -- Ensure column indices are within valid range
+  startColumn = startColumn > 0 and startColumn - 1 or 0
+  endColumn = endColumn > 0 and endColumn - 1 or 0
+
+  local visualSelectionText = vim.api.nvim_buf_get_text(0, startLine - 1, startColumn, endLine - 1, endColumn, {})
+  local result = table.concat(visualSelectionText, "\n")
+  print(result)
+  return result
 end
 
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-vim.g.is_win = (has("win32") or has("win64")) and true or false
-vim.g.is_linux = (has("unix") and (not has("macunix"))) and true or false
-vim.g.is_mac = has("macunix") and true or false
-vim.g.format = true
-vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") ~= "" and true or false
-if vim.g.is_wsl then
+local function configure_clipboard()
   vim.g.clipboard = {
     name = 'win32yank',
     copy = {
@@ -39,6 +38,18 @@ if vim.g.is_wsl then
     },
     cache_enabled = 0,
   }
+end
+
+vim.g.get_visual_selection = get_visual_selection
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+vim.g.is_win = has("win32") or has("win64")
+vim.g.is_linux = has("unix") and not has("macunix")
+vim.g.is_mac = has("macunix")
+vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") ~= ""
+
+if vim.g.is_wsl then
+  configure_clipboard()
 end
 
 require("completeCurrentLine")
