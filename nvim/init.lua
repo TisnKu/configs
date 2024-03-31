@@ -29,6 +29,15 @@ if vim.g.is_wsl then
   }
 end
 
+vim.fn.original_setreg = vim.fn.setreg
+vim.fn.setreg = function(reg, value, ...)
+  if reg == "0" then
+    vim.fn.original_setreg("+", value, ...)
+    vim.fn.original_setreg("0", value, ...)
+  end
+  return vim.fn.original_setreg(reg, value, ...)
+end
+
 
 -- Plugins
 local ensure_packer = function()

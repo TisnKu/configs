@@ -40,7 +40,7 @@ function Ask_copilot()
   end)
 end
 
-vim.keymap.set("n", "<space>p", ":lua Ask_copilot()<CR>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<space>p", ":lua Ask_copilot()<CR>", { noremap = true, silent = true })
 
 -- Setup CopilotChat with the configuration
 utils.trySetup("CopilotChat", copilotChatConfig)
