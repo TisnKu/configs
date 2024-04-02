@@ -44,7 +44,7 @@ vim.cmd([[
 ]])
 
 vim.cmd([[
-  command! -nargs=0 RunTmpTestTerminal :!start-process pwsh "-noexit -command tmptest ' .. filePath .. '"
+  command! -nargs=0 RunTmpTestTerminal :!start-process pwsh "-noexit -command tmptest '%:p'"
 ]])
 
 vim.cmd([[
