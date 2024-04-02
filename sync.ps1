@@ -1,4 +1,11 @@
-New-Item -Path $env:USERPROFILE\.vimrc -ItemType SymbolicLink -Value $env:USERPROFILE\configs\nvim\vimrc
-New-Item -Path $env:USERPROFILE\AppData\Local\nvim -ItemType SymbolicLink -Value $env:USERPROFILE\configs\nvim\
-New-Item -Path $env:USERPROFILE\.wezterm.lua -ItemType SymbolicLink -Value $env:USERPROFILE\configs\wezterm.lua
+$configs = @{
+  "configs\nvim\vimrc" = ".vimrc"
+  "configs\nvim\" = "AppData\Local\nvim"
+  "configs\wezterm.lua" = ".wezterm.lua"
+}
 
+foreach ($config in $configs.GetEnumerator()) {
+  $source = Join-Path -Path $env:USERPROFILE -ChildPath $config.Key
+  $destination = Join-Path -Path $env:USERPROFILE -ChildPath $config.Value
+  New-Item -Path $destination -ItemType SymbolicLink -Value $source -Force
+}
