@@ -40,9 +40,6 @@ cnoremap ,, <esc>
 inoremap <C-,> <esc>
 vnoremap <C-,> <esc>
 cnoremap <C-,> <esc>
-inoremap hh <esc>
-vnoremap hh <esc>
-cnoremap hh <esc>
 inoremap <C-h> <esc>
 cnoremap <C-h> <esc>
 vnoremap <C-h> <esc>
