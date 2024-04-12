@@ -1,6 +1,6 @@
 -- Load immediately after startup
 require("configs.theme")
-require("utils").trySetup("lualine", {
+utils.trySetup("lualine", {
   theme = "auto",
   --extensions = { "fern" },
   options = {

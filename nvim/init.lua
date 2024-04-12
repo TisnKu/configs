@@ -106,8 +106,6 @@ require("packer").startup(function(use)
   optuse {
     'saecki/crates.nvim',
     requires = { 'nvim-lua/plenary.nvim' },
-    config = function()
-    end,
   }
   optuse("dstein64/vim-startuptime")
   optuse("github/copilot.vim")
