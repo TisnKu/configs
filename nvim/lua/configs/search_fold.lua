@@ -13,7 +13,8 @@ local function fold_non_matching_lines(pattern)
   end
 
   for i, line in ipairs(lines) do
-    if (invert and line:match(pattern)) or (not invert and not line:match(pattern)) then
+    local matched = line:match(pattern)
+    if (invert and matched) or (not invert and not matched) then
       if foldstart == -1 then
         foldstart = i
       end
