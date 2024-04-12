@@ -8,6 +8,7 @@ utils.trySetup("lualine", {
   }
 })
 require("configs.cmp")
+require("configs.search_fold")
 
 -- Defer loading until after vim has started
 vim.defer_fn(function()
