@@ -13,7 +13,7 @@ local function fold_non_matching_lines(pattern)
   end
 
   for i, line in ipairs(lines) do
-    local matched = line:match(pattern)
+    local matched = vim.fn.match(line, pattern) ~= -1
     if (invert and matched) or (not invert and not matched) then
       if foldstart == -1 then
         foldstart = i
