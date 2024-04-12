@@ -42,8 +42,7 @@ local copilot_chat_source = helpers.make_builtin({
         },
         Prompt = {
           callback = function()
-            -- Request user input for prompt, then ask CopilotChat
-            vim.ui.input("Github Copilot Chat:", function(prompt)
+            vim.ui.input({ prompt = "Github Copilot Chat:", default = "/COPILOT_INSTRUCTIONS " }, function(prompt)
               if not prompt or prompt == "" then
                 return
               end
