@@ -33,5 +33,8 @@ vim.defer_fn(function()
   require('configs.dressing')
   require('configs.terminal')
   require('configs.copilot')
+  utils.trySetup('log-highlight', {
+    pattern = '.*log.*'
+  })
   --require('configs.noice')
 end, 0)

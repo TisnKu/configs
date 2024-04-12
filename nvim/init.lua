@@ -90,6 +90,11 @@ require("packer").startup(function(use)
       require("ibl").setup({})
     end,
   })
+  optuse {
+    'fei6409/log-highlight.nvim',
+    config = function()
+    end,
+  }
 
   optuse({
     "ThePrimeagen/refactoring.nvim",
