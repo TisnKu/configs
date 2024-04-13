@@ -40,6 +40,15 @@ function Ask_copilot()
   end)
 end
 
+function Ask_copilot_workspace()
+  vim.ui.input({ prompt = "Github Copilot Workspace:", default = "/COPILOT_WORKSPACE " }, function(prompt)
+    if not prompt or prompt == "" then
+      return
+    end
+    require('CopilotChat').ask(prompt, { system_prompt = require('CopilotChat.prompts').COPILOT_WORKSPACE })
+  end)
+end
+
 vim.keymap.set({ "n", "v" }, "<space>p", ":lua Ask_copilot()<CR>", { noremap = true, silent = true })
 
 -- Setup CopilotChat with the configuration

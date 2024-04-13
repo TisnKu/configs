@@ -41,31 +41,10 @@ local copilot_chat_source = helpers.make_builtin({
           end,
         },
         Prompt = {
-          callback = function()
-            vim.ui.input({ prompt = "Github Copilot Chat:", default = "/COPILOT_INSTRUCTIONS " }, function(prompt)
-              if not prompt or prompt == "" then
-                return
-              end
-              require('CopilotChat').ask(prompt, {
-                selection = function(source)
-                  local select = require('CopilotChat.select')
-                  return select.visual(source) or select.buffer(source)
-                end
-              })
-            end)
-          end,
+          callback = Ask_copilot,
         },
         Workspace = {
-          callback = function()
-            vim.ui.input("Github Copilot Workspace: ", function(prompt)
-              if not prompt or prompt == "" then
-                return
-              end
-              require('CopilotChat').ask(prompt, {
-                system_prompt = require('CopilotChat.prompts').COPILOT_WORKSPACE
-              })
-            end)
-          end,
+          callback = Ask_copilot_workspace,
         }
       }
       if help_actions then
