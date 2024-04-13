@@ -10,7 +10,6 @@ set ignorecase
 set smartcase
 set showmatch
 set matchtime=2 " Default 5 * 0.1s
-set clipboard=unnamedplus
 set showtabline=2
 set smartindent
 "set linebreak " Soft wrap
@@ -194,11 +193,12 @@ vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
 
 """""""""""" Advanced """""""""""""
-" Correct jsx/tsx filetype
-augroup ReactFiletypes
+augroup YankToStarRegister
   autocmd!
-  autocmd BufRead,BufNewFile *.jsx set filetype=javascriptreact
-  autocmd BufRead,BufNewFile *.tsx set filetype=typescriptreact
+  autocmd TextYankPost * if v:event.operator ==# 'y' | let @*=@0 | endif
 augroup END
+
+nnoremap <leader>p :let @"=@*<CR>p
+vnoremap <leader>p :let @"=@*<CR>p
 
 au FocusGained,BufEnter * checktime

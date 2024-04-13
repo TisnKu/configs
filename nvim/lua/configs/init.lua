@@ -7,6 +7,7 @@ utils.trySetup("lualine", {
     theme = 'auto'
   }
 })
+require("configs.json")
 require("configs.cmp")
 require("configs.search_fold")
 

@@ -3,17 +3,35 @@ local M = {}
 M.unpack = table.unpack or unpack
 
 function M.get_visual_selection()
-  local _, startLine, startColumn = unpack(vim.fn.getpos("'<"))
-  local _, endLine, endColumn = unpack(vim.fn.getpos("'>"))
+  local _, start_line, start_col = unpack(vim.fn.getpos("'<"))
+  local _, end_line, end_col = unpack(vim.fn.getpos("'>"))
+
+  if start_line == end_line and start_col == end_col then
+    return ""
+  end
 
   -- Ensure column indices are within valid range
-  startColumn = startColumn > 0 and startColumn - 1 or 0
-  endColumn = endColumn > 0 and endColumn - 1 or 0
+  start_col = start_col > 0 and start_col - 1 or 0
+  -- if finish column exceeds line length, set it to the end of the line
+  local finish_line_len = #vim.api.nvim_buf_get_lines(0, end_line - 1, end_line, true)[1]
+  if end_col > finish_line_len then
+    end_col = finish_line_len
+  end
 
-  local visualSelectionText = vim.api.nvim_buf_get_text(0, startLine - 1, startColumn, endLine - 1, endColumn, {})
+  local visualSelectionText = vim.api.nvim_buf_get_text(0, start_line - 1, start_col, end_line - 1, end_col, {})
   local result = table.concat(visualSelectionText, "\n")
-  print(result)
   return result
+end
+
+function M.get_selection_or_buffer()
+  local selection = M.get_visual_selection()
+
+  if selection ~= "" then
+    return selection
+  end
+
+  local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+  return table.concat(lines, "\n")
 end
 
 function M.trySetup(package, opts)
