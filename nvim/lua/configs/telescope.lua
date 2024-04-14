@@ -71,9 +71,9 @@ telescope.load_extension('floaterm')
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set({ "n", "v" }, "<space>t", ":<C-u>Telescope builtin include_extensions=true<CR>", opts)
-vim.keymap.set("t", "<space>t", "<C-\\><C-n>:Telescope builtin include_extensions=true<CR>", opts)
+--vim.keymap.set("t", "<space>t", "<C-\\><C-n>:Telescope builtin include_extensions=true<CR>", opts)
 vim.keymap.set({ "n", "v" }, "<space>;", ":<C-u>Telescope commands<CR>", opts)
-vim.keymap.set("t", "<space>;", "<C-\\><C-n>:Telescope commands<CR>", opts)
+--vim.keymap.set("t", "<space>;", "<C-\\><C-n>:Telescope commands<CR>", opts)
 vim.keymap.set("n", "<leader>f", ":lua require('telescope.builtin').find_files({ debounce = 100 })<CR>", opts)
 vim.keymap.set("n", "<leader>gf",
   ":lua require('telescope.builtin').find_files({default_text = vim.fn.expand('<cword>')})<CR>",
