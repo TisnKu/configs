@@ -1,5 +1,5 @@
 vim.keymap.set({ "n", "v" }, "<space>f", ":FloatermToggle<CR>", { noremap = true, silent = true })
-vim.keymap.set('t', "<Esc>", "<C-\\><C-n>:FloatermToggle<CR>", { noremap = true, silent = true })
+vim.keymap.set('t', "<leader>q", "<C-\\><C-n>:FloatermToggle<CR>", { noremap = true, silent = true })
 -- Kill all instances of floaterm on qall
 vim.keymap.set({ "n", "v" }, "WQ", ":FloatermKill!<CR>:wqall<CR>", { noremap = true, silent = true })
 
