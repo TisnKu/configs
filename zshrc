@@ -54,6 +54,7 @@ function gcob() {
 }
 
 alias currentbranch="git branch | grep \* | cut -d ' ' -f2"
+alias lg="lazygit"
 
 function gps() {
     gp --set-upstream origin $(currentbranch);
