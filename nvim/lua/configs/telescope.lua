@@ -71,7 +71,6 @@ telescope.load_extension("file_browser")
 local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<space>t", ":<C-u>Telescope builtin include_extensions=true<CR>", opts)
 vim.keymap.set({ "n", "v" }, "<space>;", ":<C-u>Telescope commands<CR>", opts)
-vim.keymap.set({ "n", "v" }, "<space>c", ":<C-u>Telescope commands<CR>", opts)
 vim.keymap.set("n", "<leader>f", ":lua require('telescope.builtin').find_files({ debounce = 100 })<CR>", opts)
 vim.keymap.set("n", "<leader>gf",
   ":lua require('telescope.builtin').find_files({default_text = vim.fn.expand('<cword>')})<CR>",

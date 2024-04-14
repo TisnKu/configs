@@ -66,6 +66,7 @@ require("packer").startup(function(use)
     end
   }
 
+  optuse('voldikss/vim-floaterm')
   optuse("machakann/vim-sandwich")
   --optuse("lambdalisue/fern.vim")
   optuse("preservim/nerdtree")

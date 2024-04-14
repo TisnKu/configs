@@ -1,8 +1,8 @@
 -- Configuration for CopilotChat
 local copilotChatConfig = {
-  window = {
-    layout = 'float',
-  },
+  --window = {
+  --  layout = 'float',
+  --},
   mappings = {
     close = {
       normal = '<esc>',
@@ -50,6 +50,7 @@ function Ask_copilot_workspace()
 end
 
 vim.keymap.set({ "n", "v" }, "<space>p", ":lua Ask_copilot()<CR>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<space>c", ":CopilotChatToggle<CR>", { noremap = true, silent = true })
 
 -- Setup CopilotChat with the configuration
 utils.trySetup("CopilotChat", copilotChatConfig)
