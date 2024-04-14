@@ -66,12 +66,12 @@ require("packer").startup(function(use)
     end
   }
 
-  optuse('voldikss/vim-floaterm')
   optuse("machakann/vim-sandwich")
   --optuse("lambdalisue/fern.vim")
   optuse("preservim/nerdtree")
   optuse("scrooloose/nerdcommenter")
   optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
+  optuse("nvim-treesitter/nvim-treesitter-context")
   optuse("windwp/nvim-autopairs")
   optuse("yuttie/comfortable-motion.vim")  -- Smooth scrolling
   optuse({
@@ -113,7 +113,9 @@ require("packer").startup(function(use)
   optuse("nvim-lua/plenary.nvim")
   optuse("lewis6991/gitsigns.nvim")
   optuse { 'sindrets/diffview.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-
+  optuse { 'dawsers/telescope-floaterm.nvim', requires = { 'nvim-telescope/telescope.nvim', 'voldikss/vim-floaterm' } }
+  optuse('skywind3000/asyncrun.vim')
+  optuse('voldikss/vim-floaterm')
   optuse({ "junegunn/fzf", run = ":call fzf#install()" })
   optuse { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   optuse { "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } }

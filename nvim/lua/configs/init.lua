@@ -38,4 +38,5 @@ vim.defer_fn(function()
     pattern = '.*log.*'
   })
   --require('configs.noice')
+  require('configs.floaterm')
 end, 0)

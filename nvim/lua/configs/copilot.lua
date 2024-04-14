@@ -1,8 +1,9 @@
 -- Configuration for CopilotChat
 local copilotChatConfig = {
-  --window = {
-  --  layout = 'float',
-  --},
+  window = {
+    --layout = 'float',
+    width = 0.3,
+  },
   mappings = {
     close = {
       normal = '<esc>',
