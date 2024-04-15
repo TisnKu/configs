@@ -113,17 +113,18 @@ require("packer").startup(function(use)
   optuse("nvim-lua/plenary.nvim")
   optuse("lewis6991/gitsigns.nvim")
   optuse { 'sindrets/diffview.nvim', requires = { 'nvim-lua/plenary.nvim' } }
-  optuse { 'dawsers/telescope-floaterm.nvim', requires = { 'nvim-telescope/telescope.nvim', 'voldikss/vim-floaterm' } }
   optuse('skywind3000/asyncrun.vim')
   optuse('voldikss/vim-floaterm')
   optuse({ "junegunn/fzf", run = ":call fzf#install()" })
   optuse { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  optuse { "nvim-telescope/telescope.nvim", requires = { "nvim-lua/plenary.nvim" } }
-  optuse { 'nvim-telescope/telescope-ui-select.nvim' }
-  optuse {
-    "nvim-telescope/telescope-file-browser.nvim",
-    requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
-  }
+  optuse { "nvim-telescope/telescope.nvim", requires = {
+    "nvim-lua/plenary.nvim",
+    "smartpde/telescope-recent-files",
+    'nvim-telescope/telescope-ui-select.nvim',
+    "dawsers/telescope-floaterm.nvim",
+    "nvim-telescope/telescope-project.nvim",
+    "nvim-telescope/telescope-file-browser.nvim"
+  } }
   --optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   optuse { 'stevearc/dressing.nvim' }
 

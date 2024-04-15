@@ -4,6 +4,8 @@ if not ok then
 end
 
 local actions = require("telescope.actions")
+local project_actions = require("telescope._extensions.project.actions")
+
 telescope.setup {
   defaults = {
     cache_picker = {
@@ -61,13 +63,37 @@ telescope.setup {
         },
       },
     },
+    recent_files = {
+      only_cwd = true,
+    },
+    project = {
+      base_dirs = {
+        { '~/', max_depth = 3 },
+      },
+      on_project_selected = function(prompt_bufnr)
+        project_actions.change_working_directory(prompt_bufnr, false)
+        vim.cmd [[ silent! bufdo bwipeout ]]
+        telescope.extensions.recent_files.pick()
+      end
+    }
   }
 }
 
-telescope.load_extension('fzf')
-telescope.load_extension("ui-select")
-telescope.load_extension("file_browser")
-telescope.load_extension('floaterm')
+local extensions = {
+  'fzf',
+  'ui-select',
+  'file_browser',
+  'floaterm',
+  'recent_files',
+  'project'
+}
+
+for _, extension in ipairs(extensions) do
+  local success, err = pcall(telescope.load_extension, extension)
+  if not success then
+    print('Error loading extension ' .. extension .. ': ' .. err)
+  end
+end
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set({ "n", "v" }, "<space>t", ":<C-u>Telescope builtin include_extensions=true<CR>", opts)
