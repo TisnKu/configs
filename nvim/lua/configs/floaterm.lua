@@ -6,3 +6,6 @@ vim.keymap.set("t", "WQ", "<C-\\><C-n>:FloatermKill!<CR>:wqall<CR>", { noremap =
 
 -- Lazygit
 vim.cmd("command! Lazygit FloatermNew --width=1.0 --height=1.0 lazygit")
+
+-- yazi
+vim.cmd("command! Yazi FloatermNew --width=1.0 --height=1.0 yazi")

@@ -68,7 +68,7 @@ require("packer").startup(function(use)
 
   optuse("machakann/vim-sandwich")
   --optuse("lambdalisue/fern.vim")
-  optuse("preservim/nerdtree")
+  --optuse("preservim/nerdtree")
   optuse("scrooloose/nerdcommenter")
   optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   optuse("nvim-treesitter/nvim-treesitter-context")
@@ -127,7 +127,7 @@ require("packer").startup(function(use)
   } }
   --optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   optuse { 'stevearc/dressing.nvim' }
-
+  optuse 'airblade/vim-rooter'
   optuse({
     "klen/nvim-test",
     config = function()

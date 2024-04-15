@@ -36,8 +36,13 @@ telescope.setup {
       i = {
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
-        ["<esc>"] = actions.close,
+        ["<esc><esc>"] = actions.close,
+        ["<leader>q"] = actions.close,
+        ["<C-c"] = actions.close,
       },
+      n = {
+        ["<leader>q"] = actions.close,
+      }
     },
   },
   extensions = {
@@ -56,10 +61,10 @@ telescope.setup {
       hijack_netrw = true,
       mappings = {
         ["i"] = {
-          -- your custom insert mode mappings
+          ["<space>e"] = actions.close,
         },
         ["n"] = {
-          -- your custom normal mode mappings
+          ["<space>e"] = actions.close,
         },
       },
     },
@@ -96,11 +101,13 @@ for _, extension in ipairs(extensions) do
 end
 
 local opts = { noremap = true, silent = true }
+vim.keymap.set({ "n", "v" }, "<space>e", ":<C-u>Telescope file_browser path=%:p:h<CR>", opts)
 vim.keymap.set({ "n", "v" }, "<space>t", ":<C-u>Telescope builtin include_extensions=true<CR>", opts)
 --vim.keymap.set("t", "<space>t", "<C-\\><C-n>:Telescope builtin include_extensions=true<CR>", opts)
 vim.keymap.set({ "n", "v" }, "<space>;", ":<C-u>Telescope commands<CR>", opts)
 --vim.keymap.set("t", "<space>;", "<C-\\><C-n>:Telescope commands<CR>", opts)
-vim.keymap.set("n", "<leader>f", ":lua require('telescope.builtin').find_files({ debounce = 100 })<CR>", opts)
+vim.keymap.set({ "n", "i", "v" }, "<leader>f",
+  ":<C-u>lua require('telescope.builtin').find_files({ debounce = 100 })<CR>", opts)
 vim.keymap.set("n", "<leader>gf",
   ":lua require('telescope.builtin').find_files({default_text = vim.fn.expand('<cword>')})<CR>",
   opts)
