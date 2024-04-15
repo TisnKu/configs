@@ -30,15 +30,15 @@ require("catppuccin").setup({
   },
 })
 
---vim.cmd [[colorscheme catppuccin]]
---vim.cmd [[set termguicolors]]
+if vim.g.is_win then
+  vim.cmd "colorscheme catppuccin"
+else
+  vim.cmd "colorscheme material"
+end
 
 vim.cmd [[
-  colorscheme material
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-  if (has("termguicolors"))
-    set termguicolors
-  endif
+  set termguicolors
 ]]
 
 -- Startup page
@@ -60,9 +60,9 @@ dashboard.section.header.val = {
 
 -- Set menu
 dashboard.section.buttons.val = {
+  dashboard.button("r", "  > Recent", ":Telescope recent_files pick<CR>"),
   dashboard.button("e", "  > File Explorer", ":Telescope file_browser<CR>"),
   dashboard.button("f", "  > Find file", ":Telescope find_files<CR>"),
-  dashboard.button("r", "  > Recent", ":Telescope recent_files pick<CR>"),
   dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
 }
 
