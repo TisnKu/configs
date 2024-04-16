@@ -80,7 +80,8 @@ telescope.setup {
     },
     project = {
       base_dirs = {
-        { '~/', max_depth = 3 },
+        { '~/',           max_depth = 3 },
+        { 'D:/Projects/', max_depth = 2 },
       },
       on_project_selected = function(prompt_bufnr)
         project_actions.change_working_directory(prompt_bufnr, false)
