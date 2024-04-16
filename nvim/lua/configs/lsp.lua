@@ -7,8 +7,8 @@ local mappings = {
   ['<space>d'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
   [']d'] = 'lua vim.diagnostic.goto_next()',
-  ['<space>o'] = 'TSToolsOrganizeImports',
 }
+
 vim.keymap.set({ 'n', 'x' }, '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 vim.keymap.set('v', '<space>a', ":'<,'>lua vim.lsp.buf.code_action()<CR>")
 
@@ -28,10 +28,6 @@ vim.api.nvim_create_autocmd('BufWritePre', {
       end
     end
 
-    -- If the command is available, run it
-    if vim.fn.exists(':TSToolsRemoveUnusedImports') ~= 0 then
-      vim.cmd('silent! TSToolsRemoveUnusedImports sync')
-    end
     vim.lsp.buf.format({ timeout_ms = 2000 })
   end,
 })
