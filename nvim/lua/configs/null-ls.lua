@@ -93,8 +93,8 @@ local search_engine_source = helpers.make_builtin({
         },
         TMP = {
           url =
-          --"https://domoreexp.visualstudio.com/Teamspace/_search?action=contents&text={query}&type=code&lp=code-Project&filters=ProjectFilters{Teamspace}RepositoryFilters{teams-modular-packages*Teamspace-Web}&pageSize=25"
-          "https://domoreexp.visualstudio.com/Teamspace/_search?action=contents&text={query}&type=code&lp=code-Project&filters=ProjectFilters%7BTeamspace%7DRepositoryFilters%7Bteams-modular-packages*Teamspace-Web%7D&pageSize=25",
+          "https://domoreexp.visualstudio.com/Teamspace/_search?text={query}&type=code&filters=ProjectFilters%7BTeamspace%7DRepositoryFilters%7Bteams-client-cifx_tests*teams-modular-packages%7D&pageSize=25"
+          --"https://domoreexp.visualstudio.com/Teamspace/_search?type=code&filters=ProjectFilters%7BTeamspace%7DRepositoryFilters%7Bteams-modular-packages%7D&pageSize=25&text={query}",
         },
       }
       local actions = {}

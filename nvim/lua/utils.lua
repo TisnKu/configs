@@ -10,11 +10,11 @@ vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") 
 function M.open_url(url)
   print('Open url: ' .. url)
   if vim.g.is_win then
-    os.execute("start " .. url)
+    os.execute("start \"" .. url .. "\"")
   elseif vim.g.is_linux then
-    os.execute("xdg-open " .. url)
+    os.execute("xdg-open \"" .. url .. "\"")
   elseif vim.g.is_mac then
-    os.execute("open " .. url)
+    os.execute("open \"" .. url .. "\"")
   end
 end
 
