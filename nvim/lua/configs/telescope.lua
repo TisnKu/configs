@@ -7,6 +7,14 @@ local actions = require("telescope.actions")
 local project_actions = require("telescope._extensions.project.actions")
 local file_browser_actions = require("telescope._extensions.file_browser.actions")
 
+local project_paths = {
+  '~/',
+}
+local directory = 'D:/Projects/'
+if vim.fn.isdirectory(directory) == 1 then
+  table.insert(project_paths, directory)
+end
+
 telescope.setup {
   defaults = {
     cache_picker = {
@@ -79,10 +87,7 @@ telescope.setup {
       only_cwd = true,
     },
     project = {
-      base_dirs = {
-        { '~/',           max_depth = 3 },
-        { 'D:/Projects/', max_depth = 2 },
-      },
+      base_dirs = project_paths,
       on_project_selected = function(prompt_bufnr)
         project_actions.change_working_directory(prompt_bufnr, false)
         vim.cmd [[ silent! bufdo bwipeout ]]
