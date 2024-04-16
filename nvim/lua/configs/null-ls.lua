@@ -75,4 +75,47 @@ local copilot_chat_source = helpers.make_builtin({
   }
 })
 
+local search_engine_source = helpers.make_builtin({
+  name = "search_engine",
+  method = CODE_ACTION,
+  filetypes = {},
+  generator = {
+    fn = function(_)
+      local search_engines = {
+        Google = {
+          url = "https://www.google.com/search?q={query}",
+        },
+        Bing = {
+          url = "https://www.bing.com/search?q={query}",
+        },
+        Github = {
+          url = "https://github.com/search?q={query}"
+        },
+        TMP = {
+          url =
+          --"https://domoreexp.visualstudio.com/Teamspace/_search?action=contents&text={query}&type=code&lp=code-Project&filters=ProjectFilters{Teamspace}RepositoryFilters{teams-modular-packages*Teamspace-Web}&pageSize=25"
+          "https://domoreexp.visualstudio.com/Teamspace/_search?action=contents&text={query}&type=code&lp=code-Project&filters=ProjectFilters%7BTeamspace%7DRepositoryFilters%7Bteams-modular-packages*Teamspace-Web%7D&pageSize=25",
+        },
+      }
+      local actions = {}
+      for name, engine in pairs(search_engines) do
+        table.insert(actions, {
+          title = name,
+          action = function()
+            -- Search visual selection or word under cursor
+            local visual_selection = utils.get_visual_selection()
+            local query = visual_selection ~= "" and visual_selection or vim.fn.expand("<cword>")
+            print("Query: " .. query)
+            local url = engine.url:gsub("{query}", query)
+            -- open url in default browser
+            utils.open_url(url)
+          end,
+        })
+      end
+      return actions
+    end
+  }
+})
+
 null_ls.register(copilot_chat_source)
+null_ls.register(search_engine_source)

@@ -9,11 +9,6 @@ require('utils')
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-vim.g.is_win = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
-vim.g.is_linux = vim.fn.has("unix") == 1 and not vim.fn.has("macunix") == 1
-vim.g.is_mac = vim.fn.has("macunix") == 1
-vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") ~= ""
-
 if vim.g.is_wsl then
   vim.g.clipboard = {
     name = 'win32yank',

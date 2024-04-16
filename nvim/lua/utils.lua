@@ -2,6 +2,22 @@ local M = {}
 
 M.unpack = table.unpack or unpack
 
+vim.g.is_win = vim.fn.has("win32") == 1 or vim.fn.has("win64") == 1
+vim.g.is_linux = vim.fn.has("unix") == 1 and not vim.fn.has("macunix") == 1
+vim.g.is_mac = vim.fn.has("macunix") == 1
+vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") ~= ""
+
+function M.open_url(url)
+  print('Open url: ' .. url)
+  if vim.g.is_win then
+    os.execute("start " .. url)
+  elseif vim.g.is_linux then
+    os.execute("xdg-open " .. url)
+  elseif vim.g.is_mac then
+    os.execute("open " .. url)
+  end
+end
+
 function M.get_visual_selection()
   local _, start_line, start_col = unpack(vim.fn.getpos("'<"))
   local _, end_line, end_col = unpack(vim.fn.getpos("'>"))
