@@ -1,36 +1,35 @@
 --require("github-theme").setup {}
-require("catppuccin").setup({
-  term_colors = true,
-  --transparent_background = true,
-  styles = {
-    comments = {},
-    conditionals = {},
-    loops = {},
-    functions = {},
-    keywords = {},
-    strings = {},
-    variables = {},
-    numbers = {},
-    booleans = {},
-    properties = {},
-    types = {},
-  },
-  color_overrides = {
-    mocha = {
-      base = "#000000",
-      mantle = "#000000",
-      crust = "#000000",
-    },
-  },
-  integrations = {
-    dropbar = {
-      enabled = true,
-      color_mode = true,
-    },
-  },
-})
-
 if vim.g.is_win then
+  require("catppuccin").setup({
+    term_colors = true,
+    --transparent_background = true,
+    styles = {
+      comments = {},
+      conditionals = {},
+      loops = {},
+      functions = {},
+      keywords = {},
+      strings = {},
+      variables = {},
+      numbers = {},
+      booleans = {},
+      properties = {},
+      types = {},
+    },
+    color_overrides = {
+      mocha = {
+        base = "#000000",
+        mantle = "#000000",
+        crust = "#000000",
+      },
+    },
+    integrations = {
+      dropbar = {
+        enabled = true,
+        color_mode = true,
+      },
+    },
+  })
   vim.cmd "colorscheme catppuccin"
 else
   vim.cmd "colorscheme material"
@@ -63,6 +62,7 @@ dashboard.section.buttons.val = {
   dashboard.button("r", "  > Recent", ":Telescope recent_files pick<CR>"),
   dashboard.button("e", "  > File Explorer", ":Telescope file_browser<CR>"),
   dashboard.button("f", "  > Find file", ":Telescope find_files<CR>"),
+  dashboard.button("p", "  > Find project", ":Telescope project display_type=full<CR>"),
   dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
 }
 
