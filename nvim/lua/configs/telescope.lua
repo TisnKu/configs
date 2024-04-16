@@ -56,12 +56,18 @@ telescope.setup {
       }
     },
     file_browser = {
+      initial_mode = "normal",
       theme = "ivy",
       -- disables netrw and use telescope-file-browser in its place
       hijack_netrw = true,
       mappings = {
         ["i"] = {
           ["<space>e"] = actions.close,
+          ["<C-<F5>"] = actions.create,
+          ["<C-<F6>"] = actions.copy,
+          ["<C-<F7>"] = actions.rename,
+          ["<C-<F8>"] = actions.delete,
+          ["<C-<F9>"] = actions.move,
         },
         ["n"] = {
           ["<space>e"] = actions.close,
@@ -101,7 +107,7 @@ for _, extension in ipairs(extensions) do
 end
 
 local opts = { noremap = true, silent = true }
-vim.keymap.set({ "n", "v" }, "<space>e", ":<C-u>Telescope file_browser path=%:p:h<CR>", opts)
+vim.keymap.set({ "n", "v" }, "<space>e", ":<C-u>Telescope file_browser path=%:p:h select_buffer=true<CR>", opts)
 vim.keymap.set({ "n", "v" }, "<space>t", ":<C-u>Telescope builtin include_extensions=true<CR>", opts)
 --vim.keymap.set("t", "<space>t", "<C-\\><C-n>:Telescope builtin include_extensions=true<CR>", opts)
 vim.keymap.set({ "n", "v" }, "<space>;", ":<C-u>Telescope commands<CR>", opts)
