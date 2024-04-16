@@ -5,6 +5,7 @@ end
 
 local actions = require("telescope.actions")
 local project_actions = require("telescope._extensions.project.actions")
+local file_browser_actions = require("telescope._extensions.file_browser.actions")
 
 telescope.setup {
   defaults = {
@@ -63,11 +64,11 @@ telescope.setup {
       mappings = {
         ["i"] = {
           ["<space>e"] = actions.close,
-          ["<C-<F5>"] = actions.create,
-          ["<C-<F6>"] = actions.copy,
-          ["<C-<F7>"] = actions.rename,
-          ["<C-<F8>"] = actions.delete,
-          ["<C-<F9>"] = actions.move,
+          ["<C-<F5>"] = file_browser_actions.create,
+          ["<C-<F6>"] = file_browser_actions.copy,
+          ["<C-<F7>"] = file_browser_actions.rename,
+          ["<C-<F8>"] = file_browser_actions.remove,
+          ["<C-<F9>"] = file_browser_actions.move,
         },
         ["n"] = {
           ["<space>e"] = actions.close,
