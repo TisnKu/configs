@@ -8,7 +8,6 @@ cmp.setup({
   },
   --comfirmation = { completeopt = "menu,menuone,noselect" },
   mapping = cmp.mapping.preset.insert({
-    ["<C-j>"] = cmp.mapping(cmp.mapping.select_next_item({ behavior = cmp.SelectBehavior.Insert })),
     ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
     ["<C-u>"] = cmp.mapping.scroll_docs(-4),
     ["<C-d>"] = cmp.mapping.scroll_docs(4),

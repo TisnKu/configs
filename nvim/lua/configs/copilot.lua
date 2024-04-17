@@ -17,14 +17,6 @@ local copilotChatConfig = {
     local select = require('CopilotChat.select')
     return select.visual(source) or select.buffer(source)
   end,
-  prompts = {
-    Refactor = {
-      prompt = '/COPILOT_REFACTOR Refactor the selected code to be cleaner and more readable.'
-    },
-    Performance = {
-      prompt = '/COPILOT_REFACTOR Improve the performance of the code.'
-    },
-  }
 }
 
 local function selection(source)

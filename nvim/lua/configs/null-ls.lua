@@ -10,7 +10,7 @@ null_ls.setup({
     null_ls.builtins.formatting.prettier,
     --null_ls.builtins.formatting.rustfmt,
     null_ls.builtins.formatting.taplo,
-    null_ls.builtins.code_actions.gitsigns,
+    --null_ls.builtins.code_actions.gitsigns,
     null_ls.builtins.code_actions.refactoring,
     null_ls.copilot_chat,
   },
@@ -35,11 +35,6 @@ local copilot_chat_source = helpers.make_builtin({
       local _, help_actions = pcall(require("CopilotChat.actions").help_actions)
       local _, prompt_actions = pcall(require("CopilotChat.actions").prompt_actions)
       local copilot_chat_actions = {
-        Open = {
-          callback = function()
-            require('CopilotChat').open()
-          end,
-        },
         Prompt = {
           callback = Ask_copilot,
         },
@@ -53,6 +48,11 @@ local copilot_chat_source = helpers.make_builtin({
       if prompt_actions then
         copilot_chat_actions = vim.tbl_extend("force", copilot_chat_actions, prompt_actions.actions)
       end
+      -- remove some actions from the list
+      copilot_chat_actions["Review"] = nil
+      copilot_chat_actions["CommitStaged"] = nil
+      copilot_chat_actions["Fix"] = nil
+
       local actions = {}
       for name, action in pairs(copilot_chat_actions) do
         table.insert(actions, {

@@ -39,9 +39,6 @@ cnoremap ,, <esc>
 inoremap <C-,> <esc>
 vnoremap <C-,> <esc>
 cnoremap <C-,> <esc>
-inoremap <C-h> <esc>
-cnoremap <C-h> <esc>
-vnoremap <C-h> <esc>
 inoremap WW <esc>:w<cr>
 nnoremap WW <esc>:w<cr>
 inoremap <C-s> <esc>:w<cr>
@@ -180,14 +177,6 @@ endfunction
 """"""""""""" Search mode """""""""""""""
 set ignorecase smartcase
 
-""""""""""""" Visual mode tips """""""""""""
-vnoremap <leader>(( <esc>`>a)<esc>`<i(<esc>
-vnoremap <leader>[[ <esc>`>a]<esc>`<i[<esc>
-vnoremap <leader>{{ <esc>`>a}<esc>`<i{<esc>
-vnoremap <leader>"" <esc>`>a"<esc>`<i"<esc>
-vnoremap <leader>'' <esc>`>a'<esc>`<i'<esc>
-vnoremap <leader>`` <esc>`>a`<esc>`<i`<esc>
-
 " quick replace selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
@@ -197,6 +186,9 @@ augroup YankToStarRegister
   autocmd!
   autocmd TextYankPost * if v:event.operator ==# 'y' | let @*=@0 | endif
 augroup END
+
+" Copy to system clipboard
+nnoremap <leader>* :let @*=@"<CR>
 
 nnoremap <leader>p :let @"=@*<CR>p
 vnoremap <leader>p :let @"=@*<CR>p
