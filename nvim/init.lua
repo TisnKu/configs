@@ -123,7 +123,7 @@ require("packer").startup(function(use)
   } }
   --optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   optuse { 'stevearc/dressing.nvim' }
-  optuse 'airblade/vim-rooter'
+  --optuse 'airblade/vim-rooter'
   optuse({
     "klen/nvim-test",
     config = function()

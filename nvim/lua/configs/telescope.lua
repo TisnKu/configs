@@ -90,6 +90,10 @@ telescope.setup {
       base_dirs = project_paths,
       on_project_selected = function(prompt_bufnr)
         project_actions.change_working_directory(prompt_bufnr)
+        vim.defer_fn(function()
+          vim.cmd("bufdo bwipeout")
+          vim.cmd("Alpha")
+        end, 10)
       end
     }
   }
@@ -111,7 +115,20 @@ for _, extension in ipairs(extensions) do
   end
 end
 
+function Telescope_ripgrep()
+  local input = vim.fn.input("Rg > ", "")
+  if input == "" then
+    return
+  end
+  require("telescope.builtin").grep_string {
+    search = input == " " and "" or input,
+    only_sort_text = true,
+  }
+end
+
 local opts = { noremap = true, silent = true }
+vim.keymap.set('n', '<space>p', ':Telescope project display_type=full<CR>', opts)
+vim.keymap.set('n', '<space>r', ':<C-u>Telescope recent_files pick<CR>', opts)
 vim.keymap.set({ "n", "v" }, "<space>e", ":<C-u>Telescope file_browser path=%:p:h select_buffer=true<CR>", opts)
 vim.keymap.set({ "n", "v" }, "<space>t", ":<C-u>Telescope builtin include_extensions=true<CR>", opts)
 --vim.keymap.set("t", "<space>t", "<C-\\><C-n>:Telescope builtin include_extensions=true<CR>", opts)
@@ -127,8 +144,7 @@ vim.keymap.set("v", "<leader>gf",
 
 vim.keymap.set("n", "<leader>gb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
 vim.keymap.set("n", "<leader>gl", "<cmd>Telescope live_grep<CR>", opts)
-vim.keymap.set("n", "<leader>rg",
-  ":lua require('telescope.builtin').grep_string({search = vim.fn.input('Search term: ')})<CR>", opts)
+vim.keymap.set("n", "<leader>rg", ":lua Telescope_ripgrep()<CR>", opts)
 vim.keymap.set("n", "<leader>gw", "<cmd>Telescope grep_string<CR>", opts)
 vim.keymap.set("v", "<leader>gw",
   ":lua require('telescope.builtin').grep_string({search = utils.get_visual_selection()})<CR>", opts)
@@ -137,7 +153,7 @@ vim.keymap.set("v", "<leader>gv",
 
 vim.keymap.set("n", "<leader>m", "<cmd>Telescope keymaps<CR>", opts)
 vim.keymap.set("n", "<leader>gst", "<cmd>Telescope git_status<CR>", opts)
-vim.keymap.set("n", "<leader>rs", "<cmd>Telescope resume<CR>", opts)
+vim.keymap.set("n", "<space>u", "<cmd>Telescope resume<CR>", opts)
 
 vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
