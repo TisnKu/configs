@@ -90,7 +90,6 @@ telescope.setup {
       base_dirs = project_paths,
       on_project_selected = function(prompt_bufnr)
         project_actions.change_working_directory(prompt_bufnr)
-        vim.cmd [[ silent! bufdo bwipeout ]]
       end
     }
   }
