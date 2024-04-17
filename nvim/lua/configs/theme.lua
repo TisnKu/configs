@@ -1,39 +1,39 @@
 --require("github-theme").setup {}
-if vim.g.is_win then
-  require("catppuccin").setup({
-    term_colors = true,
-    --transparent_background = true,
-    styles = {
-      comments = {},
-      conditionals = {},
-      loops = {},
-      functions = {},
-      keywords = {},
-      strings = {},
-      variables = {},
-      numbers = {},
-      booleans = {},
-      properties = {},
-      types = {},
+--if vim.g.is_win then
+require("catppuccin").setup({
+  term_colors = true,
+  --transparent_background = true,
+  styles = {
+    comments = {},
+    conditionals = {},
+    loops = {},
+    functions = {},
+    keywords = {},
+    strings = {},
+    variables = {},
+    numbers = {},
+    booleans = {},
+    properties = {},
+    types = {},
+  },
+  color_overrides = {
+    mocha = {
+      base = "#000000",
+      mantle = "#000000",
+      crust = "#000000",
     },
-    color_overrides = {
-      mocha = {
-        base = "#000000",
-        mantle = "#000000",
-        crust = "#000000",
-      },
+  },
+  integrations = {
+    dropbar = {
+      enabled = true,
+      color_mode = true,
     },
-    integrations = {
-      dropbar = {
-        enabled = true,
-        color_mode = true,
-      },
-    },
-  })
-  vim.cmd "colorscheme catppuccin"
-else
-  vim.cmd "colorscheme material"
-end
+  },
+})
+vim.cmd "colorscheme github_dark_default"
+--else
+--vim.cmd "colorscheme material"
+--end
 
 vim.cmd [[
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
