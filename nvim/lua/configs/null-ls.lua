@@ -53,7 +53,6 @@ local copilot_chat_source = helpers.make_builtin({
       if prompt_actions then
         copilot_chat_actions = vim.tbl_extend("force", copilot_chat_actions, prompt_actions.actions)
       end
-
       local actions = {}
       for name, action in pairs(copilot_chat_actions) do
         table.insert(actions, {
@@ -100,7 +99,7 @@ local search_engine_source = helpers.make_builtin({
       local actions = {}
       for name, engine in pairs(search_engines) do
         table.insert(actions, {
-          title = name,
+          title = "Search " .. name,
           action = function()
             -- Search visual selection or word under cursor
             local visual_selection = utils.get_visual_selection()
