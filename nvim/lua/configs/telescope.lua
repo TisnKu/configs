@@ -8,11 +8,16 @@ local project_actions = require("telescope._extensions.project.actions")
 local file_browser_actions = require("telescope._extensions.file_browser.actions")
 
 local project_paths = {
-  '~/',
+  { '~/',          max_depth = 1 },
+  { '~/Projects',  max_depth = 2 },
+  { 'D:/Projects', max_depth = 2 },
 }
-local directory = 'D:/Projects/'
-if vim.fn.isdirectory(directory) == 1 then
-  table.insert(project_paths, directory)
+-- test project_paths and remove non-existing paths
+for i = #project_paths, 1, -1 do
+  local path = project_paths[i][1]
+  if vim.fn.isdirectory(vim.fn.expand(path)) ~= 1 then
+    table.remove(project_paths, i)
+  end
 end
 
 telescope.setup {
