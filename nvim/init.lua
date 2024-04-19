@@ -160,6 +160,7 @@ require("packer").startup(function(use)
   })
   optuse({ "pmizio/typescript-tools.nvim", requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } })
 
+  optuse { "rafamadriz/friendly-snippets" }
   optuse("hrsh7th/cmp-nvim-lsp")
   optuse("hrsh7th/cmp-buffer")
   optuse("hrsh7th/cmp-path")

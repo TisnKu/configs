@@ -42,7 +42,7 @@ function Ask_copilot_workspace()
   end)
 end
 
-vim.keymap.set({ "n", "v" }, "<leader>gi", ":lua Ask_copilot()<CR>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<leader>ci", ":lua Ask_copilot()<CR>", { noremap = true, silent = true })
 vim.keymap.set({ "n", "v" }, "<space>c", ":CopilotChatToggle<CR>", { noremap = true, silent = true })
 
 -- Setup CopilotChat with the configuration
