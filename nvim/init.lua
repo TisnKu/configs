@@ -68,6 +68,7 @@ require("packer").startup(function(use)
   optuse("scrooloose/nerdcommenter")
   optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
   optuse("nvim-treesitter/nvim-treesitter-context")
+  optuse 'nvim-treesitter/nvim-treesitter-textobjects'
   optuse("windwp/nvim-autopairs")
   optuse("yuttie/comfortable-motion.vim")  -- Smooth scrolling
   optuse({

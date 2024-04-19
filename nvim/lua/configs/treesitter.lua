@@ -21,8 +21,47 @@ ts.setup {
   indent = {
     enable = true
   },
-  additional_vim_regex_highlighting = false
+  additional_vim_regex_highlighting = false,
+  textobjects = {
+    select = {
+      enable = true,
+      lookahead = true,
+      keymaps = {
+        ["af"] = "@function.outer",
+        ["if"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
+      },
+    },
+    move = {
+      enable = true,
+      set_jumps = true,
+      goto_next_start = {
+        ["]f"] = "@function.outer",
+        ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
+      },
+      goto_next_end = {
+        ["]F"] = "@function.outer",
+      },
+      goto_previous_start = {
+        ["[f"] = "@function.outer",
+      },
+      goto_previous_end = {
+        ["[F"] = "@function.outer",
+      },
+    },
+    lsp_interop = {
+      enable = true,
+      border = 'none',
+      floating_preview_opts = {},
+      peek_definition_code = {
+        ["<leader>k"] = "@function.outer",
+        ["<leader>K"] = "@class.outer",
+      },
+    },
+  },
 }
+
 vim.opt.foldlevel = 20
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
