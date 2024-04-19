@@ -160,14 +160,19 @@ require("packer").startup(function(use)
   })
   optuse({ "pmizio/typescript-tools.nvim", requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } })
 
-  optuse { "rafamadriz/friendly-snippets" }
   optuse("hrsh7th/cmp-nvim-lsp")
   optuse("hrsh7th/cmp-buffer")
   optuse("hrsh7th/cmp-path")
   optuse("hrsh7th/cmp-cmdline")
-  optuse("hrsh7th/cmp-vsnip")
-  optuse("hrsh7th/vim-vsnip")
   optuse("hrsh7th/nvim-cmp")
+  optuse({
+    "L3MON4D3/LuaSnip",
+    run = "make install_jsregexp",
+    requires = {
+      "rafamadriz/friendly-snippets",
+    },
+  })
+  optuse { 'saadparwaiz1/cmp_luasnip' }
 
   if packer_bootstrap then
     require("packer").sync()

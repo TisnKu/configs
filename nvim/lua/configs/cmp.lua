@@ -1,25 +1,50 @@
 local cmp = require "cmp"
+local ls = require('luasnip')
+
 cmp.setup({
   snippet = {
-    -- REQUIRED - you must specify a snippet engine
     expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      ls.lsp_expand(args.body)
     end
   },
-  --comfirmation = { completeopt = "menu,menuone,noselect" },
   mapping = cmp.mapping.preset.insert({
-    ["<C-k>"] = cmp.mapping(cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert })),
-    ["<C-u>"] = cmp.mapping.scroll_docs(-4),
-    ["<C-d>"] = cmp.mapping.scroll_docs(4),
-    ["<C-e>"] = cmp.mapping.abort(),
-    ["<C-y>"] = cmp.mapping.confirm({ select = true }),
-    ["<Enter>"] = cmp.mapping.confirm({ select = false }),
+    ['<CR>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        if ls.expandable() then
+          ls.expand()
+        else
+          cmp.confirm({
+            select = true,
+          })
+        end
+      else
+        fallback()
+      end
+    end),
+    ["<C-N>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif ls.locally_jumpable(1) then
+        ls.jump(1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+    ["<C-P>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif ls.locally_jumpable(-1) then
+        ls.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
   }),
   preselect = cmp.PreselectMode.None,
   sources = cmp.config.sources({
     { name = "crates" },
     { name = "nvim_lsp" },
-    { name = "vsnip" },
+    { name = "luasnip" },
     { name = "buffer" },
   }),
 })

@@ -2,17 +2,17 @@
 require("configs.theme")
 utils.trySetup("lualine", {
   theme = "auto",
-  --extensions = { "fern" },
   options = {
     theme = 'auto'
   }
 })
-require("configs.json")
+require('configs.snippets')
 require("configs.cmp")
-require("configs.search_fold")
 
 -- Defer loading until after vim has started
 vim.defer_fn(function()
+  require("configs.json")
+  require("configs.search_fold")
   require('configs.completeCurrentLine')
   require('configs.ps')
   --require('configs.nerdtree')

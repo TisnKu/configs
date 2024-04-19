@@ -2,7 +2,7 @@ local mappings = {
   gD = 'lua vim.lsp.buf.declaration({ timeout_ms = 10000 })',
   K = 'lua vim.lsp.buf.hover()',
   ['<c-k>'] = 'lua vim.lsp.buf.signature_help()',
-  ['<space>rn'] = 'lua vim.lsp.buf.rename()',
+  ['<leader>rn'] = 'lua vim.lsp.buf.rename()',
   ['<Bslash>f'] = 'lua vim.lsp.buf.format({ timeout_ms = 2000 })',
   ['<space>d'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',

@@ -36,9 +36,6 @@ set autowriteall
 inoremap ,, <esc>
 vnoremap ,, <esc>
 cnoremap ,, <esc>
-inoremap <C-,> <esc>
-vnoremap <C-,> <esc>
-cnoremap <C-,> <esc>
 inoremap WW <esc>:w<cr>
 nnoremap WW <esc>:w<cr>
 inoremap <C-s> <esc>:w<cr>
@@ -57,11 +54,6 @@ noremap <space>o o<Esc>
 noremap <space>O O<Esc>
 
 map <silent> <leader><cr> :noh<cr>
-
-nmap <C-j> <C-W>j
-nmap <C-k> <C-W>k
-nmap <C-h> <C-W>h
-nmap <C-l> <C-W>l
 
 cnoremap <C-a> <Home>
 inoremap <C-a> <Home>
