@@ -7,7 +7,7 @@ local function is_close_bracket(char)
 end
 
 local function matching_bracket(char)
-  local brackets = { ['('] = ')', ['['] = ']', ['{'] = '}' }
+  local brackets = { ['('] = ')', ['['] = ']', ['{'] = '}', [')'] = '(', [']'] = '[', ['}'] = '{' }
   return brackets[char]
 end
 
