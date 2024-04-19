@@ -29,15 +29,16 @@ local k = require("luasnip.nodes.key_indexer").new_key
 require("luasnip.loaders.from_vscode").lazy_load()
 
 vim.keymap.set({ "i" }, "<c-k>", function() ls.expand() end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<c-,>", function() ls.jump(-1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<c-.>", function() ls.jump(1) end, { silent = true })
-vim.keymap.set({ "i", "s" }, "<c-e>", function()
+vim.keymap.set({ "i", "s", "n" }, "<c-,>", function() ls.jump(-1) end, { silent = true })
+vim.keymap.set({ "i", "s", "n" }, "<c-.>", function() ls.jump(1) end, { silent = true })
+vim.keymap.set({ "i", "s", "n" }, "<c-/>", function()
   if ls.choice_active() then
     ls.change_choice(1)
   end
 end, { silent = true })
 
-ls.add_snippets("all", { s("tnr", {
-  i(1, "cond"), t(" ? "), i(2, "then"), t(" : "), i(3, "else")
-})
+ls.add_snippets("all", {
+  s("tnr", {
+    i(1, "cond"), t(" ? "), i(2, "then"), t(" : "), i(3, "else")
+  })
 })
