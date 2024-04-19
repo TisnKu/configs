@@ -9,17 +9,21 @@ cmp.setup({
   },
   mapping = cmp.mapping.preset.insert({
     ['<CR>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        if ls.expandable() then
-          ls.expand()
-        else
-          cmp.confirm({
-            select = true,
-          })
-        end
-      else
+      if not cmp.visible() then
         fallback()
+        return
       end
+
+      if ls.expandable() then
+        ls.expand()
+        return
+      end
+
+      if cmp.confirm({ select = false }) then
+        return
+      end
+
+      fallback()
     end),
     ["<C-N>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
