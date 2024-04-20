@@ -133,7 +133,7 @@ end
 
 local opts = { noremap = true, silent = true }
 vim.keymap.set('n', '<space>p', ':Telescope project display_type=full<CR>', opts)
-vim.keymap.set('n', '<space>r', ':<C-u>Telescope recent_files pick<CR>', opts)
+vim.keymap.set('n', '<space>rp', ':<C-u>Telescope recent_files pick<CR>', opts)
 vim.keymap.set({ "n", "v" }, "<space>e", ":<C-u>Telescope file_browser path=%:p:h select_buffer=true<CR>", opts)
 vim.keymap.set({ "n", "v" }, "<space>t", ":<C-u>Telescope builtin include_extensions=true<CR>", opts)
 --vim.keymap.set("t", "<space>t", "<C-\\><C-n>:Telescope builtin include_extensions=true<CR>", opts)
@@ -141,25 +141,20 @@ vim.keymap.set({ "n", "v" }, "<space>;", ":<C-u>Telescope commands<CR>", opts)
 --vim.keymap.set("t", "<space>;", "<C-\\><C-n>:Telescope commands<CR>", opts)
 vim.keymap.set({ "n", "i", "v" }, "<leader>f",
   ":<C-u>lua require('telescope.builtin').find_files({ debounce = 100 })<CR>", opts)
-vim.keymap.set("n", "<leader>gf",
-  ":lua require('telescope.builtin').find_files({default_text = vim.fn.expand('<cword>')})<CR>",
-  opts)
-vim.keymap.set("v", "<leader>gf",
-  ":lua require('telescope.builtin').find_files({default_text = utils.get_visual_selection()})<CR>", opts)
+vim.keymap.set({ "v", "n" }, "<leader>gf",
+  ":lua require('telescope.builtin').find_files({default_text = utils.get_selection_or_cword()})<CR>", opts)
 
 vim.keymap.set("n", "<leader>gb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
-vim.keymap.set("n", "<leader>gl", "<cmd>Telescope live_grep<CR>", opts)
 vim.keymap.set("n", "<leader>rg", ":lua Telescope_ripgrep()<CR>", opts)
 vim.keymap.set("n", "<leader>gw", "<cmd>Telescope grep_string<CR>", opts)
-vim.keymap.set("v", "<leader>gw",
-  ":lua require('telescope.builtin').grep_string({search = utils.get_visual_selection()})<CR>", opts)
 vim.keymap.set("v", "<leader>gv",
   ":lua require('telescope.builtin').grep_string({search = utils.get_visual_selection()})<CR>", opts)
 
 vim.keymap.set("n", "<leader>m", "<cmd>Telescope keymaps<CR>", opts)
-vim.keymap.set("n", "<leader>gst", "<cmd>Telescope git_status<CR>", opts)
-vim.keymap.set("n", "<space>u", "<cmd>Telescope resume<CR>", opts)
+vim.keymap.set("n", "<leader>gs", "<cmd>Telescope git_status<CR>", opts)
+vim.keymap.set("n", "<leader>rs", "<cmd>Telescope resume<CR>", opts)
 
+-- LSP mappings
 vim.keymap.set("n", "gd", "<cmd>Telescope lsp_definitions<CR>", opts)
 vim.keymap.set("n", "gi", "<cmd>Telescope lsp_implementations<CR>", opts)
 vim.keymap.set("n", "gr", "<cmd>Telescope lsp_references<CR>", opts)

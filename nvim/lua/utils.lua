@@ -18,6 +18,16 @@ function M.open_url(url)
   end
 end
 
+function M.get_selection_or_cword()
+  local selection = M.get_visual_selection()
+
+  if selection ~= "" then
+    return selection
+  end
+
+  return vim.fn.expand("<cword>")
+end
+
 function M.get_visual_selection()
   local _, start_line, start_col = unpack(vim.fn.getpos("'<"))
   local _, end_line, end_col = unpack(vim.fn.getpos("'>"))
