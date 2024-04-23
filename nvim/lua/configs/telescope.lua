@@ -5,7 +5,11 @@ end
 
 local actions = require("telescope.actions")
 local project_actions = require("telescope._extensions.project.actions")
-local file_browser_actions = require("telescope._extensions.file_browser.actions")
+local fb_actions = require("telescope._extensions.file_browser.actions")
+local action_state = require("telescope.actions.state")
+local fb_utils = require("telescope._extensions.file_browser.utils")
+
+require("telescope._extensions.file_browser.config").values.mappings.i = {}
 
 local project_paths = {
   { '~/',          max_depth = 1 },
@@ -77,14 +81,27 @@ telescope.setup {
       mappings = {
         ["i"] = {
           ["<space>e"] = actions.close,
-          ["<C-<F5>"] = file_browser_actions.create,
-          ["<C-<F6>"] = file_browser_actions.copy,
-          ["<C-<F7>"] = file_browser_actions.rename,
-          ["<C-<F8>"] = file_browser_actions.remove,
-          ["<C-<F9>"] = file_browser_actions.move,
         },
         ["n"] = {
+          ["u"] = fb_actions.goto_parent_dir,
           ["<space>e"] = actions.close,
+          ["<Bslash>vc"] = function(prompt_bufnr)
+            local quiet = action_state.get_current_picker(prompt_bufnr).finder.quiet
+            local selections = fb_utils.get_selected_files(prompt_bufnr, true)
+            if vim.tbl_isempty(selections) then
+              fb_utils.notify("actions.openInVSCode",
+                { msg = "No selection to be opened!", level = "INFO", quiet = quiet })
+              return
+            end
+            -- open in VSCode
+            require("plenary.job")
+                :new({
+                  command = "code",
+                  args = vim.tbl_flatten { vim.tbl_map(function(selection) return selection:absolute() end, selections) },
+                })
+                :start()
+            actions.close(prompt_bufnr)
+          end
         },
       },
     },
