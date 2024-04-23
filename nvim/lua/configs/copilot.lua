@@ -5,6 +5,10 @@ local copilotChatConfig = {
     width = 0.3,
   },
   mappings = {
+    reset = {
+      normal = '<C-l><C-l>',
+      insert = '<C-l><C-l>',
+    },
     close = {
       normal = '<esc>',
     },
