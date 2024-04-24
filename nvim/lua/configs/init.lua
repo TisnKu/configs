@@ -1,5 +1,7 @@
 -- Load immediately after startup
 require("configs.theme")
+require("configs.start_page")
+
 utils.trySetup("lualine", {
   theme = "auto",
   options = {
@@ -25,7 +27,6 @@ vim.defer_fn(function()
   require("configs.treesitter")
   require("configs.fzflua")
   require("configs.telescope")
-  require("configs.theme")
   require("configs.peek")
   require('configs.crates')
   require('configs.test')

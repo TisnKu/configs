@@ -10,6 +10,8 @@ require('utils')
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
+vim.g.random_theme = true
+
 if vim.g.is_wsl then
   vim.g.clipboard = {
     name = 'win32yank',

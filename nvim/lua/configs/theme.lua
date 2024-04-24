@@ -1,16 +1,14 @@
--- Use <C-t>n/p to navigate between themes
-vim.defer_fn(function()
+local function get_themes()
   local themes = vim.fn.getcompletion("", "color")
-  -- delete duplicate themes
-  local duplicates = { "github_dimmed", "kanagawa-lotus" }
-  vim.g.themes = utils.filter(themes, function(theme)
-    return not utils.contains(duplicates, theme)
+  local excluded = { "github_dimmed", "kanagawa-lotus" }
+  return utils.filter(themes, function(theme)
+    return not utils.contains(excluded, theme)
   end)
-end, 100)
+end
 
 function Switch_theme(forward)
   local current_theme = vim.g.colors_name
-  local themes = vim.g.themes
+  local themes = get_themes()
   local current_index = utils.index_of(themes, current_theme)
 
   local next_index = current_index + (forward and 1 or -1)
@@ -25,8 +23,6 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<C-t>n", "<cmd>lua Switch_theme(true)<CR>", opts)
 vim.keymap.set("n", "<C-t>p", "<cmd>lua Switch_theme(false)<CR>", opts)
 
---require("github-theme").setup {}
---if vim.g.is_win then
 require("catppuccin").setup({
   term_colors = true,
   --transparent_background = true,
@@ -57,51 +53,17 @@ require("catppuccin").setup({
     },
   },
 })
-vim.cmd "colorscheme catppuccin"
---else
---vim.cmd "colorscheme material"
---end
 
 vim.cmd [[
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
   set termguicolors
 ]]
 
--- Startup page
-require('alpha').setup(require('alpha.themes.dashboard').config)
-local alpha = require("alpha")
-local dashboard = require("alpha.themes.dashboard")
-
--- Set header
-dashboard.section.header.val = {
-  "                                                     ",
-  "  ███╗   ██╗███████╗ ██████╗ ██╗   ██╗██╗███╗   ███╗ ",
-  "  ████╗  ██║██╔════╝██╔═══██╗██║   ██║██║████╗ ████║ ",
-  "  ██╔██╗ ██║█████╗  ██║   ██║██║   ██║██║██╔████╔██║ ",
-  "  ██║╚██╗██║██╔══╝  ██║   ██║╚██╗ ██╔╝██║██║╚██╔╝██║ ",
-  "  ██║ ╚████║███████╗╚██████╔╝ ╚████╔╝ ██║██║ ╚═╝ ██║ ",
-  "  ╚═╝  ╚═══╝╚══════╝ ╚═════╝   ╚═══╝  ╚═╝╚═╝     ╚═╝ ",
-  "                                                     ",
-}
-
--- Set menu
-dashboard.section.buttons.val = {
-  dashboard.button("r", "  > Recent", ":Telescope recent_files pick<CR>"),
-  dashboard.button("e", "  > File Explorer", ":Telescope file_browser<CR>"),
-  dashboard.button("f", "  > Find file", ":Telescope find_files<CR>"),
-  dashboard.button("p", "  > Find project", ":Telescope project display_type=full<CR>"),
-  dashboard.button("q", "  > Quit NVIM", ":qa<CR>"),
-}
-
--- Send config to alpha
-alpha.setup(dashboard.opts)
-
--- Disable folding on alpha buffer
-vim.cmd([[
-    autocmd FileType alpha setlocal nofoldenable
-]])
-
--- Open alpha buffer on startup only when directory is opened
-vim.cmd([[
-    autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | Alpha | endif
-]])
+if vim.g.random_theme then
+  local themes = get_themes()
+  local random_theme = themes[math.random(#themes)]
+  vim.cmd("colorscheme " .. random_theme)
+  print("Current theme: " .. random_theme)
+else
+  vim.cmd("colorscheme catppuccin")
+end
