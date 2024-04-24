@@ -1,8 +1,10 @@
 -- Configuration for CopilotChat
 local copilotChatConfig = {
+  show_help = false,
   window = {
     layout = 'float',
-    --width = 0.3,
+    width = 0.5,
+    height = 0.8,
   },
   mappings = {
     reset = {
