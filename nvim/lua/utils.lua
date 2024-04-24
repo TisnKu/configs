@@ -113,6 +113,15 @@ function M.find(list, fn)
   return nil
 end
 
+function M.index_of(list, element)
+  for i, value in ipairs(list) do
+    if value == element then
+      return i
+    end
+  end
+  return -1
+end
+
 function M.contains(table, element)
   for _, value in pairs(table) do
     if value == element then

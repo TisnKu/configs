@@ -9,24 +9,12 @@ vim.defer_fn(function()
 end, 100)
 
 function Switch_theme(forward)
-  --local current_theme = vim.api.nvim_exec2("colorscheme", { output = true }).output
   local current_theme = vim.g.colors_name
   local themes = vim.g.themes
-  -- get current theme index
-  local current_index = 1
-  for i, theme in ipairs(themes) do
-    if theme == current_theme then
-      current_index = i
-      break
-    end
-  end
+  local current_index = utils.index_of(themes, current_theme)
 
   local next_index = current_index + (forward and 1 or -1)
-  if next_index > #themes then
-    next_index = 1
-  elseif next_index < 1 then
-    next_index = #themes
-  end
+  next_index = (next_index - 1) % #themes + 1
 
   local next_theme = themes[next_index]
   vim.cmd("colorscheme " .. next_theme)
