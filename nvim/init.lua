@@ -54,6 +54,8 @@ require("packer").startup(function(use)
     name = "catppuccin",
   }
   optuse("kaicataldo/material.vim", { branch = "main" })
+  optuse "EdenEast/nightfox.nvim"
+  optuse "doums/darcula"
   use {
     'goolord/alpha-nvim',
     requires = { 'nvim-tree/nvim-web-devicons' },
