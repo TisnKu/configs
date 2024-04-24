@@ -1,6 +1,6 @@
 local function get_themes()
   local themes = vim.fn.getcompletion("", "color")
-  local excluded = { "github_dimmed", "kanagawa-lotus" }
+  local excluded = { "github_dimmed", "kanagawa-lotus", "shine" }
   return utils.filter(themes, function(theme)
     return not utils.contains(excluded, theme)
   end)
