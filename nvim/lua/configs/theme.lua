@@ -1,18 +1,16 @@
 -- Use <C-t>n/p to navigate between themes
 vim.defer_fn(function()
   local themes = vim.fn.getcompletion("", "color")
-  -- delete github_dimmed as it's duplicate
-  for i, theme in ipairs(themes) do
-    if theme == "github_dimmed" then
-      table.remove(themes, i)
-      break
-    end
-  end
-  vim.g.themes = themes
+  -- delete duplicate themes
+  local duplicates = { "github_dimmed", "kanagawa-lotus" }
+  vim.g.themes = utils.filter(themes, function(theme)
+    return not utils.contains(duplicates, theme)
+  end)
 end, 100)
 
 function Switch_theme(forward)
-  local current_theme = vim.api.nvim_exec2("colorscheme", { output = true }).output
+  --local current_theme = vim.api.nvim_exec2("colorscheme", { output = true }).output
+  local current_theme = vim.g.colors_name
   local themes = vim.g.themes
   -- get current theme index
   local current_index = 1
@@ -32,7 +30,7 @@ function Switch_theme(forward)
 
   local next_theme = themes[next_index]
   vim.cmd("colorscheme " .. next_theme)
-  print("Theme switched to " .. next_theme)
+  print("Theme switched to " .. next_theme .. ", " .. next_index .. "/" .. #themes)
 end
 
 local opts = { noremap = true, silent = true }
@@ -71,7 +69,7 @@ require("catppuccin").setup({
     },
   },
 })
-vim.cmd "colorscheme darcula"
+vim.cmd "colorscheme catppuccin"
 --else
 --vim.cmd "colorscheme material"
 --end

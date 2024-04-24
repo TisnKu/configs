@@ -94,7 +94,7 @@ function M.map(fn, list)
   return result
 end
 
-function M.filter(fn, list)
+function M.filter(list, fn)
   local result = {}
   for _, v in ipairs(list) do
     if fn(v) then
