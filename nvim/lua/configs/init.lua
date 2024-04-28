@@ -35,6 +35,7 @@ vim.defer_fn(function()
   require('configs.dressing')
   require('configs.terminal')
   require('configs.copilot')
+  require('configs.textobjects')
   utils.trySetup('log-highlight', {
     pattern = '.*log.*'
   })

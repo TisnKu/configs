@@ -42,6 +42,9 @@ require('typescript-tools').setup({
     separate_diagnostic_server = false,
     expose_as_code_action = "all"
   },
+  flags = {
+    allow_incremental_sync = false,
+  }
 })
 
 require('lsp-setup').setup({
@@ -82,15 +85,7 @@ require('lsp-setup').setup({
         pylsp = {
           plugins = {
             pycodestyle = { ignore = { "E501" } },
-            --mccabe = { eanbled = false, },
             autopep8 = { enabled = false },
-            --pyflakes = { enabled = false },
-            --pylint = { enabled = false },
-            --yapf = { enabled = false },
-            --isort = { enabled = false },
-            --flake8 = { enabled = false },
-            --mypy = { enabled = false },
-            --jedi = { enabled = false },
           }
         }
       }

@@ -86,6 +86,13 @@ require("packer").startup(function(use)
   })
   optuse('TisnKu/log-highlight.nvim')
 
+  optuse "Matt-A-Bennett/vim-surround-funk"
+  optuse "b4winckler/vim-angry"
+  optuse "Julian/vim-textobj-variable-segment"
+  optuse "michaeljsmith/vim-indent-object"
+  optuse "coderifous/textobj-word-column.vim"
+  optuse "kana/vim-textobj-user"
+  optuse "kana/vim-textobj-entire"
   optuse({
     "ThePrimeagen/refactoring.nvim",
     requires = {
