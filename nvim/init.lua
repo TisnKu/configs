@@ -86,13 +86,13 @@ require("packer").startup(function(use)
   })
   optuse('TisnKu/log-highlight.nvim')
 
-  optuse "Matt-A-Bennett/vim-surround-funk"
-  optuse "b4winckler/vim-angry"
-  optuse "Julian/vim-textobj-variable-segment"
-  optuse "michaeljsmith/vim-indent-object"
-  optuse "coderifous/textobj-word-column.vim"
-  optuse "kana/vim-textobj-user"
-  optuse "kana/vim-textobj-entire"
+  optuse "Matt-A-Bennett/vim-surround-funk"    -- delete/change/yank/grip surrounding text
+  optuse "b4winckler/vim-angry"                -- arg text object
+  optuse "Julian/vim-textobj-variable-segment" -- text object for variable segments of camel case of snake case: av/iv
+  optuse "michaeljsmith/vim-indent-object"     -- text object for indentation levels: ai/ii/aI
+  optuse "coderifous/textobj-word-column.vim"  -- text object for word columns: ac/ic/aC/iC
+  optuse "kana/vim-textobj-user"               -- text object for user defined text objects
+  optuse "kana/vim-textobj-entire"             -- text object for entire buffer: ae/ie
   optuse({
     "ThePrimeagen/refactoring.nvim",
     requires = {
