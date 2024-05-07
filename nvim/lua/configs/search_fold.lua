@@ -57,6 +57,6 @@ function Add_word_or_selection_and_fold()
   fold_non_matching_lines(query)
 end
 
-vim.keymap.set({ "n", "v" }, "<leader>zz", ":lua Request_input_and_fold(true)<CR>", { noremap = true, silent = true })
-vim.keymap.set({ "n", "v" }, "<leader>ze", ":lua Request_input_and_fold()<CR>", { noremap = true, silent = true })
-vim.keymap.set({ "n", "v" }, "<leader>za", ":lua Add_word_or_selection_and_fold()<CR>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<space>zz", ":lua Request_input_and_fold(true)<CR>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<space>ze", ":lua Request_input_and_fold()<CR>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<space>za", ":lua Add_word_or_selection_and_fold()<CR>", { noremap = true, silent = true })
