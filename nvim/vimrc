@@ -186,3 +186,17 @@ nnoremap <leader>p :let @"=@*<CR>p
 vnoremap <leader>p :let @"=@*<CR>p
 
 au FocusGained,BufEnter * checktime
+
+" Message buffer function
+function! MessageBuffer()
+    redir =>message_output
+    silent messages
+    redir END
+    new
+    put =message_output
+    setlocal readonly
+    setlocal bufhidden=hide
+    setlocal nomodified
+endfunction
+
+command! -nargs=0 MessageBuffer call MessageBuffer()
