@@ -19,10 +19,8 @@ function M.open_url(url)
 end
 
 function M.get_selection_or_cword()
-  local selection = M.get_visual_selection()
-
-  if selection ~= "" then
-    return selection
+  if vim.api.nvim_get_mode().mode == "v" then
+    return M.get_visual_selection()
   end
 
   return vim.fn.expand("<cword>")

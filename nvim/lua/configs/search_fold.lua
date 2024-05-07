@@ -1,4 +1,6 @@
+local fzf = require("fzf_lib")
 local function fold_non_matching_lines(pattern)
+  vim.g.last_search_query = pattern
   vim.api.nvim_command("set foldmethod=manual")
   vim.api.nvim_exec("normal! zE", true)
 
@@ -6,15 +8,13 @@ local function fold_non_matching_lines(pattern)
   local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
   local foldstart = -1
 
-  -- if pattern ends with a !, invert the match
-  local invert = pattern:sub(-1) == "!"
-  if invert then
-    pattern = pattern:sub(1, -2)
-  end
+  local slab = fzf.allocate_slab()
+  local patternobj = fzf.parse_pattern(pattern, 0, true)
 
   for i, line in ipairs(lines) do
-    local matched = vim.fn.match(line, pattern) ~= -1
-    if (invert and matched) or (not invert and not matched) then
+    local score = fzf.get_score(line, patternobj, slab)
+    local matched = score > 0
+    if not matched then
       if foldstart == -1 then
         foldstart = i
       end
@@ -29,14 +29,34 @@ local function fold_non_matching_lines(pattern)
   if foldstart ~= -1 then
     vim.api.nvim_command(foldstart .. ",$" .. "fold")
   end
+
+  fzf.free_pattern(patternobj)
+  fzf.free_slab(slab)
 end
 
-function Request_input_and_fold()
-  -- get the visual selection
-  local selection = utils.get_visual_selection()
-  -- prompt user for input, with the visual selection as default
-  local pattern = vim.fn.input("Fold pattern: ", selection)
-  fold_non_matching_lines(pattern)
+function Request_input_and_fold(reset)
+  local default_query = vim.g.last_search_query or ""
+  if reset then
+    default_query = ""
+  end
+
+  vim.ui.input({ prompt = "Fold pattern: ", default = default_query, }, function(input)
+    if input == "" or input == nil then
+      return
+    end
+    fold_non_matching_lines(input)
+  end)
 end
 
-vim.keymap.set({ "n", "v" }, "<leader>z", ":lua Request_input_and_fold()<CR>", { noremap = true, silent = true })
+function Add_word_or_selection_and_fold()
+  local query_to_add = "'" .. utils.get_selection_or_cword()
+  local last = vim.g.last_search_query or ""
+
+  -- if last is empty, just fold the query, otherwise fold the last query and the new query
+  local query = last == "" and query_to_add or last .. " " .. query_to_add
+  fold_non_matching_lines(query)
+end
+
+vim.keymap.set({ "n", "v" }, "<leader>zz", ":lua Request_input_and_fold(true)<CR>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<leader>ze", ":lua Request_input_and_fold()<CR>", { noremap = true, silent = true })
+vim.keymap.set({ "n", "v" }, "<leader>za", ":lua Add_word_or_selection_and_fold()<CR>", { noremap = true, silent = true })
