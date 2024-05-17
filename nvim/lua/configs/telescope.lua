@@ -157,7 +157,7 @@ vim.keymap.set({ "n", "v" }, "<space>t", ":<C-u>Telescope builtin include_extens
 vim.keymap.set({ "n", "v" }, "<space>;", ":<C-u>Telescope commands<CR>", opts)
 --vim.keymap.set("t", "<space>;", "<C-\\><C-n>:Telescope commands<CR>", opts)
 vim.keymap.set({ "n", "i", "v" }, "<leader>f",
-  ":<C-u>lua require('telescope.builtin').find_files({ debounce = 100 })<CR>", opts)
+  ":<C-u>lua require('telescope.builtin').find_files({ debounce = 100, hidden = true })<CR>", opts)
 vim.keymap.set({ "v", "n" }, "<leader>gf",
   ":lua require('telescope.builtin').find_files({default_text = utils.get_selection_or_cword()})<CR>", opts)
 
