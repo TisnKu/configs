@@ -172,7 +172,7 @@ require("packer").startup(function(use)
       { "williamboman/mason-lspconfig.nvim", opt = true },
     },
   })
-  optuse({ "pmizio/typescript-tools.nvim", requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } })
+  optuse({ "pmizio/typescript-tools.nvim", branch = 'bugfix/202', requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } })
 
   optuse("hrsh7th/cmp-nvim-lsp")
   optuse("hrsh7th/cmp-buffer")

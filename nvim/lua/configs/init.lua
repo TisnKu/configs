@@ -11,6 +11,7 @@ utils.trySetup("lualine", {
 
 -- Defer loading until after vim has started
 vim.defer_fn(function()
+  require('configs.common')
   require('configs.snippets')
   require("configs.cmp")
   require("configs.json")

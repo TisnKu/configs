@@ -43,7 +43,7 @@ require('typescript-tools').setup({
     expose_as_code_action = "all"
   },
   flags = {
-    allow_incremental_sync = false,
+    --allow_incremental_sync = true,
   }
 })
 

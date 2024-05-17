@@ -9,4 +9,10 @@ if vim.g.is_win then
     let g:NERDTreeRemoveDirCmd = 'rm -r '
     let g:NERDTreeCopyDirCmd = 'cp -r '
 ]]
+  vim.o.shell = 'pwsh'
+  vim.o.shellxquote = ''
+  vim.o.shellcmdflag = '-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command '
+  vim.o.shellquote = ''
+  vim.o.shellpipe = '| Out-File -Encoding UTF8 %s'
+  vim.o.shellredir = '| Out-File -Encoding UTF8 %s'
 end
