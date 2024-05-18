@@ -32,13 +32,20 @@ vim.api.nvim_create_autocmd('BufWritePre', {
   end,
 })
 
+function get_max_memory()
+  if vim.g.is_windows then
+    return 20480
+  end
+  return 8192
+end
+
 require('typescript-tools').setup({
   on_attach = function(client, bufnr)
     require('lsp-setup.utils').disable_formatting(client)
     require('lsp-setup.utils').mappings(bufnr, mappings)
   end,
   settings = {
-    tsserver_max_memory = 12288,
+    tsserver_max_memory = get_max_memory(),
     separate_diagnostic_server = false,
     expose_as_code_action = "all"
   },
