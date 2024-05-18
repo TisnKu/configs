@@ -44,7 +44,7 @@ telescope.setup {
       },
       prompt_position = "top",
     },
-    file_ignore_patterns = { "node_modules" },
+    file_ignore_patterns = { "node_modules", ".git\\refs", ".git\\logs", ".git\\objects" },
     preview = {
       treesitter = false,
     },
