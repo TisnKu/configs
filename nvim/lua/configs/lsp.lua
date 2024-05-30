@@ -39,20 +39,22 @@ function get_max_memory()
   return 8192
 end
 
-require('typescript-tools').setup({
-  on_attach = function(client, bufnr)
-    require('lsp-setup.utils').disable_formatting(client)
-    require('lsp-setup.utils').mappings(bufnr, mappings)
-  end,
-  settings = {
-    tsserver_max_memory = get_max_memory(),
-    separate_diagnostic_server = false,
-    expose_as_code_action = "all"
-  },
-  flags = {
-    --allow_incremental_sync = true,
-  }
-})
+if not vim.g.is_mac then
+  require('typescript-tools').setup({
+    on_attach = function(client, bufnr)
+      require('lsp-setup.utils').disable_formatting(client)
+      require('lsp-setup.utils').mappings(bufnr, mappings)
+    end,
+    settings = {
+      tsserver_max_memory = get_max_memory(),
+      separate_diagnostic_server = false,
+      expose_as_code_action = "all"
+    },
+    flags = {
+      --allow_incremental_sync = true,
+    }
+  })
+end
 
 require('lsp-setup').setup({
   default_mappings = false,
