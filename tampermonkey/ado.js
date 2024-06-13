@@ -24,8 +24,101 @@ function addPRButtons() {
     addCopyPRNumberButton();
     addReviewerButton();
     addQueueBuildButton();
+    addGeneratePATButton();
     addQueueExpiredButton();
   });
+}
+
+function parsePRUrl() {
+  //https://dev.azure.com/org/project/_git/repo/pullrequest/prId
+  //https://org.visualstudio.com/project/_git/repo/pullrequest/prId
+  const [, domain, project, repo, prId] = location.href.match(
+    /(https:\/\/.*)\/([^\/]+)\/_git\/([^\/]+)\/pullrequest\/(\d+)/,
+  );
+  const organization = domain.startsWith("https://dev.azure.com")
+    ? domain.match(/https:\/\/[^\/]+\/(.+)/)[1]
+    : domain.match(/https:\/\/([^\.]+)\..+/)[1];
+
+  return {
+    apiUrl: `${domain}/${project}/_apis`,
+    domain,
+    organization,
+    project,
+    repo,
+    prId,
+  };
+}
+
+function generateNewPAT() {
+  const { domain } = parsePRUrl();
+  const validTo = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7).toISOString(); // 7 days
+
+  const targetAccounts = ["c22e3f6e-2072-467d-9342-214b57c9b8fe"]; //representing domoreexp org
+  const body = {
+    contributionIds: [
+      "ms.vss-token-web.personal-access-token-issue-session-token-provider",
+    ],
+    dataProviderContext: {
+      properties: {
+        displayName: `NPM_PAT_${new Date().toISOString()}`,
+        validTo,
+        scope:
+          "vso.code_full vso.build_execute vso.release_manage vso.packaging_manage",
+        targetAccounts,
+        sourcePage: {
+          url: `${domain}/_usersSettings/tokens`,
+          routeId: "ms.vss-admin-web.user-admin-hub-route",
+          routeValues: {
+            adminPivot: "tokens",
+            controller: "ContributedPage",
+            action: "Execute",
+            serviceHost: "c22e3f6e-2072-467d-9342-214b57c9b8fe (domoreexp)",
+          },
+        },
+      },
+    },
+  };
+
+  return fetch(`${domain}/_apis/Contribution/HierarchyQuery`, {
+    headers: {
+      "content-type": "application/json",
+      accept:
+        "application/json;api-version=5.0-preview.1;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
+      priority: "u=1, i",
+      "sec-ch-ua":
+        '"Microsoft Edge";v="125", "Chromium";v="125", "Not.A/Brand";v="24"',
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": '"macOS"',
+      "sec-fetch-dest": "empty",
+      "sec-fetch-mode": "cors",
+      "sec-fetch-site": "same-origin",
+      "x-tfs-fedauthredirect": "Suppress",
+      "x-tfs-session": "598dc6cd-0365-4c44-ba0e-1affd23eb420",
+      "x-vss-clientauthprovider": "MsalTokenProvider",
+      "x-vss-reauthenticationaction": "Suppress",
+    },
+    body: JSON.stringify(body),
+    method: "POST",
+    mode: "cors",
+    credentials: "include",
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log("#####, PAT generated successfully and copied to clipboard");
+      const token =
+        res.dataProviders[
+          "ms.vss-token-web.personal-access-token-issue-session-token-provider"
+        ].token;
+      setClipboard(token);
+      return;
+    });
+}
+
+function setClipboard(text) {
+  const type = "text/plain";
+  const blob = new Blob([text], { type });
+  const data = [new ClipboardItem({ [type]: blob })];
+  navigator.clipboard.write(data);
 }
 
 function addUtilityRow() {
@@ -56,6 +149,23 @@ function addQueueExpiredButton() {
   getPrUtilityRow().appendChild(qbbtn);
 }
 
+function addGeneratePATButton() {
+  if (document.getElementById("generate-pat-btn")) {
+    console.log("#####, generate pat button already added");
+    return;
+  }
+  var btn = document.createElement("button");
+  btn.id = "generate-pat-btn";
+  btn.innerHTML = "Generate PAT";
+  btn.style.cursor = "pointer";
+  btn.onclick = () => {
+    generateNewPAT().then(() => {
+      btn.innerHTML = "Queue build ✓";
+    });
+  };
+  getPrUtilityRow().appendChild(btn);
+}
+
 function addQueueBuildButton() {
   if (document.getElementById("queue-build-btn")) {
     console.log("#####, queue build button already added");
@@ -81,7 +191,7 @@ function queueExpired(apiUrl, prId) {
     .then(async (pr) => {
       const artifactId = `vstfs:///CodeReview/CodeReviewId/${pr.repository.project.id}/${pr.pullRequestId}`;
       const res = await fetch(
-        `${apiUrl}/policy/evaluations/${apiVersionQuery}&artifactId=${artifactId}`
+        `${apiUrl}/policy/evaluations/${apiVersionQuery}&artifactId=${artifactId}`,
       );
       return await res.json();
     })
@@ -94,14 +204,14 @@ function queueExpired(apiUrl, prId) {
           e.configuration.settings.buildDefinitionId &&
           (e.context?.isExpired ||
             (e.context?.buildId ?? 0) === 0 ||
-            e.status === "rejected")
+            e.status === "rejected"),
       );
       console.log(
         "Evaluations to queue: ",
         filteredEvaluations.map((e) => [
           e.configuration.settings.displayName,
           e,
-        ])
+        ]),
       );
       return Promise.all(
         filteredEvaluations.map((e) =>
@@ -109,9 +219,9 @@ function queueExpired(apiUrl, prId) {
             `${apiUrl}/policy/evaluations/${e.evaluationId}/${apiVersionQuery}`,
             {
               method: "patch",
-            }
-          )
-        )
+            },
+          ),
+        ),
       );
     })
     .then(console.log)
@@ -125,7 +235,7 @@ function queueBuild(apiUrl, prId) {
     .then(async (pr) => {
       const artifactId = `vstfs:///CodeReview/CodeReviewId/${pr.repository.project.id}/${pr.pullRequestId}`;
       const res = await fetch(
-        `${apiUrl}/policy/evaluations/${apiVersionQuery}&artifactId=${artifactId}`
+        `${apiUrl}/policy/evaluations/${apiVersionQuery}&artifactId=${artifactId}`,
       );
       return await res.json();
     })
@@ -135,7 +245,7 @@ function queueBuild(apiUrl, prId) {
       const filteredEvaluations = res.value.filter(
         (e) =>
           e.configuration.isBlocking &&
-          e.configuration.settings.buildDefinitionId
+          e.configuration.settings.buildDefinitionId,
       );
 
       return Promise.all(
@@ -144,9 +254,9 @@ function queueBuild(apiUrl, prId) {
             `${apiUrl}/policy/evaluations/${e.evaluationId}/${apiVersionQuery}`,
             {
               method: "patch",
-            }
-          )
-        )
+            },
+          ),
+        ),
       );
     })
     .then(console.log)
@@ -172,17 +282,14 @@ function addCopyPRNumberButton() {
   var prNumBtn = document.createElement("button");
   prNumBtn.id = "cpy-pr-btn";
   const matches = window.location.href.match(
-    /[^\d]+\/pullrequest\/(\d+)[^\d]*/
+    /[^\d]+\/pullrequest\/(\d+)[^\d]*/,
   );
   if (matches) {
     const prNumber = matches[1];
     prNumBtn.innerHTML = "Copy PR Number";
     prNumBtn.style.cursor = "pointer";
     prNumBtn.onclick = () => {
-      const type = "text/plain";
-      const blob = new Blob([prNumber], { type });
-      const data = [new ClipboardItem({ [type]: blob })];
-      navigator.clipboard.write(data);
+      setClipboard(prNumber);
       prNumBtn.innerHTML = "Copy PR Number ✓";
     };
     getPrUtilityRow().appendChild(prNumBtn);
@@ -206,10 +313,7 @@ function addCopyBranchButton() {
   copyBtn.innerHTML = "Copy Branch";
   copyBtn.style.cursor = "pointer";
   copyBtn.onclick = () => {
-    const type = "text/plain";
-    const blob = new Blob([pr], { type });
-    const data = [new ClipboardItem({ [type]: blob })];
-    navigator.clipboard.write(data);
+    setClipboard(pr);
     copyBtn.innerHTML = "Copy Branch ✓";
   };
   getPrUtilityRow().appendChild(copyBtn);
@@ -290,11 +394,8 @@ function makeWorkItemNumClickable() {
   }
   workItemNumberEle.style.cursor = "pointer";
   workItemNumberEle.onclick = () => {
-    const type = "text/plain";
     const workItemNumber = workItemNumberEle.innerHTML.match(/\d+/)[0];
-    const blob = new Blob([workItemNumber], { type });
-    const data = [new ClipboardItem({ [type]: blob })];
-    navigator.clipboard.write(data);
+    setClipboard(workItemNumber);
     workItemNumberEle.innerHTML += " ✓";
   };
 }
@@ -323,10 +424,7 @@ function addCopyCifxTestNameButton() {
   copyCifxTestNameButton.style.padding = "0px";
   copyCifxTestNameButton.style.cursor = "pointer";
   copyCifxTestNameButton.onclick = () => {
-    const type = "text/plain";
-    const blob = new Blob([testCaseName], { type });
-    const data = [new ClipboardItem({ [type]: blob })];
-    navigator.clipboard.write(data);
+    setClipboard(testCaseName);
 
     if (window.cifxDashboard) {
       window.open(window.cifxDashboard, "_blank");
@@ -343,8 +441,8 @@ function addReviewers() {
     .then((ids) => {
       reviewersAliasEmailList.map((email) =>
         getUserId(email, serverUrl).then((userId) =>
-          addUserToReviewersById(ids[0], ids[1], userId, prIdStr, serverUrl)
-        )
+          addUserToReviewersById(ids[0], ids[1], userId, prIdStr, serverUrl),
+        ),
       );
     })
     .catch((error) => {
@@ -357,7 +455,7 @@ async function getUserId(email, serverUrl) {
   identityHeaders.append("content-type", "application/json");
   identityHeaders.append(
     "accept",
-    "application/json;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true"
+    "application/json;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
   );
   var identityRequestOptions = {
     method: "POST",
@@ -392,7 +490,7 @@ async function getUserId(email, serverUrl) {
   try {
     const response = await fetch(
       `${serverUrl}/_apis/IdentityPicker/Identities/${apiVersionQuery}`,
-      identityRequestOptions
+      identityRequestOptions,
     );
     const data = await response.json();
     return data.results[0].identities[0].localId;
@@ -406,13 +504,13 @@ function addUserToReviewersById(
   repositoryId,
   userId,
   prId,
-  serverUrl
+  serverUrl,
 ) {
   var addReviewerHeaders = new Headers();
   addReviewerHeaders.append("content-type", "application/json");
   addReviewerHeaders.append(
     "accept",
-    "application/json;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true"
+    "application/json;excludeUrls=true;enumsAsNumbers=true;msDateFormat=true;noArrayWrap=true",
   );
   var addReviewerRequestOptions = {
     method: "put",
@@ -422,7 +520,7 @@ function addUserToReviewersById(
 
   fetch(
     `${serverUrl}/${projectId}/_apis/git/repositories/${repositoryId}/pullRequests/${prId}/reviewers/${userId}/${apiVersionQuery}`,
-    addReviewerRequestOptions
+    addReviewerRequestOptions,
   )
     .then((response) => response.text())
     .then((result) => console.log(result))
@@ -440,19 +538,10 @@ async function getProjectAndRepoIds() {
         return prPageResponseText;
       }));
   var projectId = result_1.match(
-    /(\"project\"\:\{\"id\"\:\")([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})/
+    /(\"project\"\:\{\"id\"\:\")([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})/,
   )[2];
   var repositoryId = result_1.match(
-    /(\"gitRepository\"\:\{\"id\"\:\")([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})/
+    /(\"gitRepository\"\:\{\"id\"\:\")([0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12})/,
   )[2];
   return [projectId, repositoryId];
-}
-
-function parsePRUrl() {
-  //https://dev.azure.com/org/project/_git/repo/pullrequest/prId
-  //https://org.visualstudio.com/project/_git/repo/pullrequest/prId
-  const [, domain, project, repo, prId] = location.href.match(
-    /(https:\/\/.*)\/([^\/]+)\/_git\/([^\/]+)\/pullrequest\/(\d+)/
-  );
-  return { apiUrl: `${domain}/${project}/_apis`, domain, project, repo, prId };
 }
