@@ -24,8 +24,8 @@ function addPRButtons() {
     addCopyPRNumberButton();
     addReviewerButton();
     addQueueBuildButton();
-    addGeneratePATButton();
     addQueueExpiredButton();
+    addGeneratePATButton();
   });
 }
 
