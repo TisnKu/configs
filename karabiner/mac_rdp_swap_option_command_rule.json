@@ -10,7 +10,8 @@
             "^com\\.microsoft\\.rdc\\.macos$",
             "^com\\.microsoft\\.rdc\\.osx\\.beta$",
             "^com\\.thinomenon\\.RemoteDesktopConnection$",
-            "^com\\.teamviewer\\.TeamViewer$"
+            "^com\\.teamviewer\\.TeamViewer$",
+            "^org\\.xquartz\\.X11$"
           ],
           "type": "frontmost_application_if"
         }
@@ -37,7 +38,8 @@
             "^com\\.microsoft\\.rdc\\.macos$",
             "^com\\.microsoft\\.rdc\\.osx\\.beta$",
             "^com\\.thinomenon\\.RemoteDesktopConnection$",
-            "^com\\.teamviewer\\.TeamViewer$"
+            "^com\\.teamviewer\\.TeamViewer$",
+            "^org\\.xquartz\\.X11$"
           ],
           "type": "frontmost_application_if"
         }
@@ -64,7 +66,8 @@
             "^com\\.microsoft\\.rdc\\.macos$",
             "^com\\.microsoft\\.rdc\\.osx\\.beta$",
             "^com\\.thinomenon\\.RemoteDesktopConnection$",
-            "^com\\.teamviewer\\.TeamViewer$"
+            "^com\\.teamviewer\\.TeamViewer$",
+            "^org\\.xquartz\\.X11$"
           ],
           "type": "frontmost_application_if"
         }
@@ -91,7 +94,8 @@
             "^com\\.microsoft\\.rdc\\.macos$",
             "^com\\.microsoft\\.rdc\\.osx\\.beta$",
             "^com\\.thinomenon\\.RemoteDesktopConnection$",
-            "^com\\.teamviewer\\.TeamViewer$"
+            "^com\\.teamviewer\\.TeamViewer$",
+            "^org\\.xquartz\\.X11$"
           ],
           "type": "frontmost_application_if"
         }

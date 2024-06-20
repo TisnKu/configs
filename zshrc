@@ -28,7 +28,7 @@ function arm() {
 }
 
 function findKeychainPassword() {
-    security find-generic-password -s $1 -a $2 -w
+    security find-generic-password -s $1 -a $2 -w # $1: service, $2: account
 }
 
 function otp {
@@ -162,4 +162,15 @@ function shallowfetch() {
   git fetch --depth=1
   git reflog expire --expire-unreachable=now --all
   git gc --aggressive --prune=all
+}
+
+function ryzen() {
+  local domain=$(findKeychainPassword 'ryzen' 'domain')
+  local ryzenuser=$(findKeychainPassword 'ryzen' 'user')
+  local ryzenpwd=$(findKeychainPassword 'ryzen' 'password')
+
+  wakeRyzen
+
+  local cmdstr="xfreerdp /u:$ryzenuser /p:$ryzenpwd /v:$domain /sound /microphone /prevent-session-lock +clipboard +dynamic-resolution > ~/xfreerdp.log"
+  tmux new-session -d -s ryzen $cmdstr
 }
