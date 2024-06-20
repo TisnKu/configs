@@ -5,12 +5,7 @@
       "conditions": [
         {
           "bundle_identifiers": [
-            "^com\\.microsoft\\.rdc$",
-            "^com\\.microsoft\\.rdc\\.mac$",
-            "^com\\.microsoft\\.rdc\\.macos$",
             "^com\\.microsoft\\.rdc\\.osx\\.beta$",
-            "^com\\.thinomenon\\.RemoteDesktopConnection$",
-            "^com\\.teamviewer\\.TeamViewer$",
             "^org\\.xquartz\\.X11$"
           ],
           "type": "frontmost_application_if"
@@ -33,12 +28,7 @@
       "conditions": [
         {
           "bundle_identifiers": [
-            "^com\\.microsoft\\.rdc$",
-            "^com\\.microsoft\\.rdc\\.mac$",
-            "^com\\.microsoft\\.rdc\\.macos$",
             "^com\\.microsoft\\.rdc\\.osx\\.beta$",
-            "^com\\.thinomenon\\.RemoteDesktopConnection$",
-            "^com\\.teamviewer\\.TeamViewer$",
             "^org\\.xquartz\\.X11$"
           ],
           "type": "frontmost_application_if"
@@ -61,12 +51,7 @@
       "conditions": [
         {
           "bundle_identifiers": [
-            "^com\\.microsoft\\.rdc$",
-            "^com\\.microsoft\\.rdc\\.mac$",
-            "^com\\.microsoft\\.rdc\\.macos$",
             "^com\\.microsoft\\.rdc\\.osx\\.beta$",
-            "^com\\.thinomenon\\.RemoteDesktopConnection$",
-            "^com\\.teamviewer\\.TeamViewer$",
             "^org\\.xquartz\\.X11$"
           ],
           "type": "frontmost_application_if"
@@ -89,12 +74,7 @@
       "conditions": [
         {
           "bundle_identifiers": [
-            "^com\\.microsoft\\.rdc$",
-            "^com\\.microsoft\\.rdc\\.mac$",
-            "^com\\.microsoft\\.rdc\\.macos$",
             "^com\\.microsoft\\.rdc\\.osx\\.beta$",
-            "^com\\.thinomenon\\.RemoteDesktopConnection$",
-            "^com\\.teamviewer\\.TeamViewer$",
             "^org\\.xquartz\\.X11$"
           ],
           "type": "frontmost_application_if"
