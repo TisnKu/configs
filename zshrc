@@ -174,3 +174,7 @@ function ryzen() {
   local cmdstr="xfreerdp /u:$ryzenuser /p:$ryzenpwd /v:$domain /sound /microphone /prevent-session-lock +clipboard +dynamic-resolution > ~/xfreerdp.log"
   tmux new-session -d -s ryzen $cmdstr
 }
+
+function kry() {
+  tmux kill-session -t ryzen
+}
