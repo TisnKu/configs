@@ -178,3 +178,8 @@ function ryzen() {
 function kry() {
   tmux kill-session -t ryzen
 }
+
+function sry() {
+  wakeRyzen
+  ssh ryzen
+}
