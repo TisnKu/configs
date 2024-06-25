@@ -129,6 +129,16 @@ function M.contains(table, element)
   return false
 end
 
+function M.change_root()
+  -- find nearest parent directory with .git folder or package.json
+  local package_json_path = vim.fn.findfile("package.json", vim.fn.expand("%:p:h") .. ";")
+  if package_json_path ~= "" then
+    local package_json_dir = vim.fn.fnamemodify(package_json_path, ":h")
+    print("Changing root to " .. package_json_dir)
+    vim.cmd("cd " .. package_json_dir)
+  end
+end
+
 _G.utils = M
 
 return M

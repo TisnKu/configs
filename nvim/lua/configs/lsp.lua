@@ -39,9 +39,7 @@ function get_max_memory()
   return 8192
 end
 
-local is_cwd_tmp = string.find(vim.loop.cwd(), "modular-packages") ~= nil
-
-if not vim.g.is_mac or not is_cwd_tmp then
+if not vim.g.is_mac then
   require('typescript-tools').setup({
     on_attach = function(client, bufnr)
       require('lsp-setup.utils').disable_formatting(client)
