@@ -53,7 +53,10 @@ function generateNewPAT() {
   const { domain } = parsePRUrl();
   const validTo = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7).toISOString(); // 7 days
 
-  const targetAccounts = ["c22e3f6e-2072-467d-9342-214b57c9b8fe"]; //representing domoreexp org
+  const isDomoreexp = domain.contains("domoreexp");
+  const targetAccounts = isDomoreexp
+    ? ["c22e3f6e-2072-467d-9342-214b57c9b8fe"]
+    : ["2ce6486e-7d3b-47bb-8e16-5f19a43015c9"];
   const body = {
     contributionIds: [
       "ms.vss-token-web.personal-access-token-issue-session-token-provider",
@@ -72,7 +75,9 @@ function generateNewPAT() {
             adminPivot: "tokens",
             controller: "ContributedPage",
             action: "Execute",
-            serviceHost: "c22e3f6e-2072-467d-9342-214b57c9b8fe (domoreexp)",
+            serviceHost: isDomoreexp
+              ? "c22e3f6e-2072-467d-9342-214b57c9b8fe (domoreexp)"
+              : "2ce6486e-7d3b-47bb-8e16-5f19a43015c9 (skype)",
           },
         },
       },
