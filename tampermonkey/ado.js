@@ -165,7 +165,7 @@ function addGeneratePATButton() {
   btn.style.cursor = "pointer";
   btn.onclick = () => {
     generateNewPAT().then(() => {
-      btn.innerHTML = "Queue build ✓";
+      btn.innerHTML = "Generate PAT ✓";
     });
   };
   getPrUtilityRow().appendChild(btn);
