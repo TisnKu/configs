@@ -53,7 +53,7 @@ function generateNewPAT() {
   const { domain } = parsePRUrl();
   const validTo = new Date(Date.now() + 1000 * 60 * 60 * 24 * 7).toISOString(); // 7 days
 
-  const isDomoreexp = domain.contains("domoreexp");
+  const isDomoreexp = domain.includes("domoreexp");
   const targetAccounts = isDomoreexp
     ? ["c22e3f6e-2072-467d-9342-214b57c9b8fe"]
     : ["2ce6486e-7d3b-47bb-8e16-5f19a43015c9"];
