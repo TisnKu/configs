@@ -158,8 +158,10 @@ vim.keymap.set({ "n", "v" }, "<space>;", ":<C-u>Telescope commands<CR>", opts)
 --vim.keymap.set("t", "<space>;", "<C-\\><C-n>:Telescope commands<CR>", opts)
 vim.keymap.set({ "n", "i", "v" }, "<leader>f",
   ":<C-u>lua require('telescope.builtin').find_files({ debounce = 100, hidden = true })<CR>", opts)
-vim.keymap.set({ "v", "n" }, "<leader>gf",
-  ":lua require('telescope.builtin').find_files({default_text = utils.get_selection_or_cword()})<CR>", opts)
+vim.keymap.set("v", "<leader>gf",
+  ":lua require('telescope.builtin').find_files({default_text = utils.get_visual_selection()})<CR>", opts)
+vim.keymap.set("n", "<leader>gf",
+  ":lua require('telescope.builtin').find_files({default_text = vim.fn.expand('<cword>')})<CR>", opts)
 
 vim.keymap.set("n", "<leader>gb", "<cmd>Telescope current_buffer_fuzzy_find<CR>", opts)
 vim.keymap.set("n", "<leader>rg", ":lua Telescope_ripgrep()<CR>", opts)
