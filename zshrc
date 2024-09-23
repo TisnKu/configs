@@ -175,6 +175,12 @@ function ryzen() {
   tmux new-session -d -s ryzen $cmdstr
 }
 
+function wakeRyzen ()
+{
+  # send wake up signal
+  dig +short ktx.ddns.net | xargs wol 58:11:22:BF:74:FF -c
+}
+
 function kry() {
   tmux kill-session -t ryzen
 }
@@ -183,3 +189,8 @@ function sry() {
   wakeRyzen
   ssh ryzen
 }
+
+
+# nvm
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
