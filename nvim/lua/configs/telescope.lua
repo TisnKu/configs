@@ -143,8 +143,8 @@ function Telescope_ripgrep()
     return
   end
   require("telescope.builtin").grep_string {
-    search = input == " " and "" or input,
-    only_sort_text = true,
+    search = input,
+    --only_sort_text = true,
   }
 end
 
