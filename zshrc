@@ -95,10 +95,6 @@ export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 #export PATH="$GCC_PREFIX/bin:$PATH"
 
 if [[ $(uname) == "Darwin" ]]; then
-  # Brew usts mirror
-  export HOMEBREW_BOTTLE_DOMAIN=https://mirrors.ustc.edu.cn/homebrew-bottles
-  HOMEBREW_NO_AUTO_UPDATE=1
-  # homebrew
   ## usts mirror
   HOMEBREW_NO_AUTO_UPDATE=1
   export HOMEBREW_API_DOMAIN="https://mirrors.tuna.tsinghua.edu.cn/homebrew-bottles/api"
@@ -190,6 +186,9 @@ function sry() {
   ssh ryzen
 }
 
+# zsh-github-copilot
+bindkey 'Ú' zsh_gh_copilot_explain  # bind Option+Shift+; to explain
+bindkey '…' zsh_gh_copilot_suggest  # bind Option+\ to suggest
 
 # nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
