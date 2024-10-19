@@ -15,11 +15,13 @@ function _G.open_test_file()
   end
 
   -- if test file suffix is found, open the source file
+  local test_file_found = false
   if suffix then
     utils.find(target_file_extensions, function(target_extension)
       local target_file_path = path .. '/' .. file_name_without_suffix .. '.' .. target_extension
       if vim.fn.filereadable(target_file_path) == 1 then
         vim.cmd('vsplit ' .. target_file_path)
+        test_file_found = true
         return true
       end
     end)
@@ -29,11 +31,23 @@ function _G.open_test_file()
             local target_file_path = path .. '/' .. filename .. '.' .. target_suffix .. '.' .. target_extension
             if vim.fn.filereadable(target_file_path) == 1 then
               vim.cmd('vsplit ' .. target_file_path)
+              test_file_found = true
               return true
             end
           end) then
         return true
       end
+    end)
+  end
+
+  -- if test file does not exist, pop up dialog for user to edit test file name, press enter to create a new test file
+  if not test_file_found then
+    local new_file_name = file_name_without_suffix .. '.' .. test_file_suffix[1] .. '.' .. target_file_extensions[1]
+    vim.ui.input({ prompt = "Enter test file name:", default = new_file_name }, function(prompt)
+      if not prompt or prompt == "" then
+        return
+      end
+      vim.cmd('vsplit ' .. path .. '/' .. prompt)
     end)
   end
 end

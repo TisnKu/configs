@@ -143,7 +143,7 @@ require("packer").startup(function(use)
     'nvim-telescope/telescope-ui-select.nvim',
     "dawsers/telescope-floaterm.nvim",
     "nvim-telescope/telescope-project.nvim",
-    "nvim-telescope/telescope-file-browser.nvim"
+    "TisnKu/telescope-file-browser.nvim"
   } }
   --optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   optuse { 'stevearc/dressing.nvim' }
