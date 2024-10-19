@@ -59,6 +59,7 @@ require("packer").startup(function(use)
     use(plugin, opts)
   end
 
+  use("TisnKu/plenary.nvim")
   optuse("wbthomason/packer.nvim")
   optuse("projekt0n/github-nvim-theme")
   optuse {
@@ -106,7 +107,6 @@ require("packer").startup(function(use)
   optuse({
     "ThePrimeagen/refactoring.nvim",
     requires = {
-      { "nvim-lua/plenary.nvim" },
       { "nvim-treesitter/nvim-treesitter" }
     }
   })
@@ -115,10 +115,7 @@ require("packer").startup(function(use)
     run = 'deno task --quiet build:fast',
   })
 
-  optuse {
-    'saecki/crates.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-  }
+  optuse { 'saecki/crates.nvim' }
   optuse("dstein64/vim-startuptime")
   optuse("github/copilot.vim")
   optuse({
@@ -126,25 +123,23 @@ require("packer").startup(function(use)
     branch = "canary",
     requires = {
       "zbirenbaum/copilot.lua",
-      "nvim-lua/plenary.nvim",
     },
   })
   optuse("nvim-lualine/lualine.nvim")
-  optuse("nvim-lua/plenary.nvim")
   optuse("lewis6991/gitsigns.nvim")
-  optuse { 'sindrets/diffview.nvim', requires = { 'nvim-lua/plenary.nvim' } }
+  optuse { 'sindrets/diffview.nvim' }
   optuse('skywind3000/asyncrun.vim')
   optuse('voldikss/vim-floaterm')
   optuse({ "junegunn/fzf", run = ":call fzf#install()" })
   optuse { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
   optuse { "nvim-telescope/telescope.nvim", requires = {
-    "nvim-lua/plenary.nvim",
     "smartpde/telescope-recent-files",
     'nvim-telescope/telescope-ui-select.nvim',
     "dawsers/telescope-floaterm.nvim",
     "nvim-telescope/telescope-project.nvim",
-    "TisnKu/telescope-file-browser.nvim"
+    "nvim-telescope/telescope-file-browser.nvim"
   } }
+
   --optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
   optuse { 'stevearc/dressing.nvim' }
   --optuse 'airblade/vim-rooter'
@@ -182,7 +177,7 @@ require("packer").startup(function(use)
       { "williamboman/mason-lspconfig.nvim", opt = true },
     },
   })
-  optuse({ "pmizio/typescript-tools.nvim", branch = 'master', requires = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" } })
+  optuse({ "pmizio/typescript-tools.nvim", branch = 'master', requires = { "neovim/nvim-lspconfig" } })
 
   optuse("hrsh7th/cmp-nvim-lsp")
   optuse("hrsh7th/cmp-buffer")
