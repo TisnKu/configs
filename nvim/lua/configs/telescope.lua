@@ -155,6 +155,7 @@ function Telescope_ripgrep()
 end
 
 local opts = { noremap = true, silent = true }
+vim.keymap.set('n', '<leader>gd', ':Telescope git_diff diff_against=master<CR>', opts)
 vim.keymap.set('n', '<space>p', ':Telescope project display_type=full<CR>', opts)
 vim.keymap.set('n', '<space>rp', ':<C-u>Telescope recent_files pick<CR>', opts)
 vim.keymap.set({ "n", "v" }, "<space>e", ":<C-u>Telescope file_browser path=%:p:h select_buffer=true<CR>", opts)
