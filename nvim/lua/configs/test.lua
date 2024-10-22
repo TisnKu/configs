@@ -54,15 +54,10 @@ end
 
 -- register command to run test in terminal
 vim.cmd([[
-  command! -nargs=0 RunTmpTest :!tmptest "%:p"
-]])
-
-vim.cmd([[
+  command! -nargs=0 RunTmpTestInPlace :!tmptest "%:p"
   command! -nargs=0 RunTmpTestTerminal :!start-process pwsh "-noexit -command tmptest '%:p'"
-]])
-
-vim.cmd([[
   command! -nargs=0 OpenTestFile :lua open_test_file()
+  command! -nargs=0 RunTmpTestFloterm :FloatermNew --width=1.0 --height=1.0 tmptest "%:p"
 ]])
 
 vim.api.nvim_set_keymap('n', '<Bslash>rt', ':RunTmpTestTerminal<CR>', { noremap = true })
