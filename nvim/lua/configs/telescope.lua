@@ -9,7 +9,12 @@ local fb_actions = require("telescope._extensions.file_browser.actions")
 local action_state = require("telescope.actions.state")
 local fb_utils = require("telescope._extensions.file_browser.utils")
 
+telescope.load_extension("git_diff")
 require("telescope._extensions.file_browser.config").values.mappings.i = {}
+-- define a command diff_master to diff current branch with master
+vim.cmd [[
+  command! -nargs=0 DiffMaster :Telescope git_diff diff_against=master<CR>
+]]
 
 local project_paths = {
   { '~/',          max_depth = 1 },
