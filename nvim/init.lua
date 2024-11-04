@@ -28,13 +28,14 @@ if vim.g.is_wsl then
 end
 
 if vim.g.is_win then
+  vim.opt.shadafile = "NONE"
   vim.cmd [[
-  let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
-  let &shellcmdflag = '-noexit -NoLogo -ExecutionPolicy RemoteSigned -Command '
-  let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
-  let &shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
-  set shellquote= shellxquote=
-]]
+    let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
+    let &shellcmdflag = '-noexit -NoLogo -ExecutionPolicy RemoteSigned -Command '
+    let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
+    let &shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
+    set shellquote= shellxquote=
+  ]]
 end
 
 -- Plugins
