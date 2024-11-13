@@ -16,8 +16,11 @@ function addAllButtons() {
 
 function addPRButtons() {
   "use strict";
-  if (!window.location.href.includes("/pullrequest/")) return;
-  console.log("#####, add buttons to PR page");
+  if (!window.location.href.includes("/pullrequest/")) {
+    console.log("#####, not a PR page, skip adding buttons");
+    return;
+  }
+  console.log("#####, adding buttons to PR page");
   doUntilElementVisible("#tamper-util-row", 300, function () {
     addUtilityRow();
     addCopyBranchButton();
@@ -128,6 +131,7 @@ function setClipboard(text) {
 
 function addUtilityRow() {
   const prHeader = document.getElementsByClassName("repos-pr-header")[0];
+  console.log("#####, prHeader", prHeader);
   const utilityRow = document.createElement("div");
   utilityRow.id = "tamper-util-row";
   utilityRow.style.display = "flex";
