@@ -156,7 +156,7 @@ end
 
 local opts = { noremap = true, silent = true }
 -- keymap for toggling preview
-vim.keymap.set("n", "<F4>", ":<C-u> lua require('telescope.actions.layout').toggle_preview", opts)
+vim.keymap.set({ "n", "v" }, "<F4>", ":<C-u> lua require('telescope.actions.layout').toggle_preview()", opts)
 vim.keymap.set('n', '<leader>gd', ':Telescope git_diff diff_against=master<CR>', opts)
 vim.keymap.set('n', '<space>p', ':Telescope project display_type=full<CR>', opts)
 vim.keymap.set('n', '<space>rp', ':<C-u>Telescope recent_files pick<CR>', opts)
