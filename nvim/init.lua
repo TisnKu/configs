@@ -121,7 +121,7 @@ require("packer").startup(function(use)
   optuse("github/copilot.vim")
   optuse({
     "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "canary",
+    branch = "main",
     requires = {
       "zbirenbaum/copilot.lua",
     },

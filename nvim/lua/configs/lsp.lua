@@ -89,16 +89,16 @@ require('lsp-setup').setup({
         },
       }
     },
-    pylsp = {
-      settings = {
-        pylsp = {
-          plugins = {
-            pycodestyle = { ignore = { "E501" } },
-            autopep8 = { enabled = false },
-          }
-        }
-      }
-    },
+    --pylsp = {
+    --settings = {
+    --pylsp = {
+    --plugins = {
+    --pycodestyle = { ignore = { "E501" } },
+    --autopep8 = { enabled = false },
+    --}
+    --}
+    --}
+    --},
     -- Windows needs gzip as dependency for mason to unzip the server
     rust_analyzer = require('lsp-setup.rust-tools').setup({
       server = {
