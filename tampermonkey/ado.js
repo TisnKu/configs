@@ -378,6 +378,7 @@ function addReviewerButton() {
 })();
 
 function hackWorkItemPage() {
+  return;
   if (!window.location.href.includes("/_workitems")) {
     return;
   }
