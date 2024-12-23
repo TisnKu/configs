@@ -32,7 +32,6 @@ local copilot_chat_source = helpers.make_builtin({
   filetypes = {},
   generator = {
     fn = function(_)
-      local _, help_actions = pcall(require("CopilotChat.actions").help_actions)
       local _, prompt_actions = pcall(require("CopilotChat.actions").prompt_actions)
       local copilot_chat_actions = {
         Prompt = {
@@ -42,9 +41,6 @@ local copilot_chat_source = helpers.make_builtin({
           callback = Ask_copilot_workspace,
         }
       }
-      if help_actions then
-        copilot_chat_actions = vim.tbl_extend("force", copilot_chat_actions, help_actions.actions)
-      end
       if prompt_actions then
         copilot_chat_actions = vim.tbl_extend("force", copilot_chat_actions, prompt_actions.actions)
       end

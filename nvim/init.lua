@@ -168,7 +168,7 @@ require("packer").startup(function(use)
   })
   optuse("simrat39/rust-tools.nvim")
   optuse("williamboman/mason.nvim")
-  optuse("jose-elias-alvarez/null-ls.nvim")
+  optuse("nvimtools/none-ls.nvim")
   optuse("williamboman/mason-lspconfig.nvim")
   optuse("neovim/nvim-lspconfig")
   optuse({
