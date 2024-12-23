@@ -9,7 +9,6 @@ null_ls.setup({
     --null_ls.builtins.formatting.prettierd,
     null_ls.builtins.formatting.prettier,
     --null_ls.builtins.formatting.rustfmt,
-    null_ls.builtins.formatting.taplo,
     --null_ls.builtins.code_actions.gitsigns,
     null_ls.builtins.code_actions.refactoring,
     null_ls.copilot_chat,
