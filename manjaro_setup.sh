@@ -13,6 +13,10 @@ sudo pacman -S yay
 sudo pacman -S fakeroot
 sudo pacman -S pkgconf
 
+## Pacman mirros
+yay -S pacman-mirrors
+sudo pacman-mirrors -i -c China -m rank
+
 ## Install zsh
 sudo pacman -S zsh
 ## Install oh-my-zsh
@@ -47,5 +51,7 @@ yay -S xclip xsel # for accessing clipboard
 ## Install tmux
 yay -S tmux
 
+## Wechat
+yay -S wechat
 
 
