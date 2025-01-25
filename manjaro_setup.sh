@@ -54,4 +54,9 @@ yay -S tmux
 ## Wechat
 yay -S wechat
 
+## VS Code
+yay -S visual-studio-code-bin
+
+## sxhkd & xdotool
+yay -S sxhkd xdotool
 
