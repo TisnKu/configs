@@ -16,6 +16,8 @@ function unvpn() {
 # autojump
 if [[ $(uname) == "Darwin" ]]; then
   [ -f /opt/homebrew/etc/profile.d/autojump.sh ] && . /opt/homebrew/etc/profile.d/autojump.sh
+else 
+  [[ -s /etc/profile.d/autojump.sh ]] && source /etc/profile.d/autojump.sh
 fi
 
 # arch
