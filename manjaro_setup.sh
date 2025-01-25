@@ -38,8 +38,14 @@ yay -S switchhosts
 ## Install Microsoft Edge
 yay -S microsoft-edge-dev-bin
 
-## Configure alt-shift-t to toggle terminal (KDE-plasma)
+## Install nvim
+yay -S neovim
+sudo mv /usr/bin/vi /usr/bin/ovi
+sudo cp /usr/bin/nvim /usr/bin/vi
+yay -S xclip xsel # for accessing clipboard
 
+## Install tmux
+yay -S tmux
 
 
 
