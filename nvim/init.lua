@@ -39,164 +39,161 @@ if vim.g.is_win then
 end
 
 -- Plugins
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ "git", "clone", "--depth", "1", "https://github.com/wbthomason/packer.nvim", install_path })
-    vim.cmd([[packadd packer.nvim]])
-    return true
-  end
-  return false
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
 end
+vim.opt.rtp:prepend(lazypath)
 
-local packer_bootstrap = ensure_packer()
-
--- Plugins
-require("packer").startup(function(use)
-  local optuse = function(plugin, opts)
-    opts = opts or {}
-    opts.opt = true
-    use(plugin, opts)
-  end
-
-  use("TisnKu/plenary.nvim")
-  optuse("wbthomason/packer.nvim")
-  optuse("projekt0n/github-nvim-theme")
-  optuse {
+require("lazy").setup({
+  { "TisnKu/plenary.nvim" },
+  { "wbthomason/packer.nvim",      lazy = true },
+  { "projekt0n/github-nvim-theme", lazy = true },
+  {
     "catppuccin/nvim",
     name = "catppuccin",
-  }
-  optuse("kaicataldo/material.vim", { branch = "main" })
-  optuse "EdenEast/nightfox.nvim"
-  optuse "doums/darcula"
-  optuse "morhetz/gruvbox"
-  optuse "rebelot/kanagawa.nvim"
-  use {
+    lazy = true
+  },
+  { "kaicataldo/material.vim", branch = "main", lazy = true },
+  { "EdenEast/nightfox.nvim",  lazy = true },
+  { "doums/darcula",           lazy = true },
+  { "morhetz/gruvbox",         lazy = true },
+  { "rebelot/kanagawa.nvim",   lazy = true },
+  {
     'goolord/alpha-nvim',
-    requires = { 'nvim-tree/nvim-web-devicons' },
+    lazy = true,
+    dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
       require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
     end
-  }
-
-  optuse("machakann/vim-sandwich")
-  --optuse("lambdalisue/fern.vim")
-  --optuse("preservim/nerdtree")
-  optuse("scrooloose/nerdcommenter")
-  optuse("nvim-treesitter/nvim-treesitter", { run = ":TSUpdate" })
-  optuse("nvim-treesitter/nvim-treesitter-context")
-  optuse 'nvim-treesitter/nvim-treesitter-textobjects'
-  optuse("windwp/nvim-autopairs")
-  optuse("yuttie/comfortable-motion.vim")  -- Smooth scrolling
-  optuse({
-    "lukas-reineke/indent-blankline.nvim", -- Indentation lines
-    requires = { { "nvim-treesitter/nvim-treesitter", opt = true } },
+  },
+  { "machakann/vim-sandwich",                      lazy = true },
+  { "scrooloose/nerdcommenter",                    lazy = true },
+  { "nvim-treesitter/nvim-treesitter",             lazy = true, run = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter-context",     lazy = true },
+  { 'nvim-treesitter/nvim-treesitter-textobjects', lazy = true },
+  { "windwp/nvim-autopairs",                       lazy = true },
+  { "yuttie/comfortable-motion.vim",               lazy = true },
+  {
+    "lukas-reineke/indent-blankline.nvim",
+    lazy = true,
+    dependencies = { { "nvim-treesitter/nvim-treesitter", lazy = true } },
     config = function()
       require("ibl").setup({})
     end,
-  })
-  optuse('TisnKu/log-highlight.nvim')
-
-  optuse "Matt-A-Bennett/vim-surround-funk"    -- delete/change/yank/grip surrounding text
-  optuse "b4winckler/vim-angry"                -- arg text object
-  optuse "Julian/vim-textobj-variable-segment" -- text object for variable segments of camel case of snake case: av/iv
-  optuse "michaeljsmith/vim-indent-object"     -- text object for indentation levels: ai/ii/aI
-  optuse "coderifous/textobj-word-column.vim"  -- text object for word columns: ac/ic/aC/iC
-  optuse "kana/vim-textobj-user"               -- text object for user defined text objects
-  optuse "kana/vim-textobj-entire"             -- text object for entire buffer: ae/ie
-  optuse({
+  },
+  { 'TisnKu/log-highlight.nvim',           lazy = true },
+  { "Matt-A-Bennett/vim-surround-funk",    lazy = true },
+  { "b4winckler/vim-angry",                lazy = true },
+  { "Julian/vim-textobj-variable-segment", lazy = true },
+  { "michaeljsmith/vim-indent-object",     lazy = true },
+  { "coderifous/textobj-word-column.vim",  lazy = true },
+  { "kana/vim-textobj-user",               lazy = true },
+  { "kana/vim-textobj-entire",             lazy = true },
+  {
     "ThePrimeagen/refactoring.nvim",
-    requires = {
+    lazy = true,
+    dependencies = {
       { "nvim-treesitter/nvim-treesitter" }
     }
-  })
-  optuse({
+  },
+  {
     'toppair/peek.nvim',
+    lazy = true,
     run = 'deno task --quiet build:fast',
-  })
-
-  optuse { 'saecki/crates.nvim' }
-  optuse("dstein64/vim-startuptime")
-  optuse("github/copilot.vim")
-  optuse({
+  },
+  { 'saecki/crates.nvim',       lazy = true },
+  { "dstein64/vim-startuptime", lazy = true },
+  { "github/copilot.vim",       lazy = true },
+  {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "main",
-    requires = {
+    lazy = true,
+    dependencies = {
       "zbirenbaum/copilot.lua",
     },
-  })
-  optuse("nvim-lualine/lualine.nvim")
-  optuse("lewis6991/gitsigns.nvim")
-  optuse { 'sindrets/diffview.nvim' }
-  optuse('skywind3000/asyncrun.vim')
-  optuse('voldikss/vim-floaterm')
-  optuse({ "junegunn/fzf", run = ":call fzf#install()" })
-  optuse { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-  optuse { "nvim-telescope/telescope.nvim", requires = {
-    "smartpde/telescope-recent-files",
-    'nvim-telescope/telescope-ui-select.nvim',
-    "dawsers/telescope-floaterm.nvim",
-    "nvim-telescope/telescope-project.nvim",
-    "TisnKu/telescope-file-browser.nvim",
-    "slarwise/telescope-git-diff.nvim"
-  } }
-
-  --optuse({ "ibhagwan/fzf-lua", requires = { { "kyazdani42/nvim-web-devicons", opt = true } } })
-  optuse { 'stevearc/dressing.nvim' }
-  --optuse 'airblade/vim-rooter'
-  optuse({
+  },
+  { "nvim-lualine/lualine.nvim",                lazy = true },
+  { "lewis6991/gitsigns.nvim",                  lazy = true },
+  { 'sindrets/diffview.nvim',                   lazy = true },
+  { 'skywind3000/asyncrun.vim',                 lazy = true },
+  { 'voldikss/vim-floaterm',                    lazy = true },
+  { "junegunn/fzf",                             lazy = true, run = ":call fzf#install()" },
+  { 'nvim-telescope/telescope-fzf-native.nvim', lazy = true, run = 'make' },
+  {
+    "nvim-telescope/telescope.nvim",
+    lazy = true,
+    dependencies = {
+      "smartpde/telescope-recent-files",
+      'nvim-telescope/telescope-ui-select.nvim',
+      "dawsers/telescope-floaterm.nvim",
+      "nvim-telescope/telescope-project.nvim",
+      "TisnKu/telescope-file-browser.nvim",
+      "slarwise/telescope-git-diff.nvim"
+    }
+  },
+  { 'stevearc/dressing.nvim',            lazy = true },
+  {
     "klen/nvim-test",
+    lazy = true,
     config = function()
       require('nvim-test').setup()
     end
-  })
-
-  -- Visualize lsp progress
-  optuse({
+  },
+  {
     "j-hui/fidget.nvim",
+    lazy = true,
     config = function()
       require("fidget").setup()
     end
-  })
-  -- LSP log panel
-  optuse({
+  },
+  {
     "mhanberg/output-panel.nvim",
+    lazy = true,
     config = function()
       require("output_panel").setup({})
     end
-  })
-  optuse("simrat39/rust-tools.nvim")
-  optuse("williamboman/mason.nvim")
-  optuse("nvimtools/none-ls.nvim")
-  optuse("williamboman/mason-lspconfig.nvim")
-  optuse("neovim/nvim-lspconfig")
-  optuse({
+  },
+  { "simrat39/rust-tools.nvim",          lazy = true },
+  { "williamboman/mason.nvim",           lazy = true },
+  { "nvimtools/none-ls.nvim",            lazy = true },
+  { "williamboman/mason-lspconfig.nvim", lazy = true },
+  { "neovim/nvim-lspconfig",             lazy = true },
+  {
     "TisnKu/lsp-setup.nvim",
-    requires = {
-      { "neovim/nvim-lspconfig",             opt = true },
-      { "williamboman/mason.nvim",           opt = true },
-      { "williamboman/mason-lspconfig.nvim", opt = true },
+    lazy = true,
+    dependencies = {
+      { "neovim/nvim-lspconfig",             lazy = true },
+      { "williamboman/mason.nvim",           lazy = true },
+      { "williamboman/mason-lspconfig.nvim", lazy = true },
     },
-  })
-  optuse({ "pmizio/typescript-tools.nvim", branch = 'master', requires = { "neovim/nvim-lspconfig" } })
-
-  optuse("hrsh7th/cmp-nvim-lsp")
-  optuse("hrsh7th/cmp-buffer")
-  optuse("hrsh7th/cmp-path")
-  optuse("hrsh7th/cmp-cmdline")
-  optuse("hrsh7th/nvim-cmp")
-  optuse({
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    branch = 'master',
+    lazy = true,
+    dependencies = { "neovim/nvim-lspconfig" }
+  },
+  { "hrsh7th/cmp-nvim-lsp", lazy = true },
+  { "hrsh7th/cmp-buffer",   lazy = true },
+  { "hrsh7th/cmp-path",     lazy = true },
+  { "hrsh7th/cmp-cmdline",  lazy = true },
+  { "hrsh7th/nvim-cmp",     lazy = true },
+  {
     "L3MON4D3/LuaSnip",
+    lazy = true,
     run = "make install_jsregexp",
-    requires = {
+    dependencies = {
       "rafamadriz/friendly-snippets",
     },
-  })
-  optuse { 'saadparwaiz1/cmp_luasnip' }
-
-  if packer_bootstrap then
-    require("packer").sync()
-  end
-end)
+  },
+  { 'saadparwaiz1/cmp_luasnip', lazy = true },
+})
 -- End plugins

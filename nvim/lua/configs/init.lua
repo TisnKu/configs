@@ -1,13 +1,13 @@
 -- Load immediately after startup
-require("configs.theme")
+-- require("configs.theme")
 require("configs.start_page")
 
-utils.trySetup("lualine", {
-  theme = "auto",
-  options = {
-    theme = 'auto'
-  }
-})
+-- utils.trySetup("lualine", {
+--   theme = "auto",
+--   options = {
+--     theme = 'auto'
+--   }
+-- })
 
 -- Defer loading until after vim has started
 vim.defer_fn(function()
@@ -36,7 +36,7 @@ vim.defer_fn(function()
   require('configs.dressing')
   require('configs.terminal')
   require('configs.copilot')
-  require('configs.textobjects')
+  -- require('configs.textobjects')
   utils.trySetup('log-highlight', {
     pattern = '.*log.*'
   })
