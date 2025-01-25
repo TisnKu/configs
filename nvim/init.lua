@@ -163,7 +163,7 @@ require("packer").startup(function(use)
   optuse({
     "mhanberg/output-panel.nvim",
     config = function()
-      require("output_panel").setup()
+      require("output_panel").setup({})
     end
   })
   optuse("simrat39/rust-tools.nvim")
