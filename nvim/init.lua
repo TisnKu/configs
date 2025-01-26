@@ -66,10 +66,9 @@ require("lazy").setup({
   { "rebelot/kanagawa.nvim" },
   {
     'goolord/alpha-nvim',
-    lazy = true,
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()
-      require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
+      require("configs.start_page")
     end
   },
   { "machakann/vim-sandwich" },
@@ -77,7 +76,11 @@ require("lazy").setup({
   { "nvim-treesitter/nvim-treesitter",            build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context" },
   { 'nvim-treesitter/nvim-treesitter-textobjects' },
-  { "windwp/nvim-autopairs" },
+  {
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = true
+  },
   { "yuttie/comfortable-motion.vim" },
   {
     "lukas-reineke/indent-blankline.nvim",
@@ -119,7 +122,12 @@ require("lazy").setup({
     'toppair/peek.nvim',
     build = 'deno task --quiet build:fast',
   },
-  { 'saecki/crates.nvim' },
+  {
+    'saecki/crates.nvim',
+    config = function()
+      require("configs.crates")
+    end
+  },
   { "dstein64/vim-startuptime" },
   { "github/copilot.vim" },
   {
@@ -129,9 +137,23 @@ require("lazy").setup({
       "zbirenbaum/copilot.lua",
     },
   },
-  { "nvim-lualine/lualine.nvim" },
+  {
+    "nvim-lualine/lualine.nvim",
+    opts = {
+      theme = "auto",
+      options = {
+        theme = 'auto'
+      }
+
+    }
+  },
   { "lewis6991/gitsigns.nvim" },
-  { 'sindrets/diffview.nvim' },
+  {
+    'sindrets/diffview.nvim',
+    config = function()
+      require("configs.diffview")
+    end
+  },
   { 'skywind3000/asyncrun.vim' },
   { 'voldikss/vim-floaterm' },
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release' },
