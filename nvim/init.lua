@@ -74,7 +74,7 @@ require("lazy").setup({
   },
   { "machakann/vim-sandwich" },
   { "scrooloose/nerdcommenter" },
-  { "nvim-treesitter/nvim-treesitter",            run = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter",            build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context" },
   { 'nvim-treesitter/nvim-treesitter-textobjects' },
   { "windwp/nvim-autopairs" },
@@ -86,14 +86,29 @@ require("lazy").setup({
       require("ibl").setup({})
     end,
   },
-  { 'TisnKu/log-highlight.nvim' },
+  {
+    'TisnKu/log-highlight.nvim',
+    opts = {
+      pattern = '.*log.*'
+    }
+  },
   { "Matt-A-Bennett/vim-surround-funk" },
   { "b4winckler/vim-angry" },
-  --{ "Julian/vim-textobj-variable-segment" },
+  {
+    "Julian/vim-textobj-variable-segment",
+    dependencies = {
+      "kana/vim-textobj-user"
+    }
+  },
   { "michaeljsmith/vim-indent-object" },
   { "coderifous/textobj-word-column.vim" },
   { "kana/vim-textobj-user" },
-  --{ "kana/vim-textobj-entire" },
+  {
+    "kana/vim-textobj-entire",
+    dependencies = {
+      "kana/vim-textobj-user"
+    }
+  },
   {
     "ThePrimeagen/refactoring.nvim",
     dependencies = {
@@ -102,7 +117,7 @@ require("lazy").setup({
   },
   {
     'toppair/peek.nvim',
-    run = 'deno task --quiet build:fast',
+    build = 'deno task --quiet build:fast',
   },
   { 'saecki/crates.nvim' },
   { "dstein64/vim-startuptime" },
@@ -175,7 +190,7 @@ require("lazy").setup({
   { "hrsh7th/nvim-cmp" },
   {
     "L3MON4D3/LuaSnip",
-    run = "make install_jsregexp",
+    build = "make install_jsregexp",
     dependencies = {
       "rafamadriz/friendly-snippets",
     },

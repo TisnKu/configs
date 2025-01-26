@@ -1,5 +1,5 @@
-local fzf = require("fzf_lib")
 local function fold_non_matching_lines(pattern)
+  local fzf = require("fzf_lib")
   vim.g.last_search_query = pattern
   vim.api.nvim_command("set foldmethod=manual")
   vim.api.nvim_exec("normal! zE", true)

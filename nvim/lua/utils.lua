@@ -60,13 +60,7 @@ end
 
 function M.trySetup(package, opts)
   local ok, p = pcall(require, package)
-  if not ok then
-    vim.cmd("echom 'Failed to load " .. package .. "'")
-    -- Run cmd PackerSync after 500ms
-    vim.defer_fn(function()
-      vim.cmd("PackerSync")
-    end, 500)
-  else
+  if ok then
     if opts == nil then
       p.setup()
     elseif type(opts) == "function" then

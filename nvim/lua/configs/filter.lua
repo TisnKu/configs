@@ -1,5 +1,5 @@
-local fzf = require("fzf_lib")
 local function filter_buffer(pattern)
+  local fzf = require("fzf_lib")
   vim.g.last_search_query = pattern
 
   local bufnr = vim.api.nvim_get_current_buf()
