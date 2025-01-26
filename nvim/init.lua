@@ -119,8 +119,8 @@ require("lazy").setup({
   { 'sindrets/diffview.nvim' },
   { 'skywind3000/asyncrun.vim' },
   { 'voldikss/vim-floaterm' },
-  { "junegunn/fzf",                             run = ":call fzf#install()" },
-  { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
+  --{ "junegunn/fzf",                             run = ":call fzf#install()" },
+  --{ 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
   {
     "nvim-telescope/telescope.nvim",
     dependencies = {
