@@ -171,21 +171,15 @@ require("lazy").setup({
   { 'stevearc/dressing.nvim' },
   {
     "klen/nvim-test",
-    config = function()
-      require('nvim-test').setup()
-    end
+    config = true
   },
   {
     "j-hui/fidget.nvim",
-    config = function()
-      require("fidget").setup()
-    end
+    config = true
   },
   {
     "mhanberg/output-panel.nvim",
-    config = function()
-      require("output_panel").setup({})
-    end
+    config = true
   },
   { "simrat39/rust-tools.nvim" },
   { "williamboman/mason.nvim" },
