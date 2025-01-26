@@ -54,18 +54,16 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   { "TisnKu/plenary.nvim" },
-  { "wbthomason/packer.nvim",      lazy = true },
-  { "projekt0n/github-nvim-theme", lazy = true },
+  { "projekt0n/github-nvim-theme" },
   {
     "catppuccin/nvim",
-    name = "catppuccin",
-    lazy = true
+    name = "catppuccin"
   },
-  { "kaicataldo/material.vim", branch = "main", lazy = true },
-  { "EdenEast/nightfox.nvim",  lazy = true },
-  { "doums/darcula",           lazy = true },
-  { "morhetz/gruvbox",         lazy = true },
-  { "rebelot/kanagawa.nvim",   lazy = true },
+  { "kaicataldo/material.vim", branch = "main" },
+  { "EdenEast/nightfox.nvim" },
+  { "doums/darcula" },
+  { "morhetz/gruvbox" },
+  { "rebelot/kanagawa.nvim" },
   {
     'goolord/alpha-nvim',
     lazy = true,
@@ -74,62 +72,57 @@ require("lazy").setup({
       require 'alpha'.setup(require 'alpha.themes.dashboard'.config)
     end
   },
-  { "machakann/vim-sandwich",                      lazy = true },
-  { "scrooloose/nerdcommenter",                    lazy = true },
-  { "nvim-treesitter/nvim-treesitter",             lazy = true, run = ":TSUpdate" },
-  { "nvim-treesitter/nvim-treesitter-context",     lazy = true },
-  { 'nvim-treesitter/nvim-treesitter-textobjects', lazy = true },
-  { "windwp/nvim-autopairs",                       lazy = true },
-  { "yuttie/comfortable-motion.vim",               lazy = true },
+  { "machakann/vim-sandwich" },
+  { "scrooloose/nerdcommenter" },
+  { "nvim-treesitter/nvim-treesitter",            run = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter-context" },
+  { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  { "windwp/nvim-autopairs" },
+  { "yuttie/comfortable-motion.vim" },
   {
     "lukas-reineke/indent-blankline.nvim",
-    lazy = true,
-    dependencies = { { "nvim-treesitter/nvim-treesitter", lazy = true } },
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
       require("ibl").setup({})
     end,
   },
-  { 'TisnKu/log-highlight.nvim',           lazy = true },
-  { "Matt-A-Bennett/vim-surround-funk",    lazy = true },
-  { "b4winckler/vim-angry",                lazy = true },
-  { "Julian/vim-textobj-variable-segment", lazy = true },
-  { "michaeljsmith/vim-indent-object",     lazy = true },
-  { "coderifous/textobj-word-column.vim",  lazy = true },
-  { "kana/vim-textobj-user",               lazy = true },
-  { "kana/vim-textobj-entire",             lazy = true },
+  { 'TisnKu/log-highlight.nvim' },
+  { "Matt-A-Bennett/vim-surround-funk" },
+  { "b4winckler/vim-angry" },
+  --{ "Julian/vim-textobj-variable-segment" },
+  { "michaeljsmith/vim-indent-object" },
+  { "coderifous/textobj-word-column.vim" },
+  { "kana/vim-textobj-user" },
+  --{ "kana/vim-textobj-entire" },
   {
     "ThePrimeagen/refactoring.nvim",
-    lazy = true,
     dependencies = {
       { "nvim-treesitter/nvim-treesitter" }
     }
   },
   {
     'toppair/peek.nvim',
-    lazy = true,
     run = 'deno task --quiet build:fast',
   },
-  { 'saecki/crates.nvim',       lazy = true },
-  { "dstein64/vim-startuptime", lazy = true },
-  { "github/copilot.vim",       lazy = true },
+  { 'saecki/crates.nvim' },
+  { "dstein64/vim-startuptime" },
+  { "github/copilot.vim" },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "main",
-    lazy = true,
     dependencies = {
       "zbirenbaum/copilot.lua",
     },
   },
-  { "nvim-lualine/lualine.nvim",                lazy = true },
-  { "lewis6991/gitsigns.nvim",                  lazy = true },
-  { 'sindrets/diffview.nvim',                   lazy = true },
-  { 'skywind3000/asyncrun.vim',                 lazy = true },
-  { 'voldikss/vim-floaterm',                    lazy = true },
-  { "junegunn/fzf",                             lazy = true, run = ":call fzf#install()" },
-  { 'nvim-telescope/telescope-fzf-native.nvim', lazy = true, run = 'make' },
+  { "nvim-lualine/lualine.nvim" },
+  { "lewis6991/gitsigns.nvim" },
+  { 'sindrets/diffview.nvim' },
+  { 'skywind3000/asyncrun.vim' },
+  { 'voldikss/vim-floaterm' },
+  { "junegunn/fzf",                             run = ":call fzf#install()" },
+  { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' },
   {
     "nvim-telescope/telescope.nvim",
-    lazy = true,
     dependencies = {
       "smartpde/telescope-recent-files",
       'nvim-telescope/telescope-ui-select.nvim',
@@ -139,61 +132,55 @@ require("lazy").setup({
       "slarwise/telescope-git-diff.nvim"
     }
   },
-  { 'stevearc/dressing.nvim',            lazy = true },
+  { 'stevearc/dressing.nvim' },
   {
     "klen/nvim-test",
-    lazy = true,
     config = function()
       require('nvim-test').setup()
     end
   },
   {
     "j-hui/fidget.nvim",
-    lazy = true,
     config = function()
       require("fidget").setup()
     end
   },
   {
     "mhanberg/output-panel.nvim",
-    lazy = true,
     config = function()
       require("output_panel").setup({})
     end
   },
-  { "simrat39/rust-tools.nvim",          lazy = true },
-  { "williamboman/mason.nvim",           lazy = true },
-  { "nvimtools/none-ls.nvim",            lazy = true },
-  { "williamboman/mason-lspconfig.nvim", lazy = true },
-  { "neovim/nvim-lspconfig",             lazy = true },
+  { "simrat39/rust-tools.nvim" },
+  { "williamboman/mason.nvim" },
+  { "nvimtools/none-ls.nvim" },
+  { "williamboman/mason-lspconfig.nvim" },
+  { "neovim/nvim-lspconfig" },
   {
     "TisnKu/lsp-setup.nvim",
-    lazy = true,
     dependencies = {
-      { "neovim/nvim-lspconfig",             lazy = true },
-      { "williamboman/mason.nvim",           lazy = true },
-      { "williamboman/mason-lspconfig.nvim", lazy = true },
+      { "neovim/nvim-lspconfig" },
+      { "williamboman/mason.nvim" },
+      { "williamboman/mason-lspconfig.nvim" },
     },
   },
   {
     "pmizio/typescript-tools.nvim",
     branch = 'master',
-    lazy = true,
     dependencies = { "neovim/nvim-lspconfig" }
   },
-  { "hrsh7th/cmp-nvim-lsp", lazy = true },
-  { "hrsh7th/cmp-buffer",   lazy = true },
-  { "hrsh7th/cmp-path",     lazy = true },
-  { "hrsh7th/cmp-cmdline",  lazy = true },
-  { "hrsh7th/nvim-cmp",     lazy = true },
+  { "hrsh7th/cmp-nvim-lsp" },
+  { "hrsh7th/cmp-buffer" },
+  { "hrsh7th/cmp-path" },
+  { "hrsh7th/cmp-cmdline" },
+  { "hrsh7th/nvim-cmp" },
   {
     "L3MON4D3/LuaSnip",
-    lazy = true,
     run = "make install_jsregexp",
     dependencies = {
       "rafamadriz/friendly-snippets",
     },
   },
-  { 'saadparwaiz1/cmp_luasnip', lazy = true },
+  { 'saadparwaiz1/cmp_luasnip' },
 })
 -- End plugins
