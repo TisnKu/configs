@@ -176,7 +176,7 @@ function ryzen() {
 function wakeRyzen ()
 {
   # send wake up signal
-  dig +short ktx.ddns.net | xargs wol 58:11:22:BF:74:FF -c
+  dig +short $1.ddns.net | xargs wol B4:8C:9D:30:E0:45 -c
 }
 
 function kry() {
