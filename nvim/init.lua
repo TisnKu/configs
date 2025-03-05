@@ -177,10 +177,10 @@ require("lazy").setup({
     "j-hui/fidget.nvim",
     config = true
   },
-  {
-    "mhanberg/output-panel.nvim",
-    config = true
-  },
+  --{
+  --"mhanberg/output-panel.nvim",
+  --config = true
+  --},
   { "simrat39/rust-tools.nvim" },
   { "williamboman/mason.nvim" },
   { "nvimtools/none-ls.nvim" },
@@ -243,17 +243,10 @@ require("lazy").setup({
       }
     }
   },
-  {
-    "iabdelkareem/csharp.nvim",
-    dependencies = {
-      "williamboman/mason.nvim", -- Required, automatically installs omnisharp
-      "mfussenegger/nvim-dap",
-      "Tastyep/structlog.nvim",  -- Optional, but highly recommended for debugging
-    },
-    config = function()
-      require("mason").setup() -- Mason setup must run before csharp, only if you want to use omnisharp
-      require("csharp").setup()
-    end
-  }
+  --{
+  --"seblyng/roslyn.nvim",
+  --ft = "cs",
+  --opts = {}
+  --}
 })
 -- End plugins
