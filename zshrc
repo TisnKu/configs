@@ -80,10 +80,6 @@ function pullmain() {
 # qemu
 alias qemu="qemu-system-x86_64"
 
-# Teams
-alias tmp="cd ~/projects/teams-modular-packages"
-alias tsw="cd ~/projects/teamspace-web"
-
 # rust
 export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
 export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
