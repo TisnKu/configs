@@ -90,7 +90,7 @@ function _G.run_tmp_test()
     command = command .. " --config " .. config_path .. " "
   end
   command = Replace_slash(command .. filepath)
-  vim.cmd('FloatermNew --width=1.0 --height=1.0 --autoclose=0 ' .. command)
+  vim.cmd('FloatermNew! --width=1.0 --height=1.0 --autoclose=0 ' .. command)
 end
 
 function Replace_slash(path)
@@ -102,8 +102,6 @@ function Replace_slash(path)
   return path
 end
 
--- register command to run test in terminal
---command! -nargs=0 RunTmpTestTerminal :!start-process pwsh "-noexit -command tmptest '%:p'"
 vim.cmd([[
   command! -nargs=0 RunTmpTestInPlace :!tmptest "%:p"
   command! -nargs=0 RunTmpTestTerminal :!start-process pwsh "-noexit -command tmptest '%:p'"
