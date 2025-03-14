@@ -84,18 +84,22 @@ function _G.run_tmp_test()
   -- go up the parent directory until the nearest jest.config.js file is found
   local config_path = Get_jest_config_file_path(vim.fn.expand('%:p:h'))
 
+  local command = "npx jest "
   -- if jest.config.js file is found, run the test with jest command
   if config_path then
-    local command = "npx jest --config " .. config_path .. " " .. filepath
-    print("Running test with command: " .. command)
-    -- Do not exit the terminal after running the command
-    vim.cmd('FloatermNew --width=1.0 --height=1.0 --autoclose=0 ' .. command)
-  else
-    -- if jest.config.js file is not found, run the test with default command
-    local command = "npx jest " .. filepath
-    print("Running test with command: " .. command)
-    vim.cmd('FloatermNew --width=1.0 --height=1.0 --autoclose=0 ' .. command)
+    command = command .. " --config " .. config_path .. " "
   end
+  command = Replace_slash(command .. filepath)
+  vim.cmd('FloatermNew --width=1.0 --height=1.0 --autoclose=0 ' .. command)
+end
+
+function Replace_slash(path)
+  -- if is windows, replace / with \\, replace \ with \\
+  if vim.fn.has('win32') == 1 then
+    path = string.gsub(path, '/', '\\')
+    path = string.gsub(path, '\\', '\\\\')
+  end
+  return path
 end
 
 -- register command to run test in terminal
