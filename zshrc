@@ -184,6 +184,16 @@ function sry() {
   ssh ryzen
 }
 
+remove_remote_tracking_branches ()
+{
+  git branch -r | while read remote; do git branch -r -d "$remote"; done
+}
+
+remove_tags ()
+{
+  git tag -l | while read tag; do git tag -d "$tag"; done
+}
+
 # zsh-github-copilot
 bindkey 'Ú' zsh_gh_copilot_explain  # bind Option+Shift+; to explain
 bindkey '…' zsh_gh_copilot_suggest  # bind Option+\ to suggest
