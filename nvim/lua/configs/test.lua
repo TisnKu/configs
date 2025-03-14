@@ -52,12 +52,50 @@ function _G.open_test_file()
   end
 end
 
+function get_jest_config_file_path(startPath)
+  local config_file = "jest.config.js"
+  local path = startPath
+
+  while true do
+    local config_path = path .. "/" .. config_file
+    if vim.fn.filereadable(config_path) == 1 then
+      return config_path
+    end
+
+    local parent_path = vim.fn.fnamemodify(path, ":h")
+    if parent_path == path then
+      break
+    end
+    path = parent_path
+  end
+
+  return nil
+end
+
+function _G.run_tmp_test()
+  -- get current filepath
+  local filepath = vim.fn.expand('%:p')
+  -- go up the parent directory until the nearest jest.config.js file is found
+  local config_path = get_jest_config_file_path(vim.fn.expand('%:p:h'))
+
+  -- if jest.config.js file is found, run the test with jest command
+  if config_path then
+    local command = "npx jest --config " .. config_path .. " --testPathPattern=" .. filepath
+    vim.cmd('FloatermNew --width=1.0 --height=1.0 ' .. command)
+  else
+    -- if jest.config.js file is not found, run the test with default command
+    local command = "npx jest --testPathPattern=" .. filepath
+    vim.cmd('FloatermNew --width=1.0 --height=1.0 ' .. command)
+  end
+end
+
 -- register command to run test in terminal
+--command! -nargs=0 RunTmpTestTerminal :!start-process pwsh "-noexit -command tmptest '%:p'"
 vim.cmd([[
   command! -nargs=0 RunTmpTestInPlace :!tmptest "%:p"
   command! -nargs=0 RunTmpTestTerminal :!start-process pwsh "-noexit -command tmptest '%:p'"
   command! -nargs=0 OpenTestFile :lua open_test_file()
-  command! -nargs=0 RunTmpTestFloterm :FloatermNew --width=1.0 --height=1.0 tmptest "%:p"
+  command! -nargs=0 RunTmpTestFloterm :lua run_tmp_test()
 ]])
 
 vim.api.nvim_set_keymap('n', '<Bslash>rt', ':RunTmpTestTerminal<CR>', { noremap = true })
