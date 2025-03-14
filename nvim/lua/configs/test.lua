@@ -75,6 +75,12 @@ end
 function _G.run_tmp_test()
   -- get current filepath
   local filepath = vim.fn.expand('%:p')
+  -- if the file is not ended with .test.**, then add .test.** to the end of the file name
+  if not string.match(filepath, '%.test%.') then
+    local file_extension = vim.fn.expand('%:e')
+    local file_name_without_extension = vim.fn.expand('%:r')
+    filepath = file_name_without_extension .. '.test.' .. file_extension
+  end
   -- go up the parent directory until the nearest jest.config.js file is found
   local config_path = Get_jest_config_file_path(vim.fn.expand('%:p:h'))
 
@@ -82,12 +88,13 @@ function _G.run_tmp_test()
   if config_path then
     local command = "npx jest --config " .. config_path .. " " .. filepath
     print("Running test with command: " .. command)
-    vim.cmd('FloatermNew --width=1.0 --height=1.0 ' .. command)
+    -- Do not exit the terminal after running the command
+    vim.cmd('FloatermNew --width=1.0 --height=1.0 --autoclose=0 ' .. command)
   else
     -- if jest.config.js file is not found, run the test with default command
     local command = "npx jest " .. filepath
     print("Running test with command: " .. command)
-    vim.cmd('FloatermNew --width=1.0 --height=1.0 ' .. command)
+    vim.cmd('FloatermNew --width=1.0 --height=1.0 --autoclose=0 ' .. command)
   end
 end
 
