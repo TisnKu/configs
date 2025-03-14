@@ -80,12 +80,12 @@ function _G.run_tmp_test()
 
   -- if jest.config.js file is found, run the test with jest command
   if config_path then
-    local command = "npx jest --config " .. config_path .. " --testPathPattern=" .. filepath
+    local command = "npx jest --config " .. config_path .. " " .. filepath
     print("Running test with command: " .. command)
     vim.cmd('FloatermNew --width=1.0 --height=1.0 ' .. command)
   else
     -- if jest.config.js file is not found, run the test with default command
-    local command = "npx jest --testPathPattern=" .. filepath
+    local command = "npx jest " .. filepath
     print("Running test with command: " .. command)
     vim.cmd('FloatermNew --width=1.0 --height=1.0 ' .. command)
   end
