@@ -87,7 +87,7 @@ function _G.run_tmp_test()
   local command = "npx jest "
   -- if jest.config.js file is found, run the test with jest command
   if config_path then
-    command = command .. " --config " .. config_path .. " "
+    command = command .. "--config " .. config_path .. " "
   end
   command = Replace_slash(command .. filepath)
   vim.cmd('FloatermNew! --width=1.0 --height=1.0 --autoclose=0 ' .. command)
