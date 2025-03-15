@@ -36,6 +36,10 @@ if vim.g.is_win then
     let &shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
     set shellquote= shellxquote=
   ]]
+else
+  vim.cmd [[
+    let &shell = executable('zsh') ? 'zsh' : 'bash'
+  ]]
 end
 
 -- Plugins

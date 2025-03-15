@@ -10,6 +10,9 @@ ln -s $BASEDIR/nvim/ideavimrc ~/.ideavimrc
 # init nvim
 ln -s $BASEDIR/nvim ~/.config/
 
+# tmux
+ln -s $BASEDIR/tmux.conf ~/.tmux.conf
+
 # add import alacritty statement to ~/.config/alacritty/alacritty.toml
 # example: import: \n - ~/configs/alacritty/alacritty.toml
 # if alacritty folder does not exist or toml do not exist, create it
