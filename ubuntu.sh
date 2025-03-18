@@ -3,7 +3,7 @@
 # setup necessary tools
 # ssh generate key no passwd
 ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/id_rsa
-cat ~/.ssh/id_rsa.pub | xclip -selection clipboard
+cat ~/.ssh/id_rsa.pub
 
 # Install neovim
 sudo apt-add-repository ppa:neovim-ppa/unstable -y
@@ -21,3 +21,7 @@ git clone https://github.com/wting/autojump.git
 cd autojump
 ./install.py
 
+# git setup
+git config --global core.longpaths true
+git config --global user.name "TK"
+git config --global push.autoSetupRemote true
