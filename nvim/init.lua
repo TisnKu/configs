@@ -210,6 +210,7 @@ require("lazy").setup({
   { "hrsh7th/nvim-cmp" },
   {
     "L3MON4D3/LuaSnip",
+    version = "v2.*",
     build = "make install_jsregexp",
     dependencies = {
       "rafamadriz/friendly-snippets",
@@ -219,18 +220,9 @@ require("lazy").setup({
   {
     'gsuuon/note.nvim',
     opts = {
-      -- opts.spaces are note workspace parent directories.
-      -- These directories contain a `notes` directory which will be created if missing.
-      -- `<space path>/notes` acts as the note root, so for space '~' the note root is `~/notes`.
-      -- Defaults to { '~' }.
       spaces = {
         '~',
-        -- '~/projects/foo'
       },
-      -- Set keymap = false to disable keymapping
-      -- keymap = {
-      --   prefix = '<leader>n'
-      -- }
     },
     cmd = 'Note',
     ft = 'note',
