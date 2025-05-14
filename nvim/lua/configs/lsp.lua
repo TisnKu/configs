@@ -58,7 +58,8 @@ require('lsp-setup').setup({
     local clients_no_formatting = {
       'typescript-tools',
       'jsonls',
-      'taplo'
+      'taplo',
+      'roslyn'
     };
     if utils.contains(clients_no_formatting, client.name) then
       require('lsp-setup.utils').disable_formatting(client)
@@ -142,7 +143,7 @@ require('lsp-setup').setup({
 --})
 
 function Buf_update_diagnostics()
-  local clients = vim.lsp.buf_get_clients()
+  local clients = vim.lsp.get_clients()
   local buf = vim.api.nvim_get_current_buf()
 
   for _, client in ipairs(clients) do

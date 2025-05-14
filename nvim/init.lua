@@ -247,7 +247,15 @@ require("lazy").setup({
   {
     "seblyng/roslyn.nvim",
     ft = "cs",
-    opts = {}
+    opts = {
+      choose_target = function(target)
+        return vim.iter(target):find(function(item)
+          if not string.match(item, "Cosmic.sln") then
+            return item
+          end
+        end)
+      end
+    }
   }
 })
 -- End plugins
