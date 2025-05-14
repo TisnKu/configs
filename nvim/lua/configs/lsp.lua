@@ -44,6 +44,13 @@ if not vim.g.is_mac then
   })
 end
 
+require("mason").setup({
+  registries = {
+    "github:mason-org/mason-registry",
+    "github:Crashdummyy/mason-registry",
+  },
+})
+
 require('lsp-setup').setup({
   default_mappings = false,
   mappings = mappings,
@@ -88,29 +95,45 @@ require('lsp-setup').setup({
     --}
     --},
     -- Windows needs gzip as dependency for mason to unzip the server
-    rust_analyzer = require('lsp-setup.rust-tools').setup({
-      server = {
-        settings = {
-          ["rust-analyzer"] = {
-            assist = {
-              importGranularity = "module",
-              importPrefix = "by_self",
+    rust_analyzer = {
+      settings = {
+        ['rust-analyzer'] = {
+          inlayHints = {
+            bindingModeHints = {
+              enable = false,
             },
-            cargo = {
-              loadOutDirsFromCheck = true,
-            },
-            procMacro = {
+            chainingHints = {
               enable = true,
             },
-          },
-        },
-        --bundle_path = vim.fn.stdpath('data') .. '\\mason\\packages\\rust-analyzer',
-        dependencies = {
-          windows = { 'gzip' }
+            closingBraceHints = {
+              enable = true,
+              minLines = 25,
+            },
+            closureReturnTypeHints = {
+              enable = 'never',
+            },
+            lifetimeElisionHints = {
+              enable = 'never',
+              useParameterNames = false,
+            },
+            maxLength = 25,
+            parameterHints = {
+              enable = true,
+            },
+            reborrowHints = {
+              enable = 'never',
+            },
+            renderColons = true,
+            typeHints = {
+              enable = true,
+              hideClosureInitialization = false,
+              hideNamedConstructor = false,
+            }
+          }
         }
-      },
-    }),
-  },
+      }
+    }
+  }
 })
 
 -- let noice handle it

@@ -239,10 +239,15 @@ require("lazy").setup({
       }
     }
   },
-  --{
-  --"seblyng/roslyn.nvim",
-  --ft = "cs",
-  --opts = {}
-  --}
+  {
+    'MoaidHathot/dotnet.nvim',
+    cmd = "DotnetUI",
+    opts = {},
+  },
+  {
+    "seblyng/roslyn.nvim",
+    ft = "cs",
+    opts = {}
+  }
 })
 -- End plugins
