@@ -69,6 +69,16 @@ require("lazy").setup({
   { "morhetz/gruvbox" },
   { "rebelot/kanagawa.nvim" },
   {
+    "briones-gabriel/darcula-solid.nvim",
+    dependencies = { "rktjmp/lush.nvim" }
+  },
+  {
+    "xiantang/darcula-dark.nvim",
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+    },
+  },
+  {
     'goolord/alpha-nvim',
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     config = function()

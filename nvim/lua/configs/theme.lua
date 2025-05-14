@@ -24,34 +24,34 @@ vim.keymap.set("n", "<C-t>n", "<cmd>lua Switch_theme(true)<CR>", opts)
 vim.keymap.set("n", "<C-t>p", "<cmd>lua Switch_theme(false)<CR>", opts)
 
 require("catppuccin").setup({
-  term_colors = true,
-  --transparent_background = true,
-  styles = {
-    comments = {},
-    conditionals = {},
-    loops = {},
-    functions = {},
-    keywords = {},
-    strings = {},
-    variables = {},
-    numbers = {},
-    booleans = {},
-    properties = {},
-    types = {},
-  },
-  color_overrides = {
-    mocha = {
-      base = "#000000",
-      mantle = "#000000",
-      crust = "#000000",
-    },
-  },
-  integrations = {
-    dropbar = {
-      enabled = true,
-      color_mode = true,
-    },
-  },
+  --term_colors = true,
+  ----transparent_background = true,
+  --styles = {
+  --comments = {},
+  --conditionals = {},
+  --loops = {},
+  --functions = {},
+  --keywords = {},
+  --strings = {},
+  --variables = {},
+  --numbers = {},
+  --booleans = {},
+  --properties = {},
+  --types = {},
+  --},
+  --color_overrides = {
+  --mocha = {
+  --base = "#000000",
+  --mantle = "#000000",
+  --crust = "#000000",
+  --},
+  --},
+  --integrations = {
+  --dropbar = {
+  --enabled = true,
+  --color_mode = true,
+  --},
+  --},
 })
 
 vim.cmd [[
@@ -65,5 +65,5 @@ if vim.g.random_theme then
   vim.cmd("colorscheme " .. random_theme)
   print("Current theme: " .. random_theme)
 else
-  vim.cmd("colorscheme catppuccin")
+  vim.cmd("colorscheme darcula-solid")
 end
