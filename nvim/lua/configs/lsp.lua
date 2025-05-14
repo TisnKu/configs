@@ -16,11 +16,17 @@ local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = tr
 vim.api.nvim_create_autocmd('BufWritePre', {
   group = lsp_format_augroup,
   callback = function()
+    -- skip formatting for these filetypes { cs }
+    local skip_formatting = { 'cs' }
+    local filetype = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+    if vim.tbl_contains(skip_formatting, filetype) then
+      return
+    end
     vim.lsp.buf.format({ timeout_ms = 2000 })
   end,
 })
 
-function get_max_memory()
+local function get_max_memory()
   if vim.g.is_windows then
     return 20480
   end
