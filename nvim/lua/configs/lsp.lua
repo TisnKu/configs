@@ -37,6 +37,60 @@ local function get_max_memory()
   return 8192
 end
 
+vim.api.nvim_create_user_command(
+  'Format',
+  function()
+    vim.lsp.buf.format()
+  end,
+  { desc = "Format the buffer" }
+)
+require("mason").setup({
+  registries = {
+    "github:mason-org/mason-registry",
+    "github:Crashdummyy/mason-registry",
+  },
+})
+
+local on_attach = function(client, bufnr)
+  local clients_no_formatting = {
+    'typescript-tools',
+    'jsonls',
+    'taplo',
+  };
+  if utils.contains(clients_no_formatting, client.name) then
+    require('lsp-setup.utils').disable_formatting(client)
+  end
+  local augroup_id = vim.api.nvim_create_augroup(
+    "FormatModificationsDocumentFormattingGroup",
+    { clear = false }
+  )
+  vim.api.nvim_clear_autocmds({ group = augroup_id, buffer = bufnr })
+  vim.api.nvim_buf_create_user_command(
+    bufnr,
+    "FormatChanges",
+    function()
+      local lsp_format_modifications = require "lsp-format-modifications"
+      lsp_format_modifications.format_modifications(client, bufnr)
+    end,
+    {}
+  )
+  print('running on_attach for ' .. client.name)
+  if use_range_formatting then
+    vim.api.nvim_create_autocmd(
+      { "BufWritePre" },
+      {
+        group = augroup_id,
+        buffer = bufnr,
+        callback = function()
+          local lsp_format_modifications = require "lsp-format-modifications"
+          lsp_format_modifications.format_modifications(client, bufnr)
+        end,
+      }
+    )
+  end
+end
+
+-- typescript-tools.nvim does not support lspconfig, so we use its own setup function
 if not vim.g.is_mac then
   require('typescript-tools').setup({
     on_attach = function(client, bufnr)
@@ -54,46 +108,24 @@ if not vim.g.is_mac then
   })
 end
 
-require("mason").setup({
-  registries = {
-    "github:mason-org/mason-registry",
-    "github:Crashdummyy/mason-registry",
-  },
+-- roslyn does not support lspconfig
+require('roslyn').setup({
+  config = {
+    on_attach = on_attach,
+    capabilities = vim.lsp.protocol.make_client_capabilities(),
+    settings = {
+      ["csharp|code_style.formatting.indentation_and_spacing"] = {
+        indent_size = 4,
+        indent_style = "space",
+        tab_width = 4,
+      },
+    },
+  }
 })
 
 require('lsp-setup').setup({
-  default_mappings = false,
-  mappings = mappings,
-  on_attach = function(client, bufnr)
-    local clients_no_formatting = {
-      'typescript-tools',
-      'jsonls',
-      'taplo',
-    };
-    if utils.contains(clients_no_formatting, client.name) then
-      require('lsp-setup.utils').disable_formatting(client)
-    end
-    local augroup_id = vim.api.nvim_create_augroup(
-      "FormatModificationsDocumentFormattingGroup",
-      { clear = false }
-    )
-    vim.api.nvim_clear_autocmds({ group = augroup_id, buffer = bufnr })
-
-    vim.api.nvim_create_autocmd(
-      { "BufWritePre" },
-      {
-        group = augroup_id,
-        buffer = bufnr,
-        callback = function()
-          local lsp_format_modifications = require "lsp-format-modifications"
-          lsp_format_modifications.format_modifications(client, bufnr)
-        end,
-      }
-    )
-  end,
-  -- Global capabilities
+  on_attach = on_attach,
   capabilities = vim.lsp.protocol.make_client_capabilities(),
-  -- Configuration of LSP servers
   servers = {
     ['powershell_es'] = {
       ensure_installed = false,
@@ -111,55 +143,7 @@ require('lsp-setup').setup({
         },
       }
     },
-    --pylsp = {
-    --settings = {
-    --pylsp = {
-    --plugins = {
-    --pycodestyle = { ignore = { "E501" } },
-    --autopep8 = { enabled = false },
-    --}
-    --}
-    --}
-    --},
-    -- Windows needs gzip as dependency for mason to unzip the server
-    rust_analyzer = {
-      settings = {
-        ['rust-analyzer'] = {
-          inlayHints = {
-            bindingModeHints = {
-              enable = false,
-            },
-            chainingHints = {
-              enable = true,
-            },
-            closingBraceHints = {
-              enable = true,
-              minLines = 25,
-            },
-            closureReturnTypeHints = {
-              enable = 'never',
-            },
-            lifetimeElisionHints = {
-              enable = 'never',
-              useParameterNames = false,
-            },
-            maxLength = 25,
-            parameterHints = {
-              enable = true,
-            },
-            reborrowHints = {
-              enable = 'never',
-            },
-            renderColons = true,
-            typeHints = {
-              enable = true,
-              hideClosureInitialization = false,
-              hideNamedConstructor = false,
-            }
-          }
-        }
-      }
-    }
+    rust_analyzer = {}
   }
 })
 
