@@ -265,6 +265,9 @@ require("lazy").setup({
         end)
       end
     }
+  },
+  {
+    "joechrisellis/lsp-format-modifications.nvim"
   }
 })
 -- End plugins

@@ -12,19 +12,23 @@ vim.keymap.set({ 'n', 'x' }, '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>
 vim.keymap.set('v', '<space>a', ":'<,'>lua vim.lsp.buf.code_action()<CR>")
 vim.keymap.set('n', '<space>d', '<cmd>lua vim.diagnostic.open_float()<CR>')
 
-local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePre', {
-  group = lsp_format_augroup,
-  callback = function()
-    -- skip formatting for these filetypes { cs }
-    local skip_formatting = { 'cs' }
-    local filetype = vim.api.nvim_get_option_value('filetype', { buf = 0 })
-    if vim.tbl_contains(skip_formatting, filetype) then
-      return
-    end
-    vim.lsp.buf.format({ timeout_ms = 2000 })
-  end,
-})
+local use_range_formatting = true
+
+if not use_range_formatting then
+  local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
+  vim.api.nvim_create_autocmd('BufWritePre', {
+    group = lsp_format_augroup,
+    callback = function()
+      -- skip formatting for these filetypes { cs }
+      local skip_formatting = {}
+      local filetype = vim.api.nvim_get_option_value('filetype', { buf = 0 })
+      if vim.tbl_contains(skip_formatting, filetype) then
+        return
+      end
+      vim.lsp.buf.format({ timeout_ms = 2000 })
+    end,
+  })
+end
 
 local function get_max_memory()
   if vim.g.is_windows then
@@ -60,16 +64,32 @@ require("mason").setup({
 require('lsp-setup').setup({
   default_mappings = false,
   mappings = mappings,
-  on_attach = function(client, _)
+  on_attach = function(client, bufnr)
     local clients_no_formatting = {
       'typescript-tools',
       'jsonls',
       'taplo',
-      'roslyn'
     };
     if utils.contains(clients_no_formatting, client.name) then
       require('lsp-setup.utils').disable_formatting(client)
     end
+    local augroup_id = vim.api.nvim_create_augroup(
+      "FormatModificationsDocumentFormattingGroup",
+      { clear = false }
+    )
+    vim.api.nvim_clear_autocmds({ group = augroup_id, buffer = bufnr })
+
+    vim.api.nvim_create_autocmd(
+      { "BufWritePre" },
+      {
+        group = augroup_id,
+        buffer = bufnr,
+        callback = function()
+          local lsp_format_modifications = require "lsp-format-modifications"
+          lsp_format_modifications.format_modifications(client, bufnr)
+        end,
+      }
+    )
   end,
   -- Global capabilities
   capabilities = vim.lsp.protocol.make_client_capabilities(),
