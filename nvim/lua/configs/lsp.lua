@@ -4,13 +4,13 @@ local mappings = {
   --['<space>s'] = 'lua vim.lsp.buf.signature_help()',
   ['<leader>rn'] = 'lua vim.lsp.buf.rename()',
   ['<Bslash>f'] = 'lua vim.lsp.buf.format({ timeout_ms = 2000 })',
-  ['<space>d'] = 'lua vim.diagnostic.open_float()',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
   [']d'] = 'lua vim.diagnostic.goto_next()',
 }
 
 vim.keymap.set({ 'n', 'x' }, '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
 vim.keymap.set('v', '<space>a', ":'<,'>lua vim.lsp.buf.code_action()<CR>")
+vim.keymap.set('n', '<space>d', '<cmd>lua vim.diagnostic.open_float()<CR>')
 
 local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
 vim.api.nvim_create_autocmd('BufWritePre', {
