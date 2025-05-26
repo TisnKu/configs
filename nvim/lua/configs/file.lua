@@ -28,3 +28,19 @@ end
 vim.cmd([[
   command! -nargs=0 OpenFolder :lua open_folder()
 ]])
+-- create command to open the file in vs code
+vim.api.nvim_create_user_command("OpenInVSCode", function()
+  local file_path = vim.fn.expand("%:p")
+
+  os.execute("code " .. file_path)
+end, { desc = "Open current file in VS Code" })
+
+-- create command to open the file in visual studio
+vim.api.nvim_create_user_command("OpenInVSO", function()
+  local file_path = vim.fn.expand("%:p")
+  if file_path ~= "" then
+    os.execute(string.format('start "" "devenv" /Edit "%s"', file_path))
+  else
+    print("No file is currently open.")
+  end
+end, { desc = "Open current file in VS" })
