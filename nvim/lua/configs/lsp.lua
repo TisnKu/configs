@@ -74,7 +74,6 @@ local on_attach = function(client, bufnr)
     end,
     {}
   )
-  print('running on_attach for ' .. client.name)
   if use_range_formatting then
     vim.api.nvim_create_autocmd(
       { "BufWritePre" },
@@ -146,11 +145,6 @@ require('lsp-setup').setup({
     rust_analyzer = {}
   }
 })
-
--- let noice handle it
---vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
---  border = "rounded",
---})
 
 function Buf_update_diagnostics()
   local clients = vim.lsp.get_clients()
