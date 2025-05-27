@@ -1,7 +1,6 @@
 local mappings = {
   gD = 'lua vim.lsp.buf.declaration({ timeout_ms = 10000 })',
   K = 'lua vim.lsp.buf.hover()',
-  --['<space>s'] = 'lua vim.lsp.buf.signature_help()',
   ['<leader>rn'] = 'lua vim.lsp.buf.rename()',
   ['<Bslash>f'] = 'lua vim.lsp.buf.format({ timeout_ms = 2000 })',
   ['[d'] = 'lua vim.diagnostic.goto_prev()',
@@ -91,6 +90,7 @@ end
 -- typescript-tools.nvim does not support lspconfig, so we use its own setup function
 if not vim.g.is_mac then
   require('typescript-tools').setup({
+    mappings = mappings,
     on_attach = function(client, bufnr)
       require('lsp-setup.utils').disable_formatting(client)
       require('lsp-setup.utils').mappings(bufnr, mappings)
@@ -109,6 +109,7 @@ end
 -- roslyn does not support lspconfig
 require('roslyn').setup({
   config = {
+    mapping = mappings,
     on_attach = on_attach,
     capabilities = vim.lsp.protocol.make_client_capabilities(),
     settings = {
@@ -164,6 +165,8 @@ require('roslyn').setup({
 })
 
 require('lsp-setup').setup({
+  default_mappings = false,
+  mappings = mappings,
   on_attach = on_attach,
   capabilities = vim.lsp.protocol.make_client_capabilities(),
   servers = {
