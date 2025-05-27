@@ -1,9 +1,24 @@
 #!/bin/bash
 
+# Change default shell to zsh
+chsh -s $(which zsh)
+
 # setup necessary tools
 # ssh generate key no passwd
 ssh-keygen -t rsa -b 4096 -N "" -f ~/.ssh/id_rsa
 cat ~/.ssh/id_rsa.pub
+
+# wait for user to copy the key and add it to github
+# wait for user to press enter
+read -p "Press enter after adding the key to github"
+
+if (!(Test-Path ~/configs))
+{
+  git clone git@github.com:TisnKu/configs.git ~/configs
+}
+sudo +x ~/configs/sync.sh
+./configs/sync.sh
+
 
 # Install neovim
 sudo apt-add-repository ppa:neovim-ppa/unstable -y
