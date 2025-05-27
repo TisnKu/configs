@@ -1,0 +1,5 @@
+{
+  "Lua.diagnostics.globals": ["vim"],
+  "extensions.updateCheck": "daily",
+  "coc.preferences.formatOnSave": true
+}

@@ -170,7 +170,7 @@ endfunction
 set ignorecase smartcase
 
 " quick replace selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+vnoremap <silent> <Bslash>r :call VisualSelection('replace', '')<CR>
 
 
 """""""""""" Advanced """""""""""""

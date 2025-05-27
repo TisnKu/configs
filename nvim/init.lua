@@ -56,6 +56,54 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+local _lsp_related_plugins = {
+  { "williamboman/mason.nvim" },
+  { "williamboman/mason-lspconfig.nvim" },
+  { "neovim/nvim-lspconfig" },
+  {
+    "TisnKu/lsp-setup.nvim",
+    dependencies = {
+      { "neovim/nvim-lspconfig" },
+      { "williamboman/mason.nvim" },
+      { "williamboman/mason-lspconfig.nvim" },
+    },
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    branch = 'master',
+    dependencies = { "neovim/nvim-lspconfig" }
+  },
+  {
+    "seblyng/roslyn.nvim",
+    ft = "cs",
+    opts = {
+      choose_target = function(target)
+        return vim.iter(target):find(function(item)
+          if not string.match(item, "Cosmic.sln") then
+            return item
+          end
+        end)
+      end
+    }
+  },
+  {
+    "joechrisellis/lsp-format-modifications.nvim"
+  },
+  { "hrsh7th/cmp-nvim-lsp" },
+  { "hrsh7th/cmp-buffer" },
+  { "hrsh7th/cmp-path" },
+  { "hrsh7th/cmp-cmdline" },
+  { "hrsh7th/nvim-cmp" },
+  { 'saadparwaiz1/cmp_luasnip' },
+  {
+    "L3MON4D3/LuaSnip",
+    version = "v2.*",
+    dependencies = {
+      "rafamadriz/friendly-snippets",
+    },
+  },
+}
+
 require("lazy").setup({
   { "TisnKu/plenary.nvim" },
   { "projekt0n/github-nvim-theme" },
@@ -196,36 +244,12 @@ require("lazy").setup({
   --config = true
   --},
   { "simrat39/rust-tools.nvim" },
-  { "williamboman/mason.nvim" },
   { "nvimtools/none-ls.nvim" },
-  { "williamboman/mason-lspconfig.nvim" },
-  { "neovim/nvim-lspconfig" },
+
   {
-    "TisnKu/lsp-setup.nvim",
-    dependencies = {
-      { "neovim/nvim-lspconfig" },
-      { "williamboman/mason.nvim" },
-      { "williamboman/mason-lspconfig.nvim" },
-    },
+    "neoclide/coc.nvim",
+    branch = "release",
   },
-  {
-    "pmizio/typescript-tools.nvim",
-    branch = 'master',
-    dependencies = { "neovim/nvim-lspconfig" }
-  },
-  { "hrsh7th/cmp-nvim-lsp" },
-  { "hrsh7th/cmp-buffer" },
-  { "hrsh7th/cmp-path" },
-  { "hrsh7th/cmp-cmdline" },
-  { "hrsh7th/nvim-cmp" },
-  {
-    "L3MON4D3/LuaSnip",
-    version = "v2.*",
-    dependencies = {
-      "rafamadriz/friendly-snippets",
-    },
-  },
-  { 'saadparwaiz1/cmp_luasnip' },
   {
     'gsuuon/note.nvim',
     opts = {
@@ -252,22 +276,6 @@ require("lazy").setup({
     'MoaidHathot/dotnet.nvim',
     cmd = "DotnetUI",
     opts = {},
-  },
-  {
-    "seblyng/roslyn.nvim",
-    ft = "cs",
-    opts = {
-      choose_target = function(target)
-        return vim.iter(target):find(function(item)
-          if not string.match(item, "Cosmic.sln") then
-            return item
-          end
-        end)
-      end
-    }
-  },
-  {
-    "joechrisellis/lsp-format-modifications.nvim"
   }
 })
 -- End plugins
