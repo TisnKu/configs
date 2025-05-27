@@ -12,14 +12,13 @@ vim.keymap.set({ 'n', 'x' }, '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>
 vim.keymap.set('v', '<space>a', ":'<,'>lua vim.lsp.buf.code_action()<CR>")
 vim.keymap.set('n', '<space>d', '<cmd>lua vim.diagnostic.open_float()<CR>')
 
-local use_range_formatting = true
+local use_range_formatting = false
 
 if not use_range_formatting then
   local lsp_format_augroup = vim.api.nvim_create_augroup('LspFormat', { clear = true })
   vim.api.nvim_create_autocmd('BufWritePre', {
     group = lsp_format_augroup,
     callback = function()
-      -- skip formatting for these filetypes { cs }
       local skip_formatting = {}
       local filetype = vim.api.nvim_get_option_value('filetype', { buf = 0 })
       if vim.tbl_contains(skip_formatting, filetype) then
