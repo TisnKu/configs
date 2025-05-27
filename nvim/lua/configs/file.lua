@@ -31,8 +31,8 @@ vim.cmd([[
 -- create command to open the file in vs code
 vim.api.nvim_create_user_command("OpenInVSCode", function()
   local file_path = vim.fn.expand("%:p")
-
-  os.execute("code " .. file_path)
+  local workspace = vim.fn.getcwd()
+  os.execute("code -g \"" .. workspace .. "\" \"" .. file_path .. "\"")
 end, { desc = "Open current file in VS Code" })
 
 -- create command to open the file in visual studio
