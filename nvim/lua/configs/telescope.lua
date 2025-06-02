@@ -5,9 +5,7 @@ end
 
 local actions = require("telescope.actions")
 local project_actions = require("telescope._extensions.project.actions")
-local fb_actions = require("telescope._extensions.file_browser.actions")
 local action_state = require("telescope.actions.state")
-local fb_utils = require("telescope._extensions.file_browser.utils")
 
 telescope.load_extension("git_diff")
 require("telescope._extensions.file_browser.config").values.mappings.i = {}
@@ -28,6 +26,43 @@ for i = #project_paths, 1, -1 do
     table.remove(project_paths, i)
   end
 end
+
+local fb_actions = require("telescope._extensions.file_browser.actions")
+local fb_utils = require("telescope._extensions.file_browser.utils")
+local file_browser_extension_config = {
+  initial_mode = "normal",
+  theme = "ivy",
+  -- disables netrw and use telescope-file-browser in its place
+  hijack_netrw = true,
+  select_buffer = true,
+  hidden = true,
+  mappings = {
+    ["i"] = {
+      ["<space>e"] = actions.close,
+    },
+    ["n"] = {
+      ["u"] = fb_actions.goto_parent_dir,
+      ["<space>e"] = actions.close,
+      ["<Bslash>vc"] = function(prompt_bufnr)
+        local quiet = action_state.get_current_picker(prompt_bufnr).finder.quiet
+        local selections = fb_utils.get_selected_files(prompt_bufnr, true)
+        if vim.tbl_isempty(selections) then
+          fb_utils.notify("actions.openInVSCode",
+            { msg = "No selection to be opened!", level = "INFO", quiet = quiet })
+          return
+        end
+        -- open in VSCode
+        require("plenary.job")
+            :new({
+              command = "code",
+              args = vim.tbl_flatten { vim.tbl_map(function(selection) return selection:absolute() end, selections) },
+            })
+            :start()
+        actions.close(prompt_bufnr)
+      end
+    },
+  },
+};
 
 telescope.setup {
   defaults = {
@@ -78,40 +113,7 @@ telescope.setup {
         },
       }
     },
-    file_browser = {
-      initial_mode = "normal",
-      theme = "ivy",
-      -- disables netrw and use telescope-file-browser in its place
-      hijack_netrw = true,
-      select_buffer = true,
-      hidden = true,
-      mappings = {
-        ["i"] = {
-          ["<space>e"] = actions.close,
-        },
-        ["n"] = {
-          ["u"] = fb_actions.goto_parent_dir,
-          ["<space>e"] = actions.close,
-          ["<Bslash>vc"] = function(prompt_bufnr)
-            local quiet = action_state.get_current_picker(prompt_bufnr).finder.quiet
-            local selections = fb_utils.get_selected_files(prompt_bufnr, true)
-            if vim.tbl_isempty(selections) then
-              fb_utils.notify("actions.openInVSCode",
-                { msg = "No selection to be opened!", level = "INFO", quiet = quiet })
-              return
-            end
-            -- open in VSCode
-            require("plenary.job")
-                :new({
-                  command = "code",
-                  args = vim.tbl_flatten { vim.tbl_map(function(selection) return selection:absolute() end, selections) },
-                })
-                :start()
-            actions.close(prompt_bufnr)
-          end
-        },
-      },
-    },
+    --file_browser = file_browser_extension_config,
     recent_files = {
       only_cwd = true,
     },
@@ -131,7 +133,7 @@ telescope.setup {
 local extensions = {
   'fzf',
   'ui-select',
-  'file_browser',
+  --'file_browser',
   'floaterm',
   'recent_files',
   'project'
@@ -161,7 +163,7 @@ vim.keymap.set({ "n", "v" }, "<F4>", ":<C-u> lua require('telescope.actions.layo
 vim.keymap.set('n', '<leader>gd', ':Telescope git_diff diff_against=master<CR>', opts)
 vim.keymap.set('n', '<space>p', ':Telescope project display_type=full<CR>', opts)
 vim.keymap.set('n', '<space>rp', ':<C-u>Telescope recent_files pick<CR>', opts)
-vim.keymap.set({ "n", "v" }, "<space>e", ":<C-u>Telescope file_browser path=%:p:h select_buffer=true<CR>", opts)
+--vim.keymap.set({ "n", "v" }, "<space>e", ":<C-u>Telescope file_browser path=%:p:h select_buffer=true<CR>", opts)
 vim.keymap.set({ "n", "v" }, "<space>t", ":<C-u>Telescope builtin include_extensions=true<CR>", opts)
 --vim.keymap.set("t", "<space>t", "<C-\\><C-n>:Telescope builtin include_extensions=true<CR>", opts)
 vim.keymap.set({ "n", "v" }, "<space>;", ":<C-u>Telescope commands<CR>", opts)

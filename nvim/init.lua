@@ -182,6 +182,24 @@ require("lazy").setup({
       "slarwise/telescope-git-diff.nvim"
     }
   },
+  {
+    'stevearc/oil.nvim',
+    --- @module 'oil'
+    --- @type oil.SetupOpts
+    opts = {},
+    -- Optional dependencies
+    --dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+    lazy = false,
+    config = function()
+      require("oil").setup({
+        view_options = {
+          show_hidden = true,
+        },
+      })
+      vim.keymap.set("n", "<space>e", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
+    end
+  },
   { 'stevearc/dressing.nvim' },
   {
     "klen/nvim-test",
