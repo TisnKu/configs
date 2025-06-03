@@ -93,8 +93,8 @@ telescope.setup {
     path_display = { "truncate" },
     mappings = {
       i = {
-        ["<F1>"] = action_layout.cycle_layout_next,
-        ["<F2>"] = action_layout.toggle_preview,
+        ["<F3>"] = action_layout.cycle_layout_next,
+        ["<F4>"] = action_layout.toggle_preview,
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
         ["<esc><esc>"] = actions.close,
