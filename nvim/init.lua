@@ -179,7 +179,7 @@ require("lazy").setup({
       "dawsers/telescope-floaterm.nvim",
       "nvim-telescope/telescope-project.nvim",
       "TisnKu/telescope-file-browser.nvim",
-      "slarwise/telescope-git-diff.nvim"
+      "TisnKu/telescope-git-diff.nvim"
     }
   },
   {
