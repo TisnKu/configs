@@ -6,6 +6,7 @@ end
 local actions = require("telescope.actions")
 local project_actions = require("telescope._extensions.project.actions")
 local action_state = require("telescope.actions.state")
+local action_layout = require("telescope.actions.layout")
 
 telescope.load_extension("git_diff")
 require("telescope._extensions.file_browser.config").values.mappings.i = {}
@@ -92,6 +93,8 @@ telescope.setup {
     path_display = { "truncate" },
     mappings = {
       i = {
+        ["<F1>"] = action_layout.cycle_layout_next,
+        ["<F2>"] = action_layout.toggle_preview,
         ["<C-j>"] = actions.move_selection_next,
         ["<C-k>"] = actions.move_selection_previous,
         ["<esc><esc>"] = actions.close,
@@ -159,8 +162,14 @@ end
 
 local opts = { noremap = true, silent = true }
 -- keymap for toggling preview
-vim.keymap.set({ "n", "v" }, "<F4>", ":<C-u> lua require('telescope.actions.layout').toggle_preview()", opts)
-vim.keymap.set('n', '<leader>gd', ':Telescope git_diff diff_against=master<CR>', opts)
+--vim.keymap.set({ "n", "v" }, "<F4>", ":<C-u> lua require('telescope.actions.layout').toggle_preview()", opts)
+vim.keymap.set('n', '<leader>gd', function()
+  -- if there is master branch, diff against it, or diff against main branch
+  local masterFound = vim.fn.system("git branch --list master")
+  local branch = masterFound ~= "" and "master" or "main"
+  vim.cmd("Telescope git_diff diff_against=" ..
+    branch .. " layout_strategy=vertical")
+end, opts)
 vim.keymap.set('n', '<space>p', ':Telescope project display_type=full<CR>', opts)
 vim.keymap.set('n', '<space>rp', ':<C-u>Telescope recent_files pick<CR>', opts)
 --vim.keymap.set({ "n", "v" }, "<space>e", ":<C-u>Telescope file_browser path=%:p:h select_buffer=true<CR>", opts)
