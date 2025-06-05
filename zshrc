@@ -5,11 +5,15 @@ function ko() {
 
 # vpn
 function vpn() {
-    export ALL_PROXY=http://127.0.0.1:7890
+  export http_proxy=http://127.0.0.1:7890;
+  export https_proxy=http://127.0.0.1:7890;
+  export ALL_PROXY=socks5://127.0.0.1:7891;
 }
 
 function unvpn() {
-    unset ALL_PROXY
+  unset http_proxy;
+  unset https_proxy;
+  unset ALL_PROXY;
 }
 
 
