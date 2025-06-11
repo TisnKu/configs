@@ -200,7 +200,7 @@ remove_tags ()
 
 # zsh-github-copilot
 bindkey 'Ú' zsh_gh_copilot_explain  # bind Option+Shift+; to explain
-bindkey '…' zsh_gh_copilot_suggest  # bind Option+\ to suggest
+bindkey '…' zsh_gh_copilot_suggest  # bind Option+; to suggest
 
 # nvm
 export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
