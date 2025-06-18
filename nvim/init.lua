@@ -289,6 +289,11 @@ require("lazy").setup({
     version = false, -- Never set this value to "*"! Never!
     opts = {
       provider = "copilot",
+      providers = {
+        copilot = {
+          model = "gpt-4.1",
+        },
+      },
       selector = {
         provider = "telescope",
       },
