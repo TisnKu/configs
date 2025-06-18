@@ -2,9 +2,9 @@
 local copilotChatConfig = {
   show_help = false,
   window = {
-    layout = 'float',
-    width = 0.5,
-    height = 0.8,
+    --layout = 'float',
+    width = 0.35,
+    --height = 0.8,
   },
   mappings = {
     reset = {

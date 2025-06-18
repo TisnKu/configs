@@ -34,7 +34,7 @@ SwitchToWezterm()
   }
 }
 
-+!w::SwitchToWezterm()
+; +!w::SwitchToWezterm()
 
 UnzipFirstZipFileInDownload()
 {

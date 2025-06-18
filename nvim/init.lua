@@ -144,13 +144,13 @@ require("lazy").setup({
   },
   { "dstein64/vim-startuptime" },
   { "github/copilot.vim" },
-  {
-    "CopilotC-Nvim/CopilotChat.nvim",
-    branch = "main",
-    dependencies = {
-      "zbirenbaum/copilot.lua",
-    },
-  },
+  --{
+  --"CopilotC-Nvim/CopilotChat.nvim",
+  --branch = "main",
+  --dependencies = {
+  --"zbirenbaum/copilot.lua",
+  --},
+  --},
   {
     "nvim-lualine/lualine.nvim",
     opts = {
@@ -184,15 +184,11 @@ require("lazy").setup({
   },
   {
     'stevearc/oil.nvim',
-    --- @module 'oil'
-    --- @type oil.SetupOpts
     opts = {},
-    -- Optional dependencies
-    --dependencies = { { "echasnovski/mini.icons", opts = {} } },
-    dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
-    lazy = false,
+    dependencies = { "nvim-tree/nvim-web-devicons" },
     config = function()
       require("oil").setup({
+        default_file_explorer = false,
         view_options = {
           show_hidden = true,
         },
@@ -286,6 +282,54 @@ require("lazy").setup({
   },
   {
     "joechrisellis/lsp-format-modifications.nvim"
+  },
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    version = false, -- Never set this value to "*"! Never!
+    opts = {
+      provider = "copilot",
+      selector = {
+        provider = "telescope",
+      },
+    },
+    --build = "make", -- run build.ps1 or build.sh manually
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
+      "stevearc/dressing.nvim",        -- for input provider dressing
+      "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua",        -- for providers='copilot'
+      {
+        -- support for image pasting
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            -- required for Windows users
+            use_absolute_path = true,
+          },
+        },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
+    },
   }
 })
 -- End plugins

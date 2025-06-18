@@ -1,5 +1,15 @@
--- Copy current buffer file path to clipboard
--- register a command
+local ok, oil = pcall(require, "oil")
+if ok then
+  oil.setup({
+    default_file_explorer = false,
+    view_options = {
+      show_hidden = true,
+    },
+  })
+  vim.keymap.set("n", "<space>e", "<CMD>Oil --float<CR>", { desc = "Open parent directory" })
+end
+
+
 vim.cmd([[
   command! -nargs=0 CopyFilePath :let @+=expand("%:p")
 ]])
