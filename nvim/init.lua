@@ -294,9 +294,6 @@ require("lazy").setup({
           model = "gpt-4.1",
         },
       },
-      --selector = {
-      --provider = "telescope",
-      --},
     },
     --build = "make", -- run build.ps1 or build.sh manually
     dependencies = {
@@ -304,11 +301,10 @@ require("lazy").setup({
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
-      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
-      "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
-      "stevearc/dressing.nvim",        -- for input provider dressing
-      "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
-      "zbirenbaum/copilot.lua",        -- for providers='copilot'
+      "hrsh7th/nvim-cmp",            -- autocompletion for avante commands and mentions
+      "stevearc/dressing.nvim",      -- for input provider dressing
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua",      -- for providers='copilot'
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",
