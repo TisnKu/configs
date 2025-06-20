@@ -111,5 +111,5 @@ local search_engine_source = helpers.make_builtin({
   }
 })
 
-null_ls.register(copilot_chat_source)
+--null_ls.register(copilot_chat_source)
 null_ls.register(search_engine_source)
