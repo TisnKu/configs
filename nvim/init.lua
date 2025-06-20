@@ -294,9 +294,9 @@ require("lazy").setup({
           model = "gpt-4.1",
         },
       },
-      selector = {
-        provider = "telescope",
-      },
+      --selector = {
+      --provider = "telescope",
+      --},
     },
     --build = "make", -- run build.ps1 or build.sh manually
     dependencies = {
