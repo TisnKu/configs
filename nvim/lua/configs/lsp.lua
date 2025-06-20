@@ -7,7 +7,8 @@ local mappings = {
   [']d'] = 'lua vim.diagnostic.goto_next()',
 }
 
-vim.keymap.set({ 'n', 'x' }, '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set({ 'n', 'x' }, '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+vim.keymap.set('v', '<space>ca', ":'<,'>lua vim.lsp.buf.code_action()<CR>")
 vim.keymap.set('v', '<space>a', ":'<,'>lua vim.lsp.buf.code_action()<CR>")
 vim.keymap.set('n', '<space>d', '<cmd>lua vim.diagnostic.open_float()<CR>')
 
