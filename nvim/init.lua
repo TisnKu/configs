@@ -145,6 +145,13 @@ require("lazy").setup({
   { "dstein64/vim-startuptime" },
   { "github/copilot.vim" },
   {
+    "zbirenbaum/copilot.lua",
+    cmd = "Copilot",
+    config = function()
+      require("copilot").setup({})
+    end,
+  },
+  {
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "main",
     dependencies = {
