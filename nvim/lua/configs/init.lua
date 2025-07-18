@@ -3,6 +3,7 @@ require("configs.theme")
 
 -- Defer loading until after vim has started
 vim.defer_fn(function()
+  require('configs.git')
   require('configs.common')
   require('configs.snippets')
   require("configs.cmp")
