@@ -11,7 +11,7 @@ SwitchToWindowsTerminal()
     WinActivate
   }
   else {
-    Run 'wt'
+    Run "shell:appsfolder\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe!App"
   }
 }
 
