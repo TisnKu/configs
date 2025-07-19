@@ -46,7 +46,7 @@ UnzipFirstZipFileInDownload()
 ; Run nextWin pwsh function in admin mode when ctrl+shift+alt+F9 is pressed.
 RunNextWinInAdmin()
 {
-  Run 'pwsh.exe -Command "runInPwsh nextWin $false $true"'
+  Run 'pwsh.exe -Command "runInPwsh nextWin $true $true"'
 }
 
 ^+!F9::RunNextWinInAdmin()
@@ -54,7 +54,7 @@ RunNextWinInAdmin()
 ; Run bios pwsh function in admin mode when ctrl+shift+alt+F12 is pressed.
 RunBiosInAdmin()
 {
-  Run 'pwsh.exe -Command "runInPwsh bios $false $true"'
+  Run 'pwsh.exe -Command "runInPwsh bios $true $true"'
 }
 
 ^+!F12::RunBiosInAdmin()
