@@ -46,7 +46,7 @@ UnzipFirstZipFileInDownload()
 ; Run nextWin pwsh function in admin mode when ctrl+shift+alt+F9 is pressed.
 RunNextWinInAdmin()
 {
-  Run 'pwsh.exe -Command "runInPwsh runNextWinInAdmin $false $true"'
+  Run 'pwsh.exe -Command "runInPwsh nextWin $false $true"'
 }
 
 ^+!F9::RunNextWinInAdmin()
