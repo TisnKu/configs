@@ -15,12 +15,11 @@ local function auto_git_sync()
       if vim.fn.mode() ~= "n" then
         return
       end
-      print("Starting git sync...")
-      vim.cmd("silent !git add .")
-      vim.cmd("silent !git commit -m \"Auto commit\"")
-      vim.cmd("silent !git pull --rebase")
-      vim.cmd("silent !git push")
-      print("Git sync completed.")
+      vim.system(
+        { "pwsh", "-NoProfile", "-Command", "git add .; git commit -m 'Auto commit'; git pull --rebase; git push" },
+        { text = true }, function(_)
+          print("Git sync completed.")
+        end)
     end)
     timer:stop()
     timer:close()
