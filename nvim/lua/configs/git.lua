@@ -16,7 +16,7 @@ local function auto_git_sync()
   end)
 end
 
-vim.api.create_autocmd("BufWritePost", {
+vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = { "*.md" },
   callback = function()
     local cwd = vim.fn.getcwd()
