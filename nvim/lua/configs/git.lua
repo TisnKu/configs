@@ -10,13 +10,12 @@ local function auto_git_sync()
 
   timer = vim.loop.new_timer()
   timer:start(30000, 0, function()
-    -- if still in edit mode, quit
-    if vim.fn.mode() ~= "n" then
-      return
-    end
-
-    print("Starting git sync...")
     vim.schedule(function()
+      -- if still in edit mode, quit
+      if vim.fn.mode() ~= "n" then
+        return
+      end
+      print("Starting git sync...")
       vim.cmd("silent !git add .")
       vim.cmd("silent !git commit -m \"Auto commit\"")
       vim.cmd("silent !git pull --rebase")
