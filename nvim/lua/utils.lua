@@ -8,9 +8,9 @@ vim.g.is_mac = vim.fn.has("macunix") == 1
 vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") ~= ""
 
 function M.git_sync()
-  local cmd, args
+  local cmd
   if vim.g.is_win then
-    cmd = { "cmd", "/C", "git add .; git commit -m \"Auto commit\"; git pull --rebase; git push" }
+    cmd = { "cmd", "/C", "git add . & git commit -m \"Auto commit\" & git pull --rebase & git push" }
   else
     cmd = { "sh", "-c", "git add . && git commit -m 'Auto commit' && git pull --rebase && git push" }
   end
