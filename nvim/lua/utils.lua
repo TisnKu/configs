@@ -19,7 +19,7 @@ function M.git_sync()
     if obj.code ~= 0 then
       print("Git sync failed: " .. obj.stderr)
     else
-      print("Git sync successful: " .. obj.stdout)
+      print("Git sync successful")
     end
   end)
 end
