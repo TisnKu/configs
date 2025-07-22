@@ -10,12 +10,14 @@ vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") 
 function M.git_sync()
   local cmd
   if vim.g.is_win then
-    cmd = { "cmd", "/C", "git add . & git commit -m \"Auto commit\" & git pull --rebase & git push" }
+    cmd = { "pwsh", "-Command", "git add . && git commit -m 'Auto commit' && git pull --rebase && git push" }
   else
     cmd = { "sh", "-c", "git add . && git commit -m 'Auto commit' && git pull --rebase && git push" }
   end
 
-  vim.system(cmd)
+  vim.system(cmd, {}, function(obj)
+    print(obj.stdout)
+  end)
 end
 
 function M.open_url(url)
