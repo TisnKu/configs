@@ -16,7 +16,11 @@ function M.git_sync()
   end
 
   vim.system(cmd, {}, function(obj)
-    print(obj.stdout)
+    if obj.code ~= 0 then
+      print("Git sync failed: " .. obj.stderr)
+    else
+      print("Git sync successful: " .. obj.stdout)
+    end
   end)
 end
 
