@@ -7,6 +7,29 @@ vim.g.is_linux = vim.fn.has("unix") == 1 and not vim.fn.has("macunix") == 1
 vim.g.is_mac = vim.fn.has("macunix") == 1
 vim.g.is_wsl = vim.g.is_linux and vim.fn.system("uname -r | grep -i microsoft") ~= ""
 
+function M.git_sync()
+  local cmd, args
+  if vim.g.is_win then
+    cmd = "cmd"
+    args = { "/C", "git add .; git commit -m \"Auto commit\"; git pull --rebase; git push" }
+  else
+    cmd = "sh"
+    args = { "-c", "git add . && git commit -m 'Auto commit' && git pull --rebase && git push" }
+  end
+
+  vim.system(
+    vim.list_extend({ cmd }, args),
+    { text = true },
+    function(_, result)
+      if result.code == 0 then
+        print("Git sync completed.")
+      else
+        print("Git sync failed: " .. result.stderr)
+      end
+    end
+  )
+end
+
 function M.open_url(url)
   print('Open url: ' .. url)
   if vim.g.is_win then

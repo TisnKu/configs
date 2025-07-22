@@ -2,20 +2,6 @@
 
 local timer = nil
 
-local function run_git_sync(callback)
-  local cmd, args
-  if vim.loop.os_uname().sysname == "Windows_NT" then
-    cmd = "cmd"
-    args = { "/C", "git add . && git commit -m \"Auto commit\" && git pull --rebase && git push" }
-  else
-    cmd = "sh"
-    args = { "-c", "git add . && git commit -m 'Auto commit' && git pull --rebase && git push" }
-  end
-  vim.system(
-    vim.list_extend({ cmd }, args),
-    { text = true }, callback)
-end
-
 local function auto_git_sync()
   if timer then
     timer:stop()
@@ -30,9 +16,7 @@ local function auto_git_sync()
       if vim.fn.mode() ~= "n" then
         return
       end
-      run_git_sync(function(_)
-        print("Git sync completed.")
-      end)
+      require('utils').git_sync()
     end)
     timer:stop()
     timer:close()
