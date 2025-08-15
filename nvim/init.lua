@@ -97,6 +97,11 @@ require("lazy").setup({
   },
   { "yuttie/comfortable-motion.vim" },
   {
+    "ggandor/lightspeed.nvim",
+    dependencies = { "tpope/vim-repeat" },
+    opts = {}
+  },
+  {
     "lukas-reineke/indent-blankline.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
