@@ -28,18 +28,15 @@ if vim.g.is_wsl then
 end
 
 if vim.g.is_win then
-  vim.opt.shadafile = "NONE"
-  vim.cmd [[
-    let &shell = executable('pwsh') ? 'pwsh' : 'powershell'
-    let &shellcmdflag = '-noexit -NoLogo -ExecutionPolicy RemoteSigned -Command '
-    let &shellredir = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
-    let &shellpipe  = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
-    set shellquote= shellxquote=
-  ]]
+  vim.opt.shadafile    = "NONE"
+  vim.opt.shell        = vim.fn.executable('pwsh') == 1 and 'pwsh' or 'powershell'
+  vim.opt.shellcmdflag = '-noexit -NoLogo -ExecutionPolicy RemoteSigned -Command '
+  vim.opt.shellredir   = '2>&1 | %%{ "$_" } | Out-File %s; exit $LastExitCode'
+  vim.opt.shellpipe    = '2>&1 | %%{ "$_" } | Tee-Object %s; exit $LastExitCode'
+  vim.opt.shellquote   = ''
+  vim.opt.shellxquote  = ''
 else
-  vim.cmd [[
-    let &shell = executable('zsh') ? 'zsh' : 'bash'
-  ]]
+  vim.opt.shell = vim.fn.executable('zsh') == 1 and 'zsh' or 'bash'
 end
 
 -- Plugins
