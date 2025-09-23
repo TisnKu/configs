@@ -30,6 +30,8 @@ ts.setup {
       keymaps = {
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
+        ["ak"] = "@class.outer",
+        ["ik"] = { query = "@class.inner", desc = "Select inner part of a class region" },
         ["ac"] = "@class.outer",
         ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
       },
@@ -39,6 +41,7 @@ ts.setup {
       set_jumps = true,
       goto_next_start = {
         ["]f"] = "@function.outer",
+        ["]k"] = "@class.outer",
         ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
       },
       goto_next_end = {
@@ -46,6 +49,7 @@ ts.setup {
       },
       goto_previous_start = {
         ["[f"] = "@function.outer",
+        ["[k"] = "@class.outer",
       },
       goto_previous_end = {
         ["[F"] = "@function.outer",
