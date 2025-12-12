@@ -297,17 +297,6 @@ require("lazy").setup({
     "joechrisellis/lsp-format-modifications.nvim"
   },
   {
-    "olimorris/codecompanion.nvim",
-    event = "VeryLazy",
-    opts = {
-      strategies = {
-        chat = {
-          adapter = "copilot",
-        }
-      }
-    }
-  },
-  {
     "yetone/avante.nvim",
     event = "VeryLazy",
     version = false, -- Never set this value to "*"! Never!
