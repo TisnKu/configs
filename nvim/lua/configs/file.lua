@@ -47,10 +47,5 @@ end, { desc = "Open current file in VS Code" })
 
 -- create command to open the file in visual studio
 vim.api.nvim_create_user_command("OpenInVSO", function()
-  local file_path = vim.fn.expand("%:p")
-  if file_path ~= "" then
-    os.execute(string.format('start "" "devenv" /Edit "%s"', file_path))
-  else
-    print("No file is currently open.")
-  end
+  vim.cmd("!ovs " .. vim.fn.getcwd() .. " " .. vim.fn.expand("%:p"))
 end, { desc = "Open current file in VS" })
