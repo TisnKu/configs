@@ -90,7 +90,7 @@ require("lazy").setup({
   { "scrooloose/nerdcommenter" },
   { "nvim-treesitter/nvim-treesitter",            build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context" },
-  { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  { 'nvim-treesitter/nvim-treesitter-textobjects', branch = "main" },
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
@@ -210,10 +210,6 @@ require("lazy").setup({
     end
   },
   { 'stevearc/dressing.nvim' },
-  {
-    "klen/nvim-test",
-    config = true
-  },
   {
     "j-hui/fidget.nvim",
     config = true
