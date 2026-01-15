@@ -59,20 +59,7 @@ vim.cmd [[
 
 require("lazy").setup({
   { "TisnKu/plenary.nvim" },
-  { "projekt0n/github-nvim-theme" },
-  {
-    "catppuccin/nvim",
-    name = "catppuccin"
-  },
-  { "kaicataldo/material.vim", branch = "main" },
-  { "EdenEast/nightfox.nvim" },
   { "doums/darcula" },
-  { "morhetz/gruvbox" },
-  { "rebelot/kanagawa.nvim" },
-  {
-    "briones-gabriel/darcula-solid.nvim",
-    dependencies = { "rktjmp/lush.nvim" }
-  },
   {
     "xiantang/darcula-dark.nvim",
     dependencies = {
@@ -89,8 +76,8 @@ require("lazy").setup({
   { "machakann/vim-sandwich" },
   { "scrooloose/nerdcommenter" },
   { "nvim-treesitter/nvim-treesitter",             build = ":TSUpdate" },
-  { "nvim-treesitter/nvim-treesitter-context" },
-  { 'nvim-treesitter/nvim-treesitter-textobjects', branch = "main" },
+  { "nvim-treesitter/nvim-treesitter-context",     dependencies = { "nvim-treesitter/nvim-treesitter" } },
+  { 'nvim-treesitter/nvim-treesitter-textobjects', branch = "main",                                     dependencies = { "nvim-treesitter/nvim-treesitter" } },
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",

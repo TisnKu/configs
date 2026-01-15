@@ -27,37 +27,6 @@ local opts = { noremap = true, silent = true }
 vim.keymap.set("n", "<C-t>n", "<cmd>lua Switch_theme(true)<CR>", opts)
 vim.keymap.set("n", "<C-t>p", "<cmd>lua Switch_theme(false)<CR>", opts)
 
-require("catppuccin").setup({
-  --term_colors = true,
-  ----transparent_background = true,
-  --styles = {
-  --comments = {},
-  --conditionals = {},
-  --loops = {},
-  --functions = {},
-  --keywords = {},
-  --strings = {},
-  --variables = {},
-  --numbers = {},
-  --booleans = {},
-  --properties = {},
-  --types = {},
-  --},
-  --color_overrides = {
-  --mocha = {
-  --base = "#000000",
-  --mantle = "#000000",
-  --crust = "#000000",
-  --},
-  --},
-  --integrations = {
-  --dropbar = {
-  --enabled = true,
-  --color_mode = true,
-  --},
-  --},
-})
-
 vim.cmd [[
   let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
   set termguicolors
