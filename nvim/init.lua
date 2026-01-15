@@ -135,7 +135,11 @@ require("lazy").setup({
   { "github/copilot.vim" },
   {
     "zbirenbaum/copilot.lua",
-    cmd = "Copilot",
+    dependencies = {
+      "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
+    },
+    cmd = { "Copilot" },
+    event = { "InsertEnter" },
     config = function()
       require("copilot").setup({})
     end,
@@ -144,7 +148,7 @@ require("lazy").setup({
     "CopilotC-Nvim/CopilotChat.nvim",
     branch = "main",
     dependencies = {
-      "zbirenbaum/copilot.lua",
+      { "nvim-lua/plenary.nvim", branch = "master" },
     },
   },
   {
