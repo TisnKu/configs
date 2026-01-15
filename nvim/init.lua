@@ -99,7 +99,6 @@ require("lazy").setup({
       pattern = '.*log.*'
     }
   },
-  { "Matt-A-Bennett/vim-surround-funk" },
   { "b4winckler/vim-angry" },
   {
     "Julian/vim-textobj-variable-segment",
