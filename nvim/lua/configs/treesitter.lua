@@ -1,10 +1,10 @@
-local status, ts = pcall(require, "nvim-treesitter.configs")
+local status, ts_config = pcall(require, "nvim-treesitter.configs")
 if not status then
   print("nvim-treesitter is not installed")
   return
 end
 
-ts.setup {
+ts_config.setup {
   incremental_selection = {
     enable = true,
     keymaps = {

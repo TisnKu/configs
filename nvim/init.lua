@@ -75,9 +75,9 @@ require("lazy").setup({
   },
   { "machakann/vim-sandwich" },
   { "scrooloose/nerdcommenter" },
-  { "nvim-treesitter/nvim-treesitter",             build = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter",             branch = "master",                                   build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context",     dependencies = { "nvim-treesitter/nvim-treesitter" } },
-  { 'nvim-treesitter/nvim-treesitter-textobjects', branch = "main",                                     dependencies = { "nvim-treesitter/nvim-treesitter" } },
+  { 'nvim-treesitter/nvim-treesitter-textobjects', branch = "master",                                   dependencies = { "nvim-treesitter/nvim-treesitter" } },
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
