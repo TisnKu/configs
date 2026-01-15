@@ -5,14 +5,18 @@ local function get_themes()
     return not utils.contains(excluded, theme)
   end)
 end
-
 function Switch_theme(forward)
   local current_theme = vim.g.colors_name
   local themes = get_themes()
   local current_index = utils.index_of(themes, current_theme)
+  print(current_theme)
 
   local next_index = current_index + (forward and 1 or -1)
-  next_index = (next_index - 1) % #themes + 1
+  if next_index <= 0 then
+    next_index = #themes - 1
+  elseif next_index > #themes then
+    next_index = 0
+  end
 
   local next_theme = themes[next_index]
   vim.cmd("colorscheme " .. next_theme)
