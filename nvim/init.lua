@@ -132,17 +132,25 @@ require("lazy").setup({
     end
   },
   { "dstein64/vim-startuptime" },
-  { "github/copilot.vim" },
   {
-    "zbirenbaum/copilot.lua",
+    'zbirenbaum/copilot.lua',
     dependencies = {
       "copilotlsp-nvim/copilot-lsp", -- (optional) for NES functionality
     },
     cmd = { "Copilot" },
     event = { "InsertEnter" },
-    config = function()
-      require("copilot").setup({})
-    end,
+    opts = {
+      panel = {
+        enabled = false,
+      },
+      suggestion = {
+        auto_trigger = true,
+        hide_during_completion = false,
+        keymap = {
+          accept = '<Tab>',
+        },
+      },
+    },
   },
   {
     "CopilotC-Nvim/CopilotChat.nvim",
@@ -280,27 +288,34 @@ require("lazy").setup({
     "joechrisellis/lsp-format-modifications.nvim"
   },
   {
+    "folke/trouble.nvim",
+    dependencies = { "nvim-tree/nvim-web-devicons" },
+    opts = {},
+  },
+  { "folke/snacks.nvim",       opts = {} },
+  {
     "yetone/avante.nvim",
+    build = vim.fn.has("win32") ~= 0
+        and "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false"
+        or "make",
     event = "VeryLazy",
     version = false, -- Never set this value to "*"! Never!
+    ---@module 'avante'
+    ---@type avante.Config
     opts = {
+      instructions_file = "avante.md",
       provider = "copilot",
-      providers = {
-        copilot = {
-          model = "gpt-4.1",
-        },
-      },
     },
-    --build = "make", -- run build.ps1 or build.sh manually
     dependencies = {
-      "nvim-treesitter/nvim-treesitter",
       "nvim-lua/plenary.nvim",
       "MunifTanjim/nui.nvim",
       --- The below dependencies are optional,
-      "hrsh7th/nvim-cmp",            -- autocompletion for avante commands and mentions
-      "stevearc/dressing.nvim",      -- for input provider dressing
-      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
-      "zbirenbaum/copilot.lua",      -- for providers='copilot'
+      "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
+      "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
+      "stevearc/dressing.nvim",        -- for input provider dressing
+      --"folke/snacks.nvim",             -- for input provider snacks
+      "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua",        -- for providers='copilot'
       {
         -- support for image pasting
         "HakonHarnes/img-clip.nvim",
