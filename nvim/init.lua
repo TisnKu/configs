@@ -88,7 +88,7 @@ require("lazy").setup({
   },
   { "machakann/vim-sandwich" },
   { "scrooloose/nerdcommenter" },
-  { "nvim-treesitter/nvim-treesitter",            build = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter",             build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context" },
   { 'nvim-treesitter/nvim-treesitter-textobjects', branch = "main" },
   {
@@ -97,11 +97,8 @@ require("lazy").setup({
     config = true
   },
   { "yuttie/comfortable-motion.vim" },
-  {
-    "ggandor/lightspeed.nvim",
-    dependencies = { "tpope/vim-repeat" },
-    opts = {}
-  },
+  { "justinmk/vim-sneak" },
+  { "tpope/vim-repeat" },
   {
     "lukas-reineke/indent-blankline.nvim",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
