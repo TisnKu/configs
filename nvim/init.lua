@@ -313,7 +313,6 @@ require("lazy").setup({
       "nvim-telescope/telescope.nvim", -- for file_selector provider telescope
       "hrsh7th/nvim-cmp",              -- autocompletion for avante commands and mentions
       "stevearc/dressing.nvim",        -- for input provider dressing
-      --"folke/snacks.nvim",             -- for input provider snacks
       "nvim-tree/nvim-web-devicons",   -- or echasnovski/mini.icons
       "zbirenbaum/copilot.lua",        -- for providers='copilot'
       {
