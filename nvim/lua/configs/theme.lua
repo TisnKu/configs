@@ -38,5 +38,5 @@ if vim.g.random_theme then
   vim.cmd("colorscheme " .. random_theme)
   print("Current theme: " .. random_theme)
 else
-  vim.cmd("colorscheme darcula-solid")
+  vim.cmd("colorscheme darcula-dark")
 end
