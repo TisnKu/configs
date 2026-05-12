@@ -9,3 +9,23 @@ foreach ($config in $configs.GetEnumerator()) {
   $destination = Join-Path -Path $env:USERPROFILE -ChildPath $config.Value
   New-Item -Path $destination -ItemType SymbolicLink -Value $source -Force
 }
+
+# PowerShell profiles
+$documentFolder = [environment]::getfolderpath("mydocuments")
+$pwshProfile = "$documentFolder\PowerShell\Microsoft.PowerShell_profile.ps1"
+$winpsProfile = "$documentFolder\WindowsPowerShell\Microsoft.PowerShell_profile.ps1"
+
+New-Item -ItemType Directory -Path (Split-Path $pwshProfile) -Force | Out-Null
+New-Item -ItemType Directory -Path (Split-Path $winpsProfile) -Force | Out-Null
+
+$pwshSource = Join-Path $env:USERPROFILE "configs\pwsh\profile.ps1"
+$winpsSource = Join-Path $env:USERPROFILE "configs\pwsh\winps_profile.ps1"
+
+New-Item -Path $pwshProfile -ItemType SymbolicLink -Value $pwshSource -Force
+New-Item -Path $winpsProfile -ItemType SymbolicLink -Value $winpsSource -Force
+
+# Global Copilot instructions
+if (!(Test-Path $env:USERPROFILE\.copilot)) {
+  New-Item -ItemType Directory -Path $env:USERPROFILE\.copilot -Force | Out-Null
+}
+New-Item -Path $env:USERPROFILE\.copilot\copilot-instructions.md -ItemType HardLink -Value $env:USERPROFILE\configs\copilot-instructions.md -Force
