@@ -16,8 +16,8 @@ if (!(Test-Path ~/configs))
 {
   git clone git@github.com:TisnKu/configs.git ~/configs
 }
-sudo +x ~/configs/sync.sh
-./configs/sync.sh
+chmod +x ~/configs/sh/sync.sh
+~/configs/sh/sync.sh
 
 
 # Install neovim

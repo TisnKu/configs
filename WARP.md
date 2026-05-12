@@ -11,16 +11,16 @@ This is a personal dotfiles and configuration repository containing cross-platfo
 ### Setup and Synchronization
 ```bash
 # On Linux/macOS - Initial setup
-./sync.sh
+./sh/sync.sh
 
 # On Windows - Initial setup (PowerShell)
-.\sync.ps1
+.\pwsh\sync.ps1
 
 # Setup Manjaro-specific configurations
-./manjaro_setup.sh
+./sh/manjaro_setup.sh
 
 # Setup Ubuntu-specific configurations  
-./ubuntu.sh
+./sh/ubuntu.sh
 ```
 
 ### Neovim Development
@@ -77,8 +77,8 @@ shallowfetch
 
 ### Configuration Sync System
 The repository uses a symlink-based synchronization system to deploy configurations:
-- `sync.sh` (Linux/macOS): Creates symlinks from repo to standard config locations
-- `sync.ps1` (Windows): PowerShell equivalent for Windows environments
+- `sh/sync.sh` (Linux/macOS): Creates symlinks from repo to standard config locations
+- `pwsh/sync.ps1` (Windows): PowerShell equivalent for Windows environments
 - Configurations are version-controlled while actual config files are symlinked
 
 ### Neovim Configuration Structure
@@ -118,8 +118,8 @@ The repository uses a symlink-based synchronization system to deploy configurati
 
 ### Development Environment Setup Scripts
 **System-Specific Setup**:
-- `manjaro_setup.sh`: Arch Linux setup with AUR packages
-- `ubuntu.sh`: Ubuntu/Debian setup with PPA repositories
+- `sh/manjaro_setup.sh`: Arch Linux setup with AUR packages
+- `sh/ubuntu.sh`: Ubuntu/Debian setup with PPA repositories
 - Includes SSH key generation, package installation, and tool configuration
 
 ## Key Features and Patterns

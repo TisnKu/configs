@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Script to add an application to startup in Manjaro
-# Usage: ./add-to-startup.sh <app-name> <app-command>
+# Usage: ./sh/add_app_to_startup.sh <app-name> <app-command>
 
 # Check if the correct number of arguments is provided
 if [ "$#" -ne 2 ]; then

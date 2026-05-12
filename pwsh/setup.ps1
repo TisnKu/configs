@@ -64,7 +64,7 @@ foreach ($repo in $repos)
     git config user.email "kutianxi@outlook.com"
   }
 }
-runInPwsh "Set-Location $HOME/configs; ./sync.ps1; Set-Location $HOME/work; ./init.ps1" $false $true
+runInPwsh "Set-Location $HOME/configs; ./pwsh/sync.ps1; Set-Location $HOME/work; ./init.ps1" $false $true
 
 # Setup hotkey
 runInPwsh @"

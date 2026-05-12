@@ -7,7 +7,10 @@ Public personal configs repo: editor configs (Neovim), shell configs (zsh, Power
 ## Architecture
 
 ### Config Syncing
-- `sync.ps1` (Windows) / `sync.sh` (Unix) — creates symlinks from this repo to system config locations and sets up PowerShell profiles
+- `pwsh/sync.ps1` (Windows) / `sh/sync.sh` (Unix) — creates symlinks from this repo to system config locations and sets up PowerShell profiles
+
+### Shell Scripts (`sh/`)
+Contains bootstrap and utility shell scripts such as sync, distro setup, autostart helpers, and terminal toggles.
 - Profiles are symlinked, not copied — edits to the repo files take effect immediately
 
 ### PowerShell Modules (`pwsh/`)
