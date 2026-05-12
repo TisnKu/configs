@@ -26,7 +26,7 @@ Public personal configs repo: editor configs (Neovim), shell configs (zsh, Power
 Contains the zsh equivalents of the PowerShell git/utility functions for macOS/Linux.
 
 ### Hook for Private Extensions
-The profile includes: `if (Test-Path ~/Scripts/work.ps1) { . ~/Scripts/work.ps1 }`
+The profile includes: `if (Test-Path ~/work/work_profile.ps1) { . ~/work/work_profile.ps1 }`
 This allows a private repo to inject work-specific scripts without modifying public configs.
 
 ## Conventions
