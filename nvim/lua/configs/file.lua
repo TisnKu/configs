@@ -47,5 +47,11 @@ end, { desc = "Open current file in VS Code" })
 
 -- create command to open the file in visual studio
 vim.api.nvim_create_user_command("OpenInVSO", function()
+  -- if the file ends with .sln, open it directly, otherwise open the folder
+  local file_path = vim.fn.expand("%:p")
+  if file_path:match("%.sln$") then
+    vim.cmd("!ovs " .. vim.fn.expand("%:p"))
+    return
+  end
   vim.cmd("!ovs " .. vim.fn.getcwd() .. " " .. vim.fn.expand("%:p"))
 end, { desc = "Open current file in VS" })

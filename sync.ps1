@@ -21,8 +21,18 @@ New-Item -ItemType Directory -Path (Split-Path $winpsProfile) -Force | Out-Null
 $pwshSource = Join-Path $env:USERPROFILE "configs\pwsh\profile.ps1"
 $winpsSource = Join-Path $env:USERPROFILE "configs\pwsh\winps_profile.ps1"
 
-New-Item -Path $pwshProfile -ItemType SymbolicLink -Value $pwshSource -Force
-New-Item -Path $winpsProfile -ItemType SymbolicLink -Value $winpsSource -Force
+function Insert-SourceLine($profilePath, $sourceLine) {
+  if (!(Test-Path $profilePath)) {
+    Set-Content -Path $profilePath -Value $sourceLine
+    return
+  }
+  if (Select-String -Path $profilePath -SimpleMatch $sourceLine -Quiet) { return }
+  $existing = Get-Content -Path $profilePath -Raw
+  Set-Content -Path $profilePath -Value "$sourceLine`n$existing" -NoNewline
+}
+
+Insert-SourceLine $pwshProfile ". $pwshSource"
+Insert-SourceLine $winpsProfile ". $winpsSource"
 
 # Global Copilot instructions
 if (!(Test-Path $env:USERPROFILE\.copilot)) {

@@ -25,4 +25,6 @@ $ENV:RUSTUP_DIST_SERVER='https://mirrors.ustc.edu.cn/rust-static'
 $ENV:RUSTUP_UPDATE_ROOT='https://mirrors.ustc.edu.cn/rust-static/rustup'
 
 # Source work-specific scripts if available (private repo)
-if (Test-Path ~/work/work_profile.ps1) { . ~/work/work_profile.ps1 }
+if (Test-Path ~/work/work_profile.ps1)
+{ . ~/work/work_profile.ps1 
+}
