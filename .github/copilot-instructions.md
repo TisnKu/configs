@@ -7,11 +7,9 @@ Public personal configs repo: editor configs (Neovim), shell configs (zsh, Power
 ## Architecture
 
 ### Config Syncing
-- `pwsh/sync.ps1` (Windows) / `sh/sync.sh` (Unix) — creates symlinks from this repo to system config locations and sets up PowerShell profiles
-
-### Shell Scripts (`sh/`)
-Contains bootstrap and utility shell scripts such as sync, distro setup, autostart helpers, and terminal toggles.
-- Profiles are symlinked, not copied — edits to the repo files take effect immediately
+- `pwsh/sync.ps1` (Windows) / `sh/sync.sh` (Unix) — creates symlinks from this repo to system config locations
+- Profiles are symlinked, not copied — edits to repo files take effect immediately
+- The repo is expected to live at `~/configs`
 
 ### PowerShell Modules (`pwsh/`)
 | File | Purpose |
@@ -28,6 +26,13 @@ Contains bootstrap and utility shell scripts such as sync, distro setup, autosta
 ### Shell Config (`zshrc`)
 Contains the zsh equivalents of the PowerShell git/utility functions for macOS/Linux.
 
+### Neovim Config (`nvim/`)
+- `init.lua` sources `~/.vimrc` for base vim settings, then loads Lua config
+- `lua/configs/init.lua` loads theme immediately, then defers all other plugins via `vim.defer_fn`
+- Each plugin config lives in its own file under `lua/configs/`
+- Plugin management via lazy.nvim (`lazy-lock.json` pins versions)
+- Platform-aware: handles WSL clipboard (`win32yank`), Windows shell settings, and macOS/Linux differences
+
 ### Hook for Private Extensions
 The profile includes: `if (Test-Path ~/work/work_profile.ps1) { . ~/work/work_profile.ps1 }`
 This allows a private repo to inject work-specific scripts without modifying public configs.
@@ -35,8 +40,10 @@ This allows a private repo to inject work-specific scripts without modifying pub
 ## Conventions
 
 - **Function naming**: Short lowercase for frequent commands (`gcb`, `gps`, `vpn`). PascalCase for less common utilities (`Update-SelectionIndex`).
+- **PowerShell targets**: pwsh 7+ unless explicitly noted for Windows PowerShell 5.x.
 - **Error suppression**: `-ErrorAction SilentlyContinue` or `2>&1 | Out-Null` for expected failures.
 - **Alias conflicts**: Remove before redefining (`remove-alias gcb -ErrorAction SilentlyContinue`).
 - **Cross-platform**: Use `$IsWindows`/`$IsLinux`/`$IsMacOS` for platform-specific behavior.
 - **Admin elevation**: Use `runInPwsh $command $wait $asAdmin` helper.
+- **Splatting**: Prefer `@params` for commands with many parameters.
 - **No build/test system**: Test by dot-sourcing and invoking functions manually.

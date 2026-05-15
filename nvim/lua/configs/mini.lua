@@ -1,1 +1,0 @@
--- config for mini.nvim

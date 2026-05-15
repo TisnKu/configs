@@ -11,6 +11,7 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
 vim.g.random_theme = false
+vim.opt.smoothscroll = true
 
 if vim.g.is_wsl then
   vim.g.clipboard = {
@@ -41,7 +42,7 @@ end
 
 -- Plugins
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -73,8 +74,16 @@ require("lazy").setup({
       require("configs.start_page")
     end
   },
-  { "machakann/vim-sandwich" },
-  { "scrooloose/nerdcommenter" },
+  { "machakann/vim-sandwich",  event = "BufReadPost" },
+  {
+    "numToStr/Comment.nvim",
+    event = "BufReadPost",
+    opts = {
+      toggler = { line = "<leader>cc", block = "<leader>cb" },
+      opleader = { line = "<leader>cc", block = "<leader>cb" },
+      extra = { above = "<leader>cO", below = "<leader>co", eol = "<leader>cA" },
+    },
+  },
   { "nvim-treesitter/nvim-treesitter",             branch = "master",                                   build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context",     dependencies = { "nvim-treesitter/nvim-treesitter" } },
   { 'nvim-treesitter/nvim-treesitter-textobjects', branch = "master",                                   dependencies = { "nvim-treesitter/nvim-treesitter" } },
@@ -83,11 +92,10 @@ require("lazy").setup({
     event = "InsertEnter",
     config = true
   },
-  { "yuttie/comfortable-motion.vim" },
-  { "justinmk/vim-sneak" },
-  { "tpope/vim-repeat" },
+  { "tpope/vim-repeat",             event = "BufReadPost" },
   {
     "lukas-reineke/indent-blankline.nvim",
+    event = "BufReadPost",
     dependencies = { "nvim-treesitter/nvim-treesitter" },
     config = function()
       require("ibl").setup({})
@@ -99,18 +107,35 @@ require("lazy").setup({
       pattern = '.*log.*'
     }
   },
-  { "b4winckler/vim-angry" },
+  { "b4winckler/vim-angry",               event = "BufReadPost" },
   {
     "Julian/vim-textobj-variable-segment",
+    event = "BufReadPost",
     dependencies = {
       "kana/vim-textobj-user"
     }
   },
-  { "michaeljsmith/vim-indent-object" },
-  { "coderifous/textobj-word-column.vim" },
-  { "kana/vim-textobj-user" },
+  { "michaeljsmith/vim-indent-object",    event = "BufReadPost" },
+  { "coderifous/textobj-word-column.vim", event = "BufReadPost" },
+  { "kana/vim-textobj-user",              event = "BufReadPost",
+    config = function()
+      vim.cmd [[
+        call textobj#user#plugin('datetime', {
+        \   'date': {
+        \     'pattern': '\<\d\d\d\d-\d\d-\d\d\>',
+        \     'select': ['ad', 'id'],
+        \   },
+        \   'time': {
+        \     'pattern': '\<\d\d:\d\d:\d\d\>',
+        \     'select': ['at', 'it'],
+        \   },
+        \ })
+      ]]
+    end
+  },
   {
     "kana/vim-textobj-entire",
+    event = "BufReadPost",
     dependencies = {
       "kana/vim-textobj-user"
     }
@@ -172,12 +197,14 @@ require("lazy").setup({
   { "lewis6991/gitsigns.nvim" },
   {
     'sindrets/diffview.nvim',
+    cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    keys = { { "<leader>d", ":DiffviewOpen<CR>", desc = "Open diffview" } },
     config = function()
       require("configs.diffview")
     end
   },
-  { 'skywind3000/asyncrun.vim' },
-  { 'voldikss/vim-floaterm' },
+  { 'skywind3000/asyncrun.vim', cmd = "AsyncRun" },
+  { 'voldikss/vim-floaterm',    cmd = { "FloatermNew", "FloatermToggle", "FloatermKill" } },
   { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
   {
     "nvim-telescope/telescope.nvim",
@@ -213,7 +240,6 @@ require("lazy").setup({
   --"mhanberg/output-panel.nvim",
   --config = true
   --},
-  { "simrat39/rust-tools.nvim" },
   { "williamboman/mason.nvim" },
   { "nvimtools/none-ls.nvim" },
   { "williamboman/mason-lspconfig.nvim" },
@@ -289,6 +315,7 @@ require("lazy").setup({
   },
   {
     "folke/trouble.nvim",
+    cmd = "Trouble",
     dependencies = { "nvim-tree/nvim-web-devicons" },
     opts = {},
   },

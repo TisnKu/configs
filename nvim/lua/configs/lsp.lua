@@ -149,18 +149,4 @@ require('lsp-setup').setup({
   }
 })
 
-function Buf_update_diagnostics()
-  local clients = vim.lsp.get_clients()
-  local buf = vim.api.nvim_get_current_buf()
 
-  for _, client in ipairs(clients) do
-    if vim.lsp.diagnostic.get then
-      local diagnostics = vim.lsp.diagnostic.get(buf, client.id)
-      vim.lsp.diagnostic.display(diagnostics, buf, client.id)
-    end
-  end
-end
-
-vim.api.nvim_exec([[
-    au CursorHold <buffer> lua Buf_update_diagnostics()
-]], false)
