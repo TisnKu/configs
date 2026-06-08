@@ -18,6 +18,7 @@ ts_config.setup {
   },
   ensure_installed = { "vim", "javascript", "typescript", "lua", "rust", "diff" },
   auto_install = true,
+  ignore_install = { "note" },
   sync_install = false,
   indent = {
     enable = true

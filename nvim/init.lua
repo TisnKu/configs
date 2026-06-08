@@ -320,5 +320,13 @@ require("lazy").setup({
     opts = {},
   },
   { "folke/snacks.nvim",       opts = {} },
+  {
+    'MeanderingProgrammer/render-markdown.nvim',
+    ft = { 'markdown', 'note' },
+    dependencies = { 'nvim-treesitter/nvim-treesitter', 'nvim-tree/nvim-web-devicons' },
+    opts = {
+      file_types = { 'markdown', 'note' },
+    },
+  },
 })
 -- End plugins

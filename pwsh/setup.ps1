@@ -83,6 +83,7 @@ runInPwsh @"
 
 $wingetPackages = @(
   'Microsoft.DotNet.SDK.9',
+  'Microsoft.DotNet.SDK.10',
   'Microsoft.NuGet',
   'Microsoft.VisualStudioCode',
   'Microsoft.WindowsApp',
@@ -126,7 +127,6 @@ scoop install fd
 scoop install make
 scoop install wget
 scoop install unzip
-scoop install deno
 scoop install lazygit
 scoop install fzf
 scoop install ripgrep
