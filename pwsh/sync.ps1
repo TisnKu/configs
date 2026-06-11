@@ -83,4 +83,10 @@ if (!(Test-Path $env:USERPROFILE\.copilot)) {
 }
 New-Link -Path "$env:USERPROFILE\.copilot\copilot-instructions.md" -ItemType HardLink -Value (Join-Path $configRoot "copilot-instructions.md")
 
+# Windows Terminal settings
+$wtSettingsPath = "$env:LOCALAPPDATA\Packages\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe\LocalState\settings.json"
+if (Test-Path (Split-Path $wtSettingsPath)) {
+  New-Link -Path $wtSettingsPath -ItemType HardLink -Value (Join-Path $configRoot "windows-terminal-settings.json")
+}
+
 Write-Host "sync.ps1 completed successfully."

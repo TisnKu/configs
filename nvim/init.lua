@@ -84,9 +84,9 @@ require("lazy").setup({
       extra = { above = "<leader>cO", below = "<leader>co", eol = "<leader>cA" },
     },
   },
-  { "nvim-treesitter/nvim-treesitter",             branch = "master",                                   build = ":TSUpdate" },
+  { "nvim-treesitter/nvim-treesitter",             branch = "main",                                     build = ":TSUpdate" },
   { "nvim-treesitter/nvim-treesitter-context",     dependencies = { "nvim-treesitter/nvim-treesitter" } },
-  { 'nvim-treesitter/nvim-treesitter-textobjects', branch = "master",                                   dependencies = { "nvim-treesitter/nvim-treesitter" } },
+  { 'nvim-treesitter/nvim-treesitter-textobjects', branch = "main",                                     dependencies = { "nvim-treesitter/nvim-treesitter" } },
   {
     "windwp/nvim-autopairs",
     event = "InsertEnter",

@@ -1,76 +1,53 @@
-local status, ts_config = pcall(require, "nvim-treesitter.configs")
+-- nvim-treesitter (main branch) only handles parser installation.
+-- Treesitter highlight/indent are built into Neovim 0.12+.
+local status, ts = pcall(require, "nvim-treesitter")
 if not status then
   print("nvim-treesitter is not installed")
   return
 end
 
-ts_config.setup {
-  incremental_selection = {
-    enable = true,
-    keymaps = {
-      init_selection = "00",
-      node_incremental = "v", -- expand selection
-      node_decremental = "V", -- shrink selection
-    }
-  },
-  highlight = {
-    enable = true
-  },
-  ensure_installed = { "vim", "javascript", "typescript", "lua", "rust", "diff" },
-  auto_install = true,
-  ignore_install = { "note" },
-  sync_install = false,
-  indent = {
-    enable = true
-  },
-  additional_vim_regex_highlighting = false,
-  textobjects = {
+ts.setup {}
+
+-- Neovim 0.12+ bundles common parsers. Only install additional ones if needed.
+-- ts.install({ "additional_language" })
+
+-- Note: incremental selection was removed in nvim-treesitter main branch.
+-- Use visual mode 'v' with standard motions instead.
+
+-- Textobjects (nvim-treesitter-textobjects main branch API)
+local ts_textobjects_ok, ts_textobjects = pcall(require, "nvim-treesitter-textobjects")
+if ts_textobjects_ok then
+  ts_textobjects.setup {
     select = {
-      enable = true,
       lookahead = true,
-      keymaps = {
-        ["af"] = "@function.outer",
-        ["if"] = "@function.inner",
-        ["ak"] = "@class.outer",
-        ["ik"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-        ["ac"] = "@class.outer",
-        ["ic"] = { query = "@class.inner", desc = "Select inner part of a class region" },
-      },
     },
     move = {
-      enable = true,
       set_jumps = true,
-      goto_next_start = {
-        ["]f"] = "@function.outer",
-        ["]k"] = "@class.outer",
-        ["]z"] = { query = "@fold", query_group = "folds", desc = "Next fold" },
-      },
-      goto_next_end = {
-        ["]F"] = "@function.outer",
-      },
-      goto_previous_start = {
-        ["[f"] = "@function.outer",
-        ["[k"] = "@class.outer",
-      },
-      goto_previous_end = {
-        ["[F"] = "@function.outer",
-      },
     },
-    lsp_interop = {
-      enable = true,
-      border = 'none',
-      floating_preview_opts = {},
-      peek_definition_code = {
-        ["<leader>k"] = "@function.outer",
-        ["<leader>K"] = "@class.outer",
-      },
-    },
-  },
-}
+  }
 
+  local select_to = require("nvim-treesitter-textobjects.select").select_textobject
+  vim.keymap.set({ "x", "o" }, "af", function() select_to("@function.outer", "textobjects") end)
+  vim.keymap.set({ "x", "o" }, "if", function() select_to("@function.inner", "textobjects") end)
+  vim.keymap.set({ "x", "o" }, "ak", function() select_to("@class.outer", "textobjects") end)
+  vim.keymap.set({ "x", "o" }, "ik", function() select_to("@class.inner", "textobjects") end)
+  vim.keymap.set({ "x", "o" }, "ac", function() select_to("@class.outer", "textobjects") end)
+  vim.keymap.set({ "x", "o" }, "ic", function() select_to("@class.inner", "textobjects") end)
+
+  local move = require("nvim-treesitter-textobjects.move")
+  vim.keymap.set({ "n", "x", "o" }, "]f", function() move.goto_next_start("@function.outer", "textobjects") end)
+  vim.keymap.set({ "n", "x", "o" }, "]k", function() move.goto_next_start("@class.outer", "textobjects") end)
+  vim.keymap.set({ "n", "x", "o" }, "]z", function() move.goto_next_start("@fold", "folds") end)
+  vim.keymap.set({ "n", "x", "o" }, "]F", function() move.goto_next_end("@function.outer", "textobjects") end)
+  vim.keymap.set({ "n", "x", "o" }, "[f", function() move.goto_previous_start("@function.outer", "textobjects") end)
+  vim.keymap.set({ "n", "x", "o" }, "[k", function() move.goto_previous_start("@class.outer", "textobjects") end)
+  vim.keymap.set({ "n", "x", "o" }, "[F", function() move.goto_previous_end("@function.outer", "textobjects") end)
+end
+
+-- Folding
 vim.opt.foldlevel = 20
 vim.opt.foldmethod = "expr"
-vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
 utils.trySetup('treesitter-context', {
   enable = true,            -- Enable this plugin (Can be enabled/disabled later via commands)

@@ -121,6 +121,7 @@ scoop bucket add extras
 scoop bucket add nerd-fonts
 scoop install firacode
 scoop install Font-Awesome
+scoop install JetBrainsMono-NF
 scoop install mingw
 scoop install gzip
 scoop install fd
