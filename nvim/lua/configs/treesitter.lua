@@ -15,18 +15,9 @@ ts.setup {}
 -- Use visual mode 'v' with standard motions instead.
 
 -- Textobjects (nvim-treesitter-textobjects main branch API)
-local ts_textobjects_ok, ts_textobjects = pcall(require, "nvim-treesitter-textobjects")
+local ts_textobjects_ok = pcall(require, "nvim-treesitter-textobjects")
 if ts_textobjects_ok then
-  ts_textobjects.setup {
-    select = {
-      lookahead = true,
-    },
-    move = {
-      set_jumps = true,
-    },
-  }
-
-  local select_to = require("nvim-treesitter-textobjects.select").select_textobject
+  local select_to = require("nvim-treesitter.textobjects.select").select_textobject
   vim.keymap.set({ "x", "o" }, "af", function() select_to("@function.outer", "textobjects") end)
   vim.keymap.set({ "x", "o" }, "if", function() select_to("@function.inner", "textobjects") end)
   vim.keymap.set({ "x", "o" }, "ak", function() select_to("@class.outer", "textobjects") end)
@@ -34,7 +25,7 @@ if ts_textobjects_ok then
   vim.keymap.set({ "x", "o" }, "ac", function() select_to("@class.outer", "textobjects") end)
   vim.keymap.set({ "x", "o" }, "ic", function() select_to("@class.inner", "textobjects") end)
 
-  local move = require("nvim-treesitter-textobjects.move")
+  local move = require("nvim-treesitter.textobjects.move")
   vim.keymap.set({ "n", "x", "o" }, "]f", function() move.goto_next_start("@function.outer", "textobjects") end)
   vim.keymap.set({ "n", "x", "o" }, "]k", function() move.goto_next_start("@class.outer", "textobjects") end)
   vim.keymap.set({ "n", "x", "o" }, "]z", function() move.goto_next_start("@fold", "folds") end)
