@@ -134,7 +134,7 @@ scoop install ripgrep
 scoop install nvs
 
 # nvs setup
-$nodeVersion = 22
+$nodeVersion = 24
 nvs add $nodeVersion; nvs use $nodeVersion; nvs link $nodeVersion;
 
 ## open neovim in headless mode in another pwsh to install all plugins
