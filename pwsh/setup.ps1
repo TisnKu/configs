@@ -140,4 +140,7 @@ nvs add $nodeVersion; nvs use $nodeVersion; nvs link $nodeVersion;
 ## open neovim in headless mode in another pwsh to install all plugins
 $command = "winget install Neovim.Neovim; nvim --headless `"+Lazy! sync`" +qa"
 runInPwsh $command $false
+
+# Hermes agent setup (interactive, may prompt for options)
+runInPwsh "iex (irm https://hermes-agent.nousresearch.com/install.ps1)" $true
  
