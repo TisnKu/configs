@@ -1,6 +1,6 @@
 #Requires AutoHotkey v2.0
 
-SwitchToWindowsTerminal()
+SwitchToIntelligentTerminal()
 {
   if (WinActive("ahk_exe WindowsTerminal.exe"))
   {
@@ -11,12 +11,12 @@ SwitchToWindowsTerminal()
     WinActivate
   }
   else {
-    Run "shell:appsfolder\Microsoft.WindowsTerminalPreview_8wekyb3d8bbwe!App"
+    Run "shell:appsfolder\Microsoft.IntelligentTerminal_8wekyb3d8bbwe!App"
   }
 }
 
-; Hotkey to use Shift-Alt-t to launch/restore the Windows Terminal.
-+!t::SwitchToWindowsTerminal()
+; Hotkey to use Shift-Alt-t to launch/restore the Intelligent Terminal.
++!t::SwitchToIntelligentTerminal()
 
 
 SwitchToWezterm()

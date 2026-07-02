@@ -73,6 +73,14 @@ winget install AutoHotkey.AutoHotkey
   Invoke-Item '$env:AppData\Microsoft\Windows\Start Menu\Programs\Startup\appLaunchers.ahk'
 "@ $false
 
+# Install Intelligent Terminal and set it as the default terminal application
+runInPwsh @"
+  winget install --id Microsoft.IntelligentTerminal -e --accept-source-agreements --accept-package-agreements;
+  New-Item -Path 'HKCU:\Console\%%Startup' -Force | Out-Null;
+  Set-ItemProperty -Path 'HKCU:\Console\%%Startup' -Name 'DelegationConsole' -Value '{7ABAC0AD-3AEF-4556-ABE7-C1812594E071}';
+  Set-ItemProperty -Path 'HKCU:\Console\%%Startup' -Name 'DelegationTerminal' -Value '{ECC17785-94ED-4359-B545-0472B7D0275F}';
+"@ $false
+
 # Install-Module: PSReadLine(builtin already), git-aliases, zlocation
 runInPwsh @"
   Set-PSRepository -Name PSGallery -InstallationPolicy Trusted;
@@ -91,7 +99,6 @@ $wingetPackages = @(
   'Google.Chrome',
   'OBSProject.OBSStudio',
   'BlastApps.FluentSearch',
-  'Microsoft.WindowsTerminal.Preview',
   'gerardog.gsuds',
   'GitHub.Copilot'
 )
