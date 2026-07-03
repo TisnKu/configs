@@ -1,6 +1,8 @@
 # This script helps to setup a new machine with all the required tools and configurations
+Set-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser
 
 Write-Host "Login to MS store to unblock msstore installation."
+Write-Host "Change execution policy first and rerun the script:`nSet-ExecutionPolicy -ExecutionPolicy Unrestricted -Scope CurrentUser"
 Write-Host "Press any key to install pwsh and git via winget..."
 $null = $Host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown")
 
@@ -120,7 +122,7 @@ foreach ($pkg in $msstorePackages)
 ## Scoop
 if(!(Test-Path "$HOME\scoop\shims\scoop.ps1"))
 {
-  Set-ExecutionPolicy RemoteSigned -Scope CurrentUser -Force; Invoke-RestMethod get.scoop.sh | Invoke-Expression
+  Invoke-RestMethod get.scoop.sh | Invoke-Expression
 }
 scoop bucket add versions
 scoop bucket add main
