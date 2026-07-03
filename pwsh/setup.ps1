@@ -117,10 +117,6 @@ foreach ($pkg in $msstorePackages)
   runInPwsh "winget install $pkg --source=msstore --accept-source-agreements --accept-package-agreements" $false
 }
 
-## open neovim in headless mode in another pwsh to install all plugins
-$command = "winget install Neovim.Neovim; nvim --headless `"+Lazy! sync`" +qa"
-runInPwsh $command $false
-
 ## Scoop
 if(!(Test-Path "$HOME\scoop\shims\scoop.ps1"))
 {
@@ -148,3 +144,6 @@ scoop install nvs
 $nodeVersion = 24
 nvs add $nodeVersion; nvs use $nodeVersion; nvs link $nodeVersion;
 
+## open neovim in headless mode in another pwsh to install all plugins
+$command = "winget install Neovim.Neovim; nvim --headless `"+Lazy! sync`" +qa"
+runInPwsh $command $false
