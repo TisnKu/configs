@@ -201,3 +201,5 @@ remove_tags ()
 # zsh-github-copilot
 bindkey 'Ú' zsh_gh_copilot_explain  # bind Option+Shift+; to explain
 bindkey '…' zsh_gh_copilot_suggest  # bind Option+; to suggest
+
+export PATH="$HOME/.terminus/bin:$PATH"
