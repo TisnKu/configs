@@ -102,7 +102,8 @@ $wingetPackages = @(
   'OBSProject.OBSStudio',
   'BlastApps.FluentSearch',
   'gerardog.gsuds',
-  'GitHub.Copilot'
+  'GitHub.Copilot',
+  'Microsoft.devtunnel'
 )
 $msstorePackages = @(
   'PowerToys',
