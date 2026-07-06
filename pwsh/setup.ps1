@@ -103,12 +103,12 @@ $wingetPackages = @(
   'BlastApps.FluentSearch',
   'gerardog.gsuds',
   'GitHub.Copilot',
-  'Microsoft.devtunnel'
+  'Microsoft.devtunnel',
+  'Tencent.WeType'
 )
 $msstorePackages = @(
   'PowerToys',
-  'Snipaste',
-  '微信输入法'
+  'Snipaste'
 )
 
 foreach ($pkg in $wingetPackages)
