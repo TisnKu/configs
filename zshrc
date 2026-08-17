@@ -76,6 +76,7 @@ function uuid() {
 }
 
 # user/bin to path
+export PATH="$HOME/.local/bin:$PATH"
 
 function pullmain() {
     git pull origin main
@@ -83,10 +84,6 @@ function pullmain() {
 
 # qemu
 alias qemu="qemu-system-x86_64"
-
-# rust
-export RUSTUP_DIST_SERVER=https://mirrors.ustc.edu.cn/rust-static
-export RUSTUP_UPDATE_ROOT=https://mirrors.ustc.edu.cn/rust-static/rustup
 
 # os-tutorial gcc cross compile
 # export CC=/opt/homebrew/Cellar/gcc/11.2.0_3
