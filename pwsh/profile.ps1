@@ -19,6 +19,7 @@ $PSDefaultParameterValues['Out-Default:OutVariable'] = '__'
 
 # nvs
 $env:NVS_HOME="$env:LOCALAPPDATA\nvs"
+$env:Path="$env:NVS_HOME\default;$env:Path"
 
 ## Rustup
 $ENV:RUSTUP_DIST_SERVER='https://mirrors.ustc.edu.cn/rust-static'
