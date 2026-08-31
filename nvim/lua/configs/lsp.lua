@@ -108,20 +108,22 @@ if not vim.g.is_mac then
 end
 
 -- roslyn does not support lspconfig
-require('roslyn').setup({
-  config = {
-    mapping = mappings,
-    on_attach = on_attach,
-    capabilities = vim.lsp.protocol.make_client_capabilities(),
-    settings = {
-      ["csharp|code_style.formatting.indentation_and_spacing"] = {
-        indent_size = 4,
-        indent_style = "space",
-        tab_width = 4,
+if vim.fn.has("nvim-0.12") == 1 then
+  require('roslyn').setup({
+    config = {
+      mapping = mappings,
+      on_attach = on_attach,
+      capabilities = vim.lsp.protocol.make_client_capabilities(),
+      settings = {
+        ["csharp|code_style.formatting.indentation_and_spacing"] = {
+          indent_size = 4,
+          indent_style = "space",
+          tab_width = 4,
+        },
       },
-    },
-  }
-})
+    }
+  })
+end
 
 require('lsp-setup').setup({
   default_mappings = false,
@@ -148,5 +150,4 @@ require('lsp-setup').setup({
     rust_analyzer = {}
   }
 })
-
 

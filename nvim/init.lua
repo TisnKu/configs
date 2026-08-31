@@ -299,6 +299,7 @@ require("lazy").setup({
   },
   {
     "seblyng/roslyn.nvim",
+    enabled = vim.fn.has("nvim-0.12") == 1,
     ft = "cs",
     opts = {
       choose_target = function(target)
