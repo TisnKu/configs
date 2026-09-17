@@ -71,8 +71,7 @@ runInPwsh "Set-Location $HOME/configs; ./pwsh/sync.ps1; Set-Location $HOME/work;
 # Setup hotkey
 runInPwsh @"
 winget install AutoHotkey.AutoHotkey
-  New-Item -Path '$env:AppData\Microsoft\Windows\Start Menu\Programs\Startup\appLaunchers.ahk' -ItemType HardLink -Value $env:USERPROFILE\configs\ahk\appLaunchers.ahk -Force
-  Invoke-Item '$env:AppData\Microsoft\Windows\Start Menu\Programs\Startup\appLaunchers.ahk'
+  Invoke-Item '$env:USERPROFILE\configs\ahk\appLaunchers.ahk'
 "@ $false
 
 # Install Intelligent Terminal and set it as the default terminal application

@@ -48,6 +48,10 @@ foreach ($config in $configs.GetEnumerator()) {
   New-Link -Path $destination -ItemType SymbolicLink -Value $source
 }
 
+# AutoHotkey startup script
+$startupFolder = Join-Path $env:APPDATA "Microsoft\Windows\Start Menu\Programs\Startup"
+New-Link -Path (Join-Path $startupFolder "appLaunchers.ahk") -ItemType HardLink -Value (Join-Path $configRoot "ahk\appLaunchers.ahk")
+
 # PowerShell profiles
 $documentFolder = [environment]::getfolderpath("mydocuments")
 $pwshProfile = "$documentFolder\PowerShell\Microsoft.PowerShell_profile.ps1"
