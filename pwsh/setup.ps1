@@ -92,7 +92,7 @@ $wingetPackages = @(
   'Google.Chrome',
   'OBSProject.OBSStudio',
   'BlastApps.FluentSearch',
-  'gerardog.gsuds',
+  'gerardog.gsudo',
   'GitHub.Copilot',
   'Microsoft.devtunnel',
   'Tencent.WeType'
